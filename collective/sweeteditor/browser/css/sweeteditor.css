@@ -4,7 +4,7 @@
     cursor: pointer;
 }
 
-.accordionHeading.accordion:before {
+.accordionHeading.collapsed:before {
     content: "▶ ";
 }
 
@@ -14,7 +14,7 @@
     content: "▼ ";
 }
 
-.accordionHeading.accordion + *{
+.accordionHeading.collapsed + *{
     display:none;
 }
 
