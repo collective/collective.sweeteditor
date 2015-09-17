@@ -15,8 +15,8 @@
  <layout>
   <styles>
    <!-- expandable styles -->
-   <element value="Expanded Heading|p|collapsedHeading"/>
-   <element value="Collapsed Heading|p|collapsedHeading collapsed"/>
+   <element value="Expanded Heading|h2|collapsedHeading"/>
+   <element value="Collapsed Heading|h2|collapsedHeading collapsed"/>
   </styles>
  </layout>
 </object>

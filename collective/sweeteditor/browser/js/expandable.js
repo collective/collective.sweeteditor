@@ -12,7 +12,7 @@
             ed.addCommand('mceExpandable', function() {
                 var selected, selectedContent, content, templateHeader, templateBody;
 
-                templateHeader = $('<div><p class="collapsedHeading">Header</></div>')
+                templateHeader = $('<div><h2 class="collapsedHeading">Header</h2></div>')
                 templateBody = $('<div><p class="collapsedBody">Body</p></div>')
                 selected = ed.selection.getNode();
                 selectedContent = ed.selection.getContent();

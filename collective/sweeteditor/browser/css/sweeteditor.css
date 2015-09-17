@@ -1,5 +1,32 @@
 /* accordion */
-/* TODO */
+.accordionHeading {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.accordionHeading.accordion:before {
+    content: "▶ ";
+}
+
+.accordionHeading:before {
+    font-family: monospace;
+    font-size: 16px;
+    content: "▼ ";
+}
+
+.accordionHeading.accordion + *{
+    display:none;
+}
+
+.mceContentBody .accordionHeading {
+    display: inherit;
+    border: thin dashed red;
+}
+
+.mceContentBody .accordionBody {
+    display: inherit;
+    border: thin dashed red;
+}
 
 /* expandable */
 .collapsedHeading {
