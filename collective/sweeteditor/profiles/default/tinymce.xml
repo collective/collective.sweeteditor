@@ -10,5 +10,10 @@
     <element value="accordion"/>
   </customtoolbarbuttons>
  </toolbar>
- 
+ <layout>
+  <styles>
+   <element value="Expanded Heading|p|collapsedHeading"/>
+   <element value="Collapsed Heading|p|collapsedHeading collapsed"/>
+  </styles>
+ </layout>
 </object>
