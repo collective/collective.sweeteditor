@@ -1,0 +1,21 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.sweeteditor">
+
+  <!-- Resources -->
+  <browser:resourceDirectory
+      name="collective.sweeteditor.js"
+      directory="js"
+      />
+  <browser:resourceDirectory
+      name="collective.sweeteditor.css"
+      directory="css"
+      />
+  <browser:resourceDirectory
+      name="collective.sweeteditor.img"
+      directory="img"
+      />
+  
+</configure>
