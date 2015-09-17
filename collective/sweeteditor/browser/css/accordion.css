@@ -1,0 +1,29 @@
+/*Collapsed heading*/
+.collapsedHeading {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.collapsedHeading.collapsed:before {
+    content: "▶ ";
+}
+
+.collapsedHeading:before {
+    font-family: monospace;
+    font-size: 16px;
+    content: "▼ ";
+}
+
+.collapsedHeading.collapsed + *{
+    display:none;
+}
+
+.mceContentBody .collapsedHeading {
+    display: inherit;
+    border: thin dashed red;
+}
+
+.mceContentBody .collapsedBody {
+    display: inherit;
+    border: thin dashed red;
+}

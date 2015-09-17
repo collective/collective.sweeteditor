@@ -12,8 +12,8 @@
             ed.addCommand('mceAccordion', function() {
                 var selected, selectedContent, content, templateHeader, templateBody;
 
-                templateHeader = $('<div><p class="collapseHeading">Header</></div>')
-                templateBody = $('<div><p class="collapseHeading">Body</p></div>')
+                templateHeader = $('<div><p class="collapsedHeading">Header</></div>')
+                templateBody = $('<div><p class="collapsedBody">Body</p></div>')
                 selected = ed.selection.getNode();
                 selectedContent = ed.selection.getContent();
 
