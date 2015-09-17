@@ -4,14 +4,27 @@
  * @author Davide Moro (inspired by Maurizio Lupo's redomino.tinymceplugins.snippet)
  */
 
-(function() {
+(function($) {
     // tinymce.PluginManager.requireLangPack('accordion');
     tinymce.create('tinymce.plugins.AccordionPlugin', {
         init : function(ed, url) {
             // Register commands
             ed.addCommand('mceAccordion', function() {
+                var selected, selectedContent, content, templateHeader, templateBody;
 
-                alert('ciao');
+                templateHeader = $('<div><p class="collapseHeading">Header</></div>')
+                templateBody = $('<div><p class="collapseHeading">Body</p></div>')
+                selected = ed.selection.getNode();
+                selectedContent = ed.selection.getContent();
+
+                if (selectedContent) {
+                    // TODO
+                    $selected = $(selected);
+                    content =  '[shortcode]'+selected+'[/shortcode]';
+                } else {
+                    content = templateHeader.html() + templateBody.html();
+                }
+                ed.execCommand('mceInsertContent', false, content);
 /*
                 ed.windowManager.open({
                     file : url + '/dialog.htm',
@@ -45,4 +58,4 @@
 
     // Register plugin
     tinymce.PluginManager.add('accordion', tinymce.plugins.AccordionPlugin);
-})();
+})(jQuery);
