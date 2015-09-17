@@ -38,14 +38,18 @@
                 $that = $(this);
                 $next = $that.next('.accordionBody');
                 $that.removeClass('collapsed');
-                $that.prevUntil('.first').each(function () {
-                    $(this).addClass('collapsed');
-                    $(this).prev('.accordionHeading').addClass('collapsed');
-                });
-                $next.nextUntil('.last').each(function () {
-                    $(this).addClass('collapsed');
-                    $(this).next('.accordionBody').addClass('collapsed');
-                });
+                if (! $that.hasClass('first')) {
+                    $that.prevUntil('.first').each(function () {
+                        $(this).addClass('collapsed');
+                        $(this).prev('.accordionHeading').addClass('collapsed');
+                    });
+                }
+                if (! $next.hasClass('last')) {
+                    $next.nextUntil('.last').each(function () {
+                        $(this).addClass('collapsed');
+                        $(this).next('.accordionBody').addClass('collapsed');
+                    });
+                }
             });
         }());
     });
