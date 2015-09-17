@@ -2,16 +2,19 @@
 <object>
  <resourcetypes purge="False">
   <customplugins purge="False">
+    <element value="expandable|++resource++collective.sweeteditor.js/expandable.js"/>
     <element value="accordion|++resource++collective.sweeteditor.js/accordion.js"/>
   </customplugins>
  </resourcetypes>
  <toolbar>
   <customtoolbarbuttons purge="False">
+    <element value="expandable"/>
     <element value="accordion"/>
   </customtoolbarbuttons>
  </toolbar>
  <layout>
   <styles>
+   <!-- expandable styles -->
    <element value="Expanded Heading|p|collapsedHeading"/>
    <element value="Collapsed Heading|p|collapsedHeading collapsed"/>
   </styles>

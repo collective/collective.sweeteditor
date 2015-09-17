@@ -2,7 +2,7 @@
 <object name="portal_css">
 
  <stylesheet title=""
-    id="++resource++collective.sweeteditor.css/accordion.css"
+    id="++resource++collective.sweeteditor.css/sweeteditor.css"
     media="" rel="stylesheet" rendering="import"
     cacheable="True" compression="safe" cookable="True"
     expression=""

@@ -1,5 +1,5 @@
 (function ($){
-    // make accordion collapsable
+    // control expandable items
     $(".collapsedHeading").live('click',function (){
         var $heading = $(this);
         $heading
