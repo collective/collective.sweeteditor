@@ -11,7 +11,8 @@
             // Register commands
             ed.addCommand('mceAccordion', function() {
                 var $result, selected, $selected, selectedContent, content,
-                    templateHeader, templateBody, $selectedChildren;
+                    templateHeader, templateBody, $selectedChildren,
+                    $emptyParagraph = $('<p></p>');
 
                 $templateHeader = $('<p class="accordionHeading"></p>')
                 $templateBody = $('<p class="accordionBody"></p>')
@@ -21,7 +22,9 @@
                 if (selectedContent) {
                     // selection
                     $selected = $(selected);
-                    $result = $('<div></div>');
+                    $result = $('<div></div>');   // the div will be omitted
+                    // prepend an extra final paragraph
+                    $emptyParagraph.clone().appendTo($result);
                     $selectedChildren = $selected.children();
                     $selectedChildren
                         .each(function (index) {
@@ -53,6 +56,9 @@
                         // there is a missing body, we add it
                         $templateBody.appendTo($result);
                     }
+
+                    // append an extra final paragraph
+                    $emptyParagraph.clone().appendTo($result);
                     content = $result.get(0).innerHTML;
                 } else {
                     // no selection
