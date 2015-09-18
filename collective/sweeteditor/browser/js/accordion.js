@@ -8,6 +8,23 @@
     // tinymce.PluginManager.requireLangPack('accordion');
     tinymce.create('tinymce.plugins.AccordionPlugin', {
         init : function(ed, url) {
+            // contextual controls
+            ed.onInit.add(function(ed) {
+                ed.onMouseUp.add(function(ed, e) {
+                    if (ed && ed.plugins.contextmenu) {
+                        ed.plugins.contextmenu.onContextMenu.add(function(th, m, e) {
+                            // m.addSeparator();
+                            if (! (ed.dom.getParent(e, 'p.accordionBody') || ed.dom.getParent(e, 'p.accordionHeader'))) {
+                                // m.removeAll();
+                                // TODO: wip code. Implement context menu commands
+                                alert(m);
+                                m.add({title : 'accordion.desc', icon : 'table', cmd : 'mceAccordion'});
+                            }
+                        });
+                    }
+                });
+            });
+
             // Register commands
             ed.addCommand('mceAccordion', function() {
                 var $result, selected, $selected, selectedContent, content,
