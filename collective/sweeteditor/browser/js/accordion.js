@@ -30,24 +30,30 @@
                                 $templateBodyClone = $templateBody.clone(),
                                 $elemToAppend = $this, $template;
                             if (odd) {
+                                // we use the header template
                                 $template = $templateHeaderClone;
                             } else {
+                                // we use the body template
                                 $template = $templateBodyClone;
                             }
                             if ($this.is('p')) {
+                                // if the elem type is p, we have to
+                                // use its text (no good a p inside
+                                // another p elem)
                                 $template.text($this.text());
                             }
                             else {
                                 $this.appendTo($template);
                             }
 
+                            // append to results
                             $template.appendTo($result);
                         });
                     if ($selectedChildren.length % 2 === 1) {
+                        // there is a missing body, we add it
                         $templateBody.appendTo($result);
                     }
                     content = $result.get(0).innerHTML;
-                    alert(content);
                 } else {
                     // no selection
                     content = $templateHeader.get(0).outerHTML + $templateBody.get(0).outerHTML;
