@@ -52,7 +52,6 @@
                     // no selection
                     content = $templateHeader.get(0).outerHTML + $templateBody.get(0).outerHTML;
                 }
-                alert(content);
                 ed.execCommand('mceInsertContent', false, content);
             });
 
