@@ -12,7 +12,8 @@
             ed.addCommand('mceAccordion', function() {
                 var $result, selected, $selected, selectedContent, content,
                     templateHeader, templateBody, $selectedChildren,
-                    $emptyParagraph = $('<p></p>');
+                    emptyParagraph = '<p></p>',
+                    $emptyParagraph = $(emptyParagraph);
 
                 $templateHeader = $('<p class="accordionHeading"></p>')
                 $templateBody = $('<p class="accordionBody"></p>')
@@ -62,7 +63,10 @@
                     content = $result.get(0).innerHTML;
                 } else {
                     // no selection
-                    content = $templateHeader.get(0).outerHTML + $templateBody.get(0).outerHTML;
+                    content = emptyParagraph + 
+                              $templateHeader.get(0).outerHTML +
+                              $templateBody.get(0).outerHTML +
+                              emptyParagraph;
                 }
                 ed.execCommand('mceInsertContent', false, content);
             });
