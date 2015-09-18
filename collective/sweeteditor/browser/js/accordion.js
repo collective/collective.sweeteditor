@@ -10,29 +10,50 @@
         init : function(ed, url) {
             // Register commands
             ed.addCommand('mceAccordion', function() {
-                var selected, selectedContent, content, templateHeader, templateBody;
+                var $result, selected, $selected, selectedContent, content,
+                    templateHeader, templateBody, $selectedChildren;
 
-                templateHeader = $('<div><p class="accordionHeading">Header</p></div>')
-                templateBody = $('<div><p class="accordionBody">Body</p></div>')
+                $templateHeader = $('<p class="accordionHeading"></p>')
+                $templateBody = $('<p class="accordionBody"></p>')
                 selected = ed.selection.getNode();
                 selectedContent = ed.selection.getContent();
 
                 if (selectedContent) {
-                    // TODO
+                    // selection
                     $selected = $(selected);
-                    content =  '[shortcode]'+selected+'[/shortcode]';
+                    $result = $('<div></div>');
+                    $selectedChildren = $selected.children();
+                    $selectedChildren
+                        .each(function (index) {
+                            var $this = $(this).clone(), odd = index % 2 === 0,
+                                $templateHeaderClone = $templateHeader.clone(),
+                                $templateBodyClone = $templateBody.clone(),
+                                $elemToAppend = $this, $template;
+                            if (odd) {
+                                $template = $templateHeaderClone;
+                            } else {
+                                $template = $templateBodyClone;
+                            }
+                            if ($this.is('p')) {
+                                $template.text($this.text());
+                            }
+                            else {
+                                $this.appendTo($template);
+                            }
+
+                            $template.appendTo($result);
+                        });
+                    if ($selectedChildren.length % 2 === 1) {
+                        $templateBody.appendTo($result);
+                    }
+                    content = $result.get(0).innerHTML;
+                    alert(content);
                 } else {
-                    content = templateHeader.html() + templateBody.html();
+                    // no selection
+                    content = $templateHeader.get(0).outerHTML + $templateBody.get(0).outerHTML;
                 }
+                alert(content);
                 ed.execCommand('mceInsertContent', false, content);
-/*
-                ed.windowManager.open({
-                    file : url + '/dialog.htm',
-                    width :  parseInt(ed.getParam("paste_dialog_width", "450")),
-                    height :  parseInt(ed.getParam("paste_dialog_height", "400")),
-                    inline : 1
-                );
-*/
             });
 
             // Register buttons
