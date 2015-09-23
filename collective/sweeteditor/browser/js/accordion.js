@@ -12,32 +12,33 @@
                 var selected, $selected, selectedContent, content,
                     $selectedChildren, template,
                     context, html,
+                    randomString = Math.floor(10000 * (Math.random() % 1)).toString(),
                     context = {
-                        panels: []
+                        panels: [],
+                        random: randomString
                     },
                     defaultHeader = {
                         header: 'Header',
                         body: 'Body'
                     },
                     emptyParagraph = '<p></p>',
-                    source = '<div class="panel-group" role="tablist">' +
-                    '  {{#each panels}}' +
-                    '  <div class="panel panel-default">' +
-                    '    <div class="panel-heading" role="tab">' +
-                    '      <h4 class="panel-title">' +
-                    '        <a role="button" data-toggle="collapse">' +
-                    '          {{{header}}}' +
-                    '        </a>' +
-                    '      </h4>' +
-                    '    </div>' +
-                    '    <div class="panel-collapse collapse {{#if @first}}in{{/if}}" role="tabpanel">' +
-                    '      <div class="panel-body">' +
-                    '        {{{body}}}' +
-                    '      </div>' +
-                    '    </div>' +
-                    '  </div>' +
-                    '  {{/each}}' +
-                    '</div>';
+                    source = '<div class="panel-group" id="{{random}}-accordion" role="tablist" aria-multiselectable="true">' +
+                    '           {{#each panels}}' +
+                    '           <div class="panel panel-default">' +
+                    '             <div class="panel-heading" role="tab" id="{{random}}-{{@index}}-heading">' +
+                    '               <h4 class="panel-title">' +
+                    '                 <a role="button" data-toggle="collapse" data-parent="#{{random}}-{{@index}}-accordion" href="#{{random}}-{{@index}}-body" aria-expanded="true" aria-controls="{{random}}-{{@index}}-body">' +
+                    '                   {{{header}}}' +
+                    '                 </a>' +
+                    '               </h4>' +
+                    '             </div>' +
+                    '             <div id="{{random}}-{{@index}}-body" class="panel-collapse collapse {{#if @first}}in{{/if}}" role="tabpanel" aria-labelledby="{{random}}-{{@index}}-heading">' +
+                    '               <div class="panel-body">' +
+                    '                 {{{body}}}' +
+                    '               </div>' +
+                    '             </div>' +
+                    '             {{/each}}' +
+                    '           </div>';
                 template = Handlebars.compile(source);
 
                 selected = ed.selection.getNode();
