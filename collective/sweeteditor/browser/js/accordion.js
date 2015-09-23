@@ -53,7 +53,9 @@
                         .each(function(index) {
                             var $this = $(this),
                                 text = $this.text(),
-                                odd = index % 2 === 0;
+                                odd = index % 2 === 0,
+                                panelsLength = context.panels.length,
+                                lastPanelIndex = panelsLength ? panelsLength - 1 : 0;
                             if (odd) {
                                 // we use the header template
                                 if (text) {
@@ -63,8 +65,8 @@
                                 }
                             } else {
                                 // we use the body template
-                                if (!context.panels[context.panels.length - 1].body) {
-                                    context.panels[context.panels.length - 1].body = $this.get(0).innerHTML;
+                                if (!context.panels[lastPanelIndex].body) {
+                                    context.panels[lastPanelIndex].body = $this.get(0).innerHTML;
                                 }
                             }
                         });
@@ -77,6 +79,7 @@
                     content = emptyParagraph +
                         html +
                         emptyParagraph;
+console.log(content);
                     ed.execCommand('mceInsertContent', false, content);
                 }
             });
