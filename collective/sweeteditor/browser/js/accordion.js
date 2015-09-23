@@ -10,65 +10,67 @@
         init : function(ed, url) {
             // Register commands
             ed.addCommand('mceAccordion', function() {
-                var $result, selected, $selected, selectedContent, content,
-                    templateHeader, templateBody, $selectedChildren,
+                var selected, $selected, selectedContent, content,
+                    $selectedChildren, template,
+                    context, html,
+                    context = {panels: []},
+                    defaultHeader = {header: 'Header', body: 'Body'},
                     emptyParagraph = '<p></p>',
-                    $emptyParagraph = $(emptyParagraph);
+                    source = '<div class="panel-group" role="tablist">' +
+                             '  {{#each panels}}' +
+                             '  <div class="panel panel-default">' +
+                             '    <div class="panel-heading" role="tab">' +
+                             '      <h4 class="panel-title">' +
+                             '        <a role="button" data-toggle="collapse">' +
+                             '          {{{header}}}' +
+                             '        </a>' +
+                             '      </h4>' +
+                             '    </div>' +
+                             '    <div class="panel-collapse collapse {{#if @first}}in{{/if}}" role="tabpanel">' +
+                             '      <div class="panel-body">' +
+                             '        {{{body}}}' +
+                             '      </div>' +
+                             '    </div>' +
+                             '  </div>' +
+                             '  {{/each}}' +
+                             '</div>';
+                template = Handlebars.compile(source);
 
-                $templateHeader = $('<p class="accordionHeading"></p>')
-                $templateBody = $('<p class="accordionBody"></p>')
                 selected = ed.selection.getNode();
                 selectedContent = ed.selection.getContent();
 
                 if (selectedContent) {
                     // selection
                     $selected = $(selected);
-                    $result = $('<div></div>');   // the div will be omitted
                     // prepend an extra final paragraph
-                    $emptyParagraph.clone().appendTo($result);
                     $selectedChildren = $selected.children();
                     $selectedChildren
                         .each(function (index) {
-                            var $this = $(this).clone(), odd = index % 2 === 0,
-                                $templateHeaderClone = $templateHeader.clone(),
-                                $templateBodyClone = $templateBody.clone(),
-                                $elemToAppend = $this, $template;
+                            var $this = $(this), text = $this.text(),
+                                odd = index % 2 === 0;
                             if (odd) {
                                 // we use the header template
-                                $template = $templateHeaderClone;
+                                if (text) {
+                                   context.panels.push({header: text});
+                                }
                             } else {
                                 // we use the body template
-                                $template = $templateBodyClone;
+                                if (! context.panels[context.panels.length - 1].body) {
+                                    context.panels[context.panels.length - 1].body = $this.get(0).innerHTML;
+                                }
                             }
-                            if ($this.is('p')) {
-                                // if the elem type is p, we have to
-                                // use its text (no good a p inside
-                                // another p elem)
-                                $template.text($this.text());
-                            }
-                            else {
-                                $this.appendTo($template);
-                            }
-
-                            // append to results
-                            $template.appendTo($result);
                         });
-                    if ($selectedChildren.length % 2 === 1) {
-                        // there is a missing body, we add it
-                        $templateBody.appendTo($result);
-                    }
-
-                    // append an extra final paragraph
-                    $emptyParagraph.clone().appendTo($result);
-                    content = $result.get(0).innerHTML;
                 } else {
                     // no selection
-                    content = emptyParagraph + 
-                              $templateHeader.get(0).outerHTML +
-                              $templateBody.get(0).outerHTML +
-                              emptyParagraph;
+                    context.panels.push(defaultHeader);
                 }
-                ed.execCommand('mceInsertContent', false, content);
+                if (context.panels.length) {
+                    html = template(context);
+                    content = emptyParagraph + 
+                              html +
+                              emptyParagraph;
+                    ed.execCommand('mceInsertContent', false, content);
+                }
             });
 
             // Register buttons
