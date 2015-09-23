@@ -27,7 +27,7 @@
                     '           <div class="panel panel-default">' +
                     '             <div class="panel-heading" role="tab" id="{{../random}}-{{@index}}-heading">' +
                     '               <h4 class="panel-title">' +
-                    '                 <a role="button" data-toggle="collapse" data-parent="#{{../random}}-{{@index}}-accordion" href="#{{../random}}-{{@index}}-body" aria-expanded="true" aria-controls="{{../random}}-{{@index}}-body">' +
+                    '                 <a role="button" data-toggle="collapse" data-parent="#{{../random}}-accordion" href="#{{../random}}-{{@index}}-body" aria-expanded="true" aria-controls="{{../random}}-{{@index}}-body">' +
                     '                   {{{header}}}' +
                     '                 </a>' +
                     '               </h4>' +
@@ -79,7 +79,6 @@
                     content = emptyParagraph +
                         html +
                         emptyParagraph;
-console.log(content);
                     ed.execCommand('mceInsertContent', false, content);
                 }
             });
