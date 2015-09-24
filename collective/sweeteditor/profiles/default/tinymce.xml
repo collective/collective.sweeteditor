@@ -14,6 +14,7 @@
     <element value="expandable"/>
     -->
     <element value="accordion"/>
+    <element value="accordionDelete"/>
   </customtoolbarbuttons>
  </toolbar>
  <layout>

@@ -60,16 +60,25 @@
                             // add new accordion
                             menu.add({title : 'accordion.desc', icon : 'table', cmd : 'mceAccordion'});
                         }
-                        /*
                         if (ed.dom.getParent(element, 'div.panel')) {
                             // TODO: add new accordion item up or down
-                            menu.add({title : 'accordion.desc', icon : 'table', cmd : 'mceAccordion'});
+                            menu.add({title : 'accordion-delete.desc', icon : 'table', cmd : 'mceAccordionDelete'});
                         }
-                        */
                     });
                 }
             });
             // Register commands
+            ed.addCommand('mceAccordionDelete', function() {
+                var selected, accordion;
+
+                selected = ed.selection.getNode();
+                accordion = ed.dom.getParent(selected, 'div.panel-group');
+                ed.dom.remove(accordion);
+            });
+            ed.addCommand('mceAccordionItemDelete', function() {
+            });
+            ed.addCommand('mceAccordionItemInsert', function(after) {
+            });
             ed.addCommand('mceAccordion', function() {
                 // add accordion
                 var selected, $selected, selectedContent, content,
@@ -128,6 +137,11 @@
             ed.addButton('accordion', {
                 title: 'accordion.desc',
                 cmd: 'mceAccordion',
+                image: url + '/++resource++collective.sweeteditor.img/accordion.gif'
+            });
+            ed.addButton('accordionDelete', {
+                title: 'accordion-delete.desc',
+                cmd: 'mceAccordionDelete',
                 image: url + '/++resource++collective.sweeteditor.img/accordion.gif'
             });
 
