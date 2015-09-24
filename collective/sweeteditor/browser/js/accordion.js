@@ -71,6 +71,7 @@
             });
             // Register commands
             ed.addCommand('mceAccordion', function() {
+                // add accordion
                 var selected, $selected, selectedContent, content,
                     $selectedChildren, template,
                     context, html,
