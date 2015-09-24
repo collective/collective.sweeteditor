@@ -10,8 +10,8 @@
     // templates
     emptyParagraph = '<p></p>',
     accordionItemSource = '<div class="panel panel-default">' +
-        '  <div role="tab" ' +
-        '       class="panel-heading {{#if @first}}first{{/if}}"' +
+        '  <div class="panel-heading" ' +
+        '       role="tab" ' +
         '       id="{{../random}}-{{@index}}-heading">' +
         '    <h4 class="panel-title">' +
         '      <a role="button" ' +

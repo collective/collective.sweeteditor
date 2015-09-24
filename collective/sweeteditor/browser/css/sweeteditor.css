@@ -1,11 +1,11 @@
 /* accordion */
-.mceContentBody .panel-title:before {
+.mceContentBody .panel .panel-title:before {
     font-family: monospace;
     font-size: 16px;
     content: "▶ ";
 }
 
-.mceContentBody .first .panel-title:before {
+.mceContentBody .panel:first-child .panel-title:before {
     font-family: monospace;
     font-size: 16px;
     content: "▼ " !important;
