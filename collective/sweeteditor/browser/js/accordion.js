@@ -7,6 +7,24 @@
     // tinymce.PluginManager.requireLangPack('accordion');
     tinymce.create('tinymce.plugins.AccordionPlugin', {
         init: function(ed, url) {
+            // contextual controls
+            ed.onInit.add(function() {
+                if (ed && ed.plugins.contextmenu) {
+                    ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
+                        menu.addSeparator();
+                        if (! ed.dom.getParent(element, 'div.panel-group')) {
+                            // add new accordion
+                            menu.add({title : 'accordion.desc', icon : 'table', cmd : 'mceAccordion'});
+                        }
+                        /*
+                        if (ed.dom.getParent(element, 'div.panel')) {
+                            // TODO: add new accordion item up or down
+                            menu.add({title : 'accordion.desc', icon : 'table', cmd : 'mceAccordion'});
+                        }
+                        */
+                    });
+                }
+            });
             // Register commands
             ed.addCommand('mceAccordion', function() {
                 var selected, $selected, selectedContent, content,
