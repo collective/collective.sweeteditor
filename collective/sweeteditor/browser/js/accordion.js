@@ -56,7 +56,7 @@
     ];
 
     // templates
-    emptyParagraph = '<p></p>',
+    emptyParagraph = '<p></p>';
     accordionItemSource = '<div class="panel panel-default">' +
         '  <div class="panel-heading" ' +
         '       role="tab" ' +
@@ -144,14 +144,15 @@
                     $selectedChildren, template,
                     context, html,
                     randomString = Math.floor(10000 * (Math.random() % 1)).toString(),
-                    context = {
-                        panels: [],
-                        random: randomString
-                    },
-                    defaultHeader = {
-                        header: 'Header',
-                        body: 'Body'
-                    },
+                    defaultHeader;
+                context = {
+                    panels: [],
+                    random: randomString
+                };
+                defaultHeader = {
+                    header: 'Header',
+                    body: 'Body'
+                };
 
                 selected = ed.selection.getNode();
                 selectedContent = ed.selection.getContent();
@@ -161,27 +162,26 @@
                     $selected = $(selected);
                     // prepend an extra final paragraph
                     $selectedChildren = $selected.children();
-                    $selectedChildren
-                        .each(function(index) {
-                            var $this = $(this),
-                                text = $this.text(),
-                                odd = index % 2 === 0,
-                                panelsLength = context.panels.length,
-                                lastPanelIndex = panelsLength ? panelsLength - 1 : 0;
-                            if (odd) {
-                                // we use the header template
-                                if (text) {
-                                    context.panels.push({
-                                        header: text
-                                    });
-                                }
-                            } else {
-                                // we use the body template
-                                if (!context.panels[lastPanelIndex].body) {
-                                    context.panels[lastPanelIndex].body = $this.get(0).innerHTML;
-                                }
+                    $selectedChildren.each(function(index) {
+                        var $this = $(this),
+                            text = $this.text(),
+                            odd = index % 2 === 0,
+                            panelsLength = context.panels.length,
+                            lastPanelIndex = panelsLength ? panelsLength - 1 : 0;
+                        if (odd) {
+                            // we use the header template
+                            if (text) {
+                                context.panels.push({
+                                    header: text
+                                });
                             }
-                        });
+                        } else {
+                            // we use the body template
+                            if (!context.panels[lastPanelIndex].body) {
+                                context.panels[lastPanelIndex].body = $this.get(0).innerHTML;
+                            }
+                        }
+                    });
                 } else {
                     // no selection
                     context.panels.push(defaultHeader);
