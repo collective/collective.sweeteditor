@@ -26,6 +26,7 @@ setup(name='collective.sweeteditor',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'collective.monkeypatcher',
       ],
       entry_points="""
       # -*- Entry points: -*-
