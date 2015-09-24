@@ -4,6 +4,50 @@
  * @author Davide Moro (inspired by Maurizio Lupo's redomino.tinymceplugins.snippet)
  */
 (function($) {
+    var emptyParagraph, accordionItemSource, accordionItemTemplate,
+        accordionSource, accordionTemplate;
+
+    // templates
+    emptyParagraph = '<p></p>',
+    accordionItemSource = '<div class="panel panel-default">' +
+        '  <div role="tab" ' +
+        '       class="panel-heading {{#if @first}}first{{/if}}"' +
+        '       id="{{../random}}-{{@index}}-heading">' +
+        '    <h4 class="panel-title">' +
+        '      <a role="button" ' +
+        '         data-toggle="collapse" ' +
+        '         data-parent="#{{../random}}-accordion" ' +
+        '         href="#{{../random}}-{{@index}}-body" ' +
+        '         aria-expanded="true" ' +
+        '         aria-controls="{{../random}}-{{@index}}-body">' +
+        '        {{{header}}}' +
+        '      </a>' +
+        '    </h4>' +
+        '  </div>' +
+        '  <div id="{{../random}}-{{@index}}-body" ' +
+        '       class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +
+        '       role="tabpanel" ' +
+        '       aria-labelledby="{{../random}}-{{@index}}-heading">' +
+        '    <div class="panel-body">' +
+        '      {{{body}}}' +
+        '    </div>' +
+        '  </div>' +
+        '</div>';
+    accordionSource = emptyParagraph +
+        '<div class="panel-group" ' +
+        '     id="{{random}}-accordion" ' +
+        '     role="tablist" ' +
+        '     aria-multiselectable="true">' +
+        '  {{#each panels}}' +
+        '  {{> accordionItem }}' +
+        '  {{/each}}' +
+        '</div>' +
+        emptyParagraph;
+
+    accordionItemTemplate = Handlebars.compile(accordionItemSource);
+    Handlebars.registerPartial('accordionItem', accordionItemTemplate);
+    accordionTemplate = Handlebars.compile(accordionSource);
+
     // TODO: tinymce.PluginManager.requireLangPack('accordion');
     tinymce.create('tinymce.plugins.AccordionPlugin', {
         init: function(ed, url) {
@@ -39,41 +83,6 @@
                         header: 'Header',
                         body: 'Body'
                     },
-                    emptyParagraph = '<p></p>',
-                    source = emptyParagraph +
-                        '<div class="panel-group" ' + 
-                        '     id="{{random}}-accordion" ' +
-                        '     role="tablist" ' +
-                        '     aria-multiselectable="true">' +
-                        '  {{#each panels}}' +
-                        '  <div class="panel panel-default">' +
-                        '    <div role="tab" ' +
-                        '         class="panel-heading {{#if @first}}first{{/if}}"' +
-                        '         id="{{../random}}-{{@index}}-heading">' +
-                        '      <h4 class="panel-title">' +
-                        '        <a role="button" ' +
-                        '           data-toggle="collapse" ' +
-                        '           data-parent="#{{../random}}-accordion" ' +
-                        '           href="#{{../random}}-{{@index}}-body" ' +
-                        '           aria-expanded="true" ' +
-                        '           aria-controls="{{../random}}-{{@index}}-body">' +
-                        '          {{{header}}}' +
-                        '        </a>' +
-                        '      </h4>' +
-                        '    </div>' +
-                        '    <div id="{{../random}}-{{@index}}-body" ' +
-                        '         class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +
-                        '         role="tabpanel" ' +
-                        '         aria-labelledby="{{../random}}-{{@index}}-heading">' +
-                        '      <div class="panel-body">' +
-                        '        {{{body}}}' +
-                        '      </div>' +
-                        '    </div>' +
-                        '  </div>' +
-                        '  {{/each}}' +
-                        '</div>' +
-                        emptyParagraph;
-                template = Handlebars.compile(source);
 
                 selected = ed.selection.getNode();
                 selectedContent = ed.selection.getContent();
@@ -109,7 +118,7 @@
                     context.panels.push(defaultHeader);
                 }
                 if (context.panels.length) {
-                    html = template(context);
+                    html = accordionTemplate(context);
                     ed.execCommand('mceInsertContent', false, html);
                 }
             });
@@ -122,7 +131,6 @@
             });
 
         },
-
 
         getInfo: function() {
             return {
