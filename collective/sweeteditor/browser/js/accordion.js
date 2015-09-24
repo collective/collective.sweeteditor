@@ -31,6 +31,7 @@
                         '  <div class="panel panel-default">' +
                         '    <div class="panel-heading" ' +
                         '         role="tab" ' +
+                        '         class="{{#if @first}}first{{/if}}"' +
                         '         id="{{../random}}-{{@index}}-heading">' +
                         '      <h4 class="panel-title">' +
                         '        <a role="button" ' +

@@ -1,29 +1,27 @@
 /* accordion */
-.accordionHeading {
-    cursor: hand;
-    cursor: pointer;
-}
-
-.accordionHeading.collapsed:before {
+.mceContentBody .panel-title:before {
+    font-family: monospace;
+    font-size: 16px;
     content: "▶ ";
 }
 
-.accordionHeading:before {
+.mceContentBody .first .panel-title:before {
     font-family: monospace;
     font-size: 16px;
-    content: "▼ ";
+    content: "▼ " !important;
 }
 
-.accordionHeading.collapsed + *{
-    display:none;
-}
-
-.mceContentBody .accordionHeading {
+.mceContentBody .panel-group {
     display: inherit;
     border: thin dashed red;
 }
 
-.mceContentBody .accordionBody {
+.mceContentBody .panel {
+    display: inherit;
+    border: thin dashed red;
+}
+
+.mceContentBody .collapsedBody {
     display: inherit;
     border: thin dashed red;
 }
