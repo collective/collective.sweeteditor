@@ -15,6 +15,7 @@
     -->
     <element value="accordion"/>
     <element value="accordionDelete"/>
+    <element value="accordionItemDelete"/>
   </customtoolbarbuttons>
  </toolbar>
  <layout>

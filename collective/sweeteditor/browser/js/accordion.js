@@ -63,12 +63,14 @@
                         if (ed.dom.getParent(element, 'div.panel')) {
                             // TODO: add new accordion item up or down
                             menu.add({title : 'accordion-delete.desc', icon : 'table', cmd : 'mceAccordionDelete'});
+                            menu.add({title : 'accordionitem-delete.desc', icon : 'table', cmd : 'mceAccordionItemDelete'});
                         }
                     });
                 }
             });
             // Register commands
             ed.addCommand('mceAccordionDelete', function() {
+                // remove the whole accordion
                 var selected, accordion;
 
                 selected = ed.selection.getNode();
@@ -76,8 +78,20 @@
                 ed.dom.remove(accordion);
             });
             ed.addCommand('mceAccordionItemDelete', function() {
+                // delete the selected accordion item. If it is the last one,
+                // the entire accordion will be removed
+                var selected, toBeRemoved;
+
+                selected = ed.selection.getNode();
+                toBeRemoved = ed.dom.getParent(selected, 'div.panel');
+                if (! ed.dom.getNext(toBeRemoved, 'div.panel') && ! ed.dom.getPrev(toBeRemoved, 'div.panel')) {
+                    toBeRemoved = ed.dom.getParent(selected, 'div.panel-group');
+                }
+                ed.dom.remove(toBeRemoved);
             });
             ed.addCommand('mceAccordionItemInsert', function(after) {
+                // insert another accordion, after or before the selected
+                // item
             });
             ed.addCommand('mceAccordion', function() {
                 // add accordion
@@ -142,6 +156,11 @@
             ed.addButton('accordionDelete', {
                 title: 'accordion-delete.desc',
                 cmd: 'mceAccordionDelete',
+                image: url + '/++resource++collective.sweeteditor.img/accordion.gif'
+            });
+            ed.addButton('accordionItemDelete', {
+                title: 'accordionitem-delete.desc',
+                cmd: 'mceAccordionItemDelete',
                 image: url + '/++resource++collective.sweeteditor.img/accordion.gif'
             });
 
