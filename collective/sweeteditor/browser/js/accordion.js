@@ -22,23 +22,39 @@
                         body: 'Body'
                     },
                     emptyParagraph = '<p></p>',
-                    source = '<div class="panel-group" id="{{random}}-accordion" role="tablist" aria-multiselectable="true">' +
-                    '           {{#each panels}}' +
-                    '           <div class="panel panel-default">' +
-                    '             <div class="panel-heading" role="tab" id="{{../random}}-{{@index}}-heading">' +
-                    '               <h4 class="panel-title">' +
-                    '                 <a role="button" data-toggle="collapse" data-parent="#{{../random}}-accordion" href="#{{../random}}-{{@index}}-body" aria-expanded="true" aria-controls="{{../random}}-{{@index}}-body">' +
-                    '                   {{{header}}}' +
-                    '                 </a>' +
-                    '               </h4>' +
-                    '             </div>' +
-                    '             <div id="{{../random}}-{{@index}}-body" class="panel-collapse collapse {{#if @first}}in{{/if}}" role="tabpanel" aria-labelledby="{{../random}}-{{@index}}-heading">' +
-                    '               <div class="panel-body">' +
-                    '                 {{{body}}}' +
-                    '               </div>' +
-                    '             </div>' +
-                    '             {{/each}}' +
-                    '           </div>';
+                    source = emptyParagraph +
+                        '<div class="panel-group" ' + 
+                        '     id="{{random}}-accordion" ' +
+                        '     role="tablist" ' +
+                        '     aria-multiselectable="true">' +
+                        '  {{#each panels}}' +
+                        '  <div class="panel panel-default">' +
+                        '    <div class="panel-heading" ' +
+                        '         role="tab" ' +
+                        '         id="{{../random}}-{{@index}}-heading">' +
+                        '      <h4 class="panel-title">' +
+                        '        <a role="button" ' +
+                        '           data-toggle="collapse" ' +
+                        '           data-parent="#{{../random}}-accordion" ' +
+                        '           href="#{{../random}}-{{@index}}-body" ' +
+                        '           aria-expanded="true" ' +
+                        '           aria-controls="{{../random}}-{{@index}}-body">' +
+                        '          {{{header}}}' +
+                        '        </a>' +
+                        '      </h4>' +
+                        '    </div>' +
+                        '    <div id="{{../random}}-{{@index}}-body" ' +
+                        '         class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +
+                        '         role="tabpanel" ' +
+                        '         aria-labelledby="{{../random}}-{{@index}}-heading">' +
+                        '      <div class="panel-body">' +
+                        '        {{{body}}}' +
+                        '      </div>' +
+                        '    </div>' +
+                        '  </div>' +
+                        '  {{/each}}' +
+                        '</div>' +
+                        emptyParagraph;
                 template = Handlebars.compile(source);
 
                 selected = ed.selection.getNode();
@@ -76,10 +92,7 @@
                 }
                 if (context.panels.length) {
                     html = template(context);
-                    content = emptyParagraph +
-                        html +
-                        emptyParagraph;
-                    ed.execCommand('mceInsertContent', false, content);
+                    ed.execCommand('mceInsertContent', false, html);
                 }
             });
 
