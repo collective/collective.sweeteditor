@@ -4,7 +4,7 @@
  * @author Davide Moro (inspired by Maurizio Lupo's redomino.tinymceplugins.snippet)
  */
 (function($) {
-    // tinymce.PluginManager.requireLangPack('accordion');
+    // TODO: tinymce.PluginManager.requireLangPack('accordion');
     tinymce.create('tinymce.plugins.AccordionPlugin', {
         init: function(ed, url) {
             // contextual controls
