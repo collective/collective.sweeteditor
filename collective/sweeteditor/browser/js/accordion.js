@@ -29,9 +29,8 @@
                         '     aria-multiselectable="true">' +
                         '  {{#each panels}}' +
                         '  <div class="panel panel-default">' +
-                        '    <div class="panel-heading" ' +
-                        '         role="tab" ' +
-                        '         class="{{#if @first}}first{{/if}}"' +
+                        '    <div role="tab" ' +
+                        '         class="panel-heading {{#if @first}}first{{/if}}"' +
                         '         id="{{../random}}-{{@index}}-heading">' +
                         '      <h4 class="panel-title">' +
                         '        <a role="button" ' +
