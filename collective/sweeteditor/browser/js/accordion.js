@@ -5,7 +5,55 @@
  */
 (function($) {
     var emptyParagraph, accordionItemSource, accordionItemTemplate,
-        accordionSource, accordionTemplate;
+        accordionSource, accordionTemplate, buttons, addAccordionCondition, accordionCondition;
+
+    addAccordionCondition = function (ed, element) {
+        return ! ed.dom.getParent(element, 'div.panel-group');
+    };
+    accordionCondition = function (ed, element) {
+        return ed.dom.getParent(element, 'div.panel');
+    };
+
+    // buttons
+    buttons = [
+        ['accordion',
+         {title: 'accordion.desc',
+          cmd: 'mceAccordion',
+          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+         },
+         addAccordionCondition
+        ],
+        ['accordionDelete',
+         {title: 'accordion-delete.desc',
+          cmd: 'mceAccordionDelete',
+          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          },
+          accordionCondition
+        ],
+        ['accordionItemDelete', {
+          title: 'accordionitem-delete.desc',
+          cmd: 'mceAccordionItemDelete',
+          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          },
+          accordionCondition
+        ],
+        ['accordionItemInsertAfter', {
+          title: 'accordionitem-insertafter.desc',
+          cmd: 'mceAccordionItemInsert',
+          ui: true,
+          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          },
+          accordionCondition
+        ],
+        ['accordionItemInsertBefore', {
+          title: 'accordionitem-insertbefore.desc',
+          cmd: 'mceAccordionItemInsert',
+          ui: false,
+          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          },
+          accordionCondition
+        ]
+    ];
 
     // templates
     emptyParagraph = '<p></p>',
@@ -56,15 +104,12 @@
                 if (ed && ed.plugins.contextmenu) {
                     ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
                         menu.addSeparator();
-                        if (! ed.dom.getParent(element, 'div.panel-group')) {
-                            // add new accordion
-                            menu.add({title : 'accordion.desc', icon : 'table', cmd : 'mceAccordion'});
-                        }
-                        if (ed.dom.getParent(element, 'div.panel')) {
-                            // TODO: add new accordion item up or down
-                            menu.add({title : 'accordion-delete.desc', icon : 'table', cmd : 'mceAccordionDelete'});
-                            menu.add({title : 'accordionitem-delete.desc', icon : 'table', cmd : 'mceAccordionItemDelete'});
-                        }
+                        tinymce.each(buttons, function (item){
+                            var condition = item[2];
+                            if (! condition || condition(ed, element)) {
+                                menu.add(item[1]);
+                            }
+                        });
                     });
                 }
             });
@@ -90,8 +135,8 @@
                 ed.dom.remove(toBeRemoved);
             });
             ed.addCommand('mceAccordionItemInsert', function(after) {
-                // insert another accordion, after or before the selected
-                // item
+                // insert another accordion, after or before the selected item
+                alert(after);
             });
             ed.addCommand('mceAccordion', function() {
                 // add accordion
@@ -148,20 +193,8 @@
             });
 
             // Register buttons
-            ed.addButton('accordion', {
-                title: 'accordion.desc',
-                cmd: 'mceAccordion',
-                image: url + '/++resource++collective.sweeteditor.img/accordion.gif'
-            });
-            ed.addButton('accordionDelete', {
-                title: 'accordion-delete.desc',
-                cmd: 'mceAccordionDelete',
-                image: url + '/++resource++collective.sweeteditor.img/accordion.gif'
-            });
-            ed.addButton('accordionItemDelete', {
-                title: 'accordionitem-delete.desc',
-                cmd: 'mceAccordionItemDelete',
-                image: url + '/++resource++collective.sweeteditor.img/accordion.gif'
+            tinymce.each(buttons, function (item){
+                ed.addButton(item[0], item[1]);
             });
 
         },

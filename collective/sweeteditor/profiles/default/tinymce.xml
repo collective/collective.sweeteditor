@@ -16,6 +16,8 @@
     <element value="accordion"/>
     <element value="accordionDelete"/>
     <element value="accordionItemDelete"/>
+    <element value="accordionItemInsertBefore"/>
+    <element value="accordionItemInsertAfter"/>
   </customtoolbarbuttons>
  </toolbar>
  <layout>
