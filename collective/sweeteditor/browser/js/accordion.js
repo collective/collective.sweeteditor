@@ -140,21 +140,26 @@
             });
             ed.addCommand('mceAccordionItemInsert', function(after) {
                 // insert another accordion, after or before the selected item
-                var selected, randomString1, randomString2, context, html;
+                var selected, randomString1, randomString2, context, html, accordionItem;
 
                 selected = ed.selection.getNode();
-                randomString1 = Math.floor(10000 * (Math.random() % 1)).toString();   // TODO: detect random1 from elem
+                accordionItem = ed.dom.getParent(selected, 'div.panel');
+                accordionParent = ed.dom.getParent(accordionItem, 'div.panel-group');
+                randomString1 = accordionParent.id.replace('-accordion', '');
                 randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
-                context = {
-                  random1: randomString1,
-                  random2: randomString2,
-                  panels: [defaultAccordionItem]
-                };
+                context = {};
+                context.header = defaultAccordionItem.header;
+                context.body = defaultAccordionItem.body;
+                context.random1 = randomString1;
+                context.random2 = randomString2;
                 html = accordionItemTemplate(context);
-                console.log(html);
+                el = ed.dom.create('div');
                 if (after) {
+                    ed.dom.insertAfter(el, accordionItem);
                 } else {
+                    accordionParent.insertBefore(el, accordionItem);
                 }
+                ed.dom.setOuterHTML(el, html);
             });
             ed.addCommand('mceAccordion', function() {
                 // add accordion
@@ -163,7 +168,6 @@
                     context, html,
                     randomString1 = Math.floor(10000 * (Math.random() % 1)).toString(),
                     randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
-                alert(randomString1);
                 context = {
                     panels: [],
                     random1: randomString1,
