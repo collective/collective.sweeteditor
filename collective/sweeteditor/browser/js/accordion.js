@@ -77,7 +77,7 @@
         '    </h4>' +
         '  </div>' +
         '  <div id="{{random1}}-{{random2}}-body" ' +
-        '       class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +     // TODO: first and accordion insertion
+        '       class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +
         '       role="tabpanel" ' +
         '       aria-labelledby="{{random1}}-{{random2}}-heading">' +
         '    <div class="panel-body">' +
@@ -140,7 +140,7 @@
             });
             ed.addCommand('mceAccordionItemInsert', function(after) {
                 // insert another accordion, after or before the selected item
-                var selected, randomString1, randomString2, context, html, accordionItem;
+                var selected, randomString1, randomString2, context, html, accordionItem, el;
 
                 selected = ed.selection.getNode();
                 accordionItem = ed.dom.getParent(selected, 'div.panel');
@@ -160,6 +160,14 @@
                     accordionParent.insertBefore(el, accordionItem);
                 }
                 ed.dom.setOuterHTML(el, html);
+
+                if (!after && ed.dom.hasClass(accordionItem.lastChild, 'in')) {
+                    // if the current accordion item is the first one and we are
+                    // prepending another accordion item, we need to toggle the
+                    // "in" class
+                    ed.dom.removeClass(accordionItem.lastChild, 'in');
+                    ed.dom.addClass(accordionParent.firstChild.lastChild, 'in');
+                }
             });
             ed.addCommand('mceAccordion', function() {
                 // add accordion
