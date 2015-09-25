@@ -169,6 +169,15 @@
                     ed.dom.addClass(accordionParent.firstChild.lastChild, 'in');
                 }
             });
+
+            // Handle node change updates
+            ed.onNodeChange.add(function(ed, cm, n) {
+                // disable toolbar's buttons depending on the current selection
+                tinymce.each(buttons, function (item) {
+                    cm.setDisabled(item[0], !item[2](ed, n));
+                });
+            });
+
             ed.addCommand('mceAccordion', function() {
                 // add accordion
                 var selected, $selected, selectedContent, content,
