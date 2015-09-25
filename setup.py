@@ -28,6 +28,9 @@ setup(name='collective.sweeteditor',
           # -*- Extra requirements: -*-
           'collective.monkeypatcher',
       ],
+      extras_require={
+          'bootstrap': ['plone.app.jquery>=1.9.1'],
+          },
       entry_points="""
       # -*- Entry points: -*-
 

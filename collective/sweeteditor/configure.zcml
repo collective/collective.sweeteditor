@@ -18,6 +18,13 @@
       description="Installs the collective.sweeteditor package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+  <genericsetup:registerProfile
+      name="bootstrap"
+      title="collective.sweeteditor optional bootstrap"
+      directory="profiles/bootstrap"
+      description="Enable twitter bootstrap"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
   <!-- -*- extra stuff goes here -*- -->
 
   <!-- Monkey patches -->
