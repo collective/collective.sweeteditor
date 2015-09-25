@@ -4,7 +4,7 @@
  * @author Davide Moro (inspired by Maurizio Lupo's redomino.tinymceplugins.snippet)
  */
 (function($) {
-    var emptyParagraph, accordionItemSource, accordionItemTemplate,
+    var defaultAccordionItem, emptyParagraph, accordionItemSource, accordionItemTemplate,
         accordionSource, accordionTemplate, buttons, addAccordionCondition, accordionCondition;
 
     addAccordionCondition = function (ed, element) {
@@ -56,26 +56,30 @@
     ];
 
     // templates
+    defaultAccordionItem = {
+        header: 'Header',
+        body: 'Body'
+    };
     emptyParagraph = '<p></p>';
     accordionItemSource = '<div class="panel panel-default">' +
         '  <div class="panel-heading" ' +
         '       role="tab" ' +
-        '       id="{{../random}}-{{@index}}-heading">' +
+        '       id="{{random1}}-{{random2}}-heading">' +
         '    <h4 class="panel-title">' +
         '      <a role="button" ' +
         '         data-toggle="collapse" ' +
-        '         data-parent="#{{../random}}-accordion" ' +
-        '         href="#{{../random}}-{{@index}}-body" ' +
+        '         data-parent="#{{random1}}-accordion" ' +
+        '         href="#{{random1}}-{{random2}}-body" ' +
         '         aria-expanded="true" ' +
-        '         aria-controls="{{../random}}-{{@index}}-body">' +
+        '         aria-controls="{{random1}}-{{random2}}-body">' +
         '        {{{header}}}' +
         '      </a>' +
         '    </h4>' +
         '  </div>' +
-        '  <div id="{{../random}}-{{@index}}-body" ' +
-        '       class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +
+        '  <div id="{{random1}}-{{random2}}-body" ' +
+        '       class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +     // TODO: first and accordion insertion
         '       role="tabpanel" ' +
-        '       aria-labelledby="{{../random}}-{{@index}}-heading">' +
+        '       aria-labelledby="{{random1}}-{{random2}}-heading">' +
         '    <div class="panel-body">' +
         '      {{{body}}}' +
         '    </div>' +
@@ -83,11 +87,11 @@
         '</div>';
     accordionSource = emptyParagraph +
         '<div class="panel-group" ' +
-        '     id="{{random}}-accordion" ' +
+        '     id="{{random1}}-accordion" ' +
         '     role="tablist" ' +
         '     aria-multiselectable="true">' +
         '  {{#each panels}}' +
-        '  {{> accordionItem }}' +
+        '  {{> accordionItem random1=../random1 random2=../random2}}' +
         '  {{/each}}' +
         '</div>' +
         emptyParagraph;
@@ -136,22 +140,34 @@
             });
             ed.addCommand('mceAccordionItemInsert', function(after) {
                 // insert another accordion, after or before the selected item
-                alert(after);
+                var selected, randomString1, randomString2, context, html;
+
+                selected = ed.selection.getNode();
+                randomString1 = Math.floor(10000 * (Math.random() % 1)).toString();   // TODO: detect random1 from elem
+                randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
+                context = {
+                  random1: randomString1,
+                  random2: randomString2,
+                  panels: [defaultAccordionItem]
+                };
+                html = accordionItemTemplate(context);
+                console.log(html);
+                if (after) {
+                } else {
+                }
             });
             ed.addCommand('mceAccordion', function() {
                 // add accordion
                 var selected, $selected, selectedContent, content,
                     $selectedChildren, template,
                     context, html,
-                    randomString = Math.floor(10000 * (Math.random() % 1)).toString(),
-                    defaultHeader;
+                    randomString1 = Math.floor(10000 * (Math.random() % 1)).toString(),
+                    randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
+                alert(randomString1);
                 context = {
                     panels: [],
-                    random: randomString
-                };
-                defaultHeader = {
-                    header: 'Header',
-                    body: 'Body'
+                    random1: randomString1,
+                    random2: randomString2
                 };
 
                 selected = ed.selection.getNode();
@@ -184,7 +200,7 @@
                     });
                 } else {
                     // no selection
-                    context.panels.push(defaultHeader);
+                    context.panels.push(defaultAccordionItem);
                 }
                 if (context.panels.length) {
                     html = accordionTemplate(context);
