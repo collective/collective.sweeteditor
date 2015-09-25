@@ -1,4 +1,10 @@
 /* accordion */
+.mceContentBody .panel-group:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "accordion";
+}
+
 .mceContentBody .panel .panel-title:before {
     font-family: monospace;
     font-size: 16px;
