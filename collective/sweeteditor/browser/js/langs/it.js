@@ -1,4 +1,5 @@
 tinyMCE.addI18n('it.accordion',{
+    group : 'Accordion',
     desc : 'Crea nuovo accordion',
     deletedesc : 'Cancella intero accordion',
     itemdeletedesc : 'Cancella elemento accordion',

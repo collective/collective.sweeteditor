@@ -19,21 +19,24 @@
         ['accordion',
          {title: 'accordion.desc',
           cmd: 'mceAccordion',
-          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          image: '/++resource++collective.sweeteditor.img/accordion.gif',
+          icon: 'accordion'
          },
          addAccordionCondition
         ],
         ['accordionDelete',
          {title: 'accordion.deletedesc',
           cmd: 'mceAccordionDelete',
-          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          image: '/++resource++collective.sweeteditor.img/accordion-delete.gif',
+          icon: 'accordion-delete'
           },
           accordionCondition
         ],
         ['accordionItemDelete', {
           title: 'accordion.itemdeletedesc',
           cmd: 'mceAccordionItemDelete',
-          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          image: '/++resource++collective.sweeteditor.img/accordion-item-delete.gif',
+          icon: 'accordion-item-delete'
           },
           accordionCondition
         ],
@@ -41,7 +44,8 @@
           title: 'accordion.iteminsertafterdesc',
           cmd: 'mceAccordionItemInsert',
           ui: true,
-          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          image: '/++resource++collective.sweeteditor.img/accordion-item-insert-after.gif',
+          icon: 'accordion-item-insert-after'
           },
           accordionCondition
         ],
@@ -49,7 +53,8 @@
           title: 'accordion.iteminsertbeforedesc',
           cmd: 'mceAccordionItemInsert',
           ui: false,
-          image: '/++resource++collective.sweeteditor.img/accordion.gif'
+          image: '/++resource++collective.sweeteditor.img/accordion-item-insert-before.gif',
+          icon: 'accordion-item-insert-before'
           },
           accordionCondition
         ]
@@ -103,11 +108,14 @@
             ed.onInit.add(function() {
                 if (ed && ed.plugins.contextmenu) {
                     ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
+                        var groupMenu;
                         menu.addSeparator();
+                        groupMenu = menu.addMenu({title : 'accordion.group'});
                         tinymce.each(buttons, function (item){
-                            var condition = item[2];
+                            var condition;
+                            condition = item[2];
                             if (! condition || condition(ed, element)) {
-                                menu.add(item[1]);
+                                groupMenu.add(item[1]);
                             }
                         });
                     });

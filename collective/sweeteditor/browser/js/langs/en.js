@@ -1,4 +1,5 @@
-tinyMCE.addI18n('it.accordion',{
+tinyMCE.addI18n('en.accordion',{
+    group : 'Accordion',
     desc : 'Create new accordion',
     deletedesc : 'Remove entire accordion',
     itemdeletedesc : 'Remove accordion item',

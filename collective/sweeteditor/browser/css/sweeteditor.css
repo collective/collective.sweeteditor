@@ -31,6 +31,26 @@
     border: thin dashed red;
 }
 
+.ploneSkin .mce_accordion {
+    background: url('++resource++collective.sweeteditor.img/accordion.gif') !important;
+}
+
+.ploneSkin .mce_accordion-delete {
+    background: url('++resource++collective.sweeteditor.img/accordion-delete.gif') !important;
+}
+
+.ploneSkin .mce_accordion-item-delete {
+    background: url('++resource++collective.sweeteditor.img/accordion-item-delete.gif') !important;
+}
+
+.ploneSkin .mce_accordion-item-insert-after {
+    background: url('++resource++collective.sweeteditor.img/accordion-item-insert-after.gif') !important;
+}
+
+.ploneSkin .mce_accordion-item-insert-before {
+    background: url('++resource++collective.sweeteditor.img/accordion-item-insert-before.gif') !important;
+}
+
 /* expandable */
 .collapsedHeading {
     cursor: hand;
