@@ -71,18 +71,14 @@
         '         data-parent="#{{random1}}-accordion" ' +
         '         href="#{{random1}}-{{random2}}-body" ' +
         '         aria-expanded="true" ' +
-        '         aria-controls="{{random1}}-{{random2}}-body">' +
-        '        {{{header}}}' +
-        '      </a>' +
+        '         aria-controls="{{random1}}-{{random2}}-body">{{{header}}}</a>' +
         '    </h4>' +
         '  </div>' +
         '  <div id="{{random1}}-{{random2}}-body" ' +
         '       class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +
         '       role="tabpanel" ' +
         '       aria-labelledby="{{random1}}-{{random2}}-heading">' +
-        '    <div class="panel-body">' +
-        '      {{{body}}}' +
-        '    </div>' +
+        '    <div class="panel-body">{{{body}}}</div>' +
         '  </div>' +
         '</div>';
     accordionSource = emptyParagraph +
@@ -116,7 +112,29 @@
                         });
                     });
                 }
+
+                // Events
+                ed.onKeyDown.add(function(ed, e) {
+                    // Prevent undesired accordion markup removals
+                    // pressing back delete or canc
+                    var range, elem, accordionRoot, textContentLength;
+
+                    if (e.keyCode === 8 || e.keyCode === 46) {
+                        range = ed.selection.getRng();
+                        elem = ed.selection.getNode();
+                        accordionRoot = ed.dom.getParent(elem, '.panel-group');
+                        textContentLength = elem.textContent.length;
+
+                        if (accordionRoot &&
+                           ((e.keyCode === 8 && range.startOffset === 0) ||
+                           (e.keyCode === 46 && range.startOffset === textContentLength))) {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                });
             });
+
             // Register commands
             ed.addCommand('mceAccordionDelete', function() {
                 // remove the whole accordion
