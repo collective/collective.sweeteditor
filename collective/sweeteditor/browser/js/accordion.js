@@ -24,21 +24,21 @@
          addAccordionCondition
         ],
         ['accordionDelete',
-         {title: 'accordion-delete.desc',
+         {title: 'accordion.deletedesc',
           cmd: 'mceAccordionDelete',
           image: '/++resource++collective.sweeteditor.img/accordion.gif'
           },
           accordionCondition
         ],
         ['accordionItemDelete', {
-          title: 'accordionitem-delete.desc',
+          title: 'accordion.itemdeletedesc',
           cmd: 'mceAccordionItemDelete',
           image: '/++resource++collective.sweeteditor.img/accordion.gif'
           },
           accordionCondition
         ],
         ['accordionItemInsertAfter', {
-          title: 'accordionitem-insertafter.desc',
+          title: 'accordion.iteminsertafterdesc',
           cmd: 'mceAccordionItemInsert',
           ui: true,
           image: '/++resource++collective.sweeteditor.img/accordion.gif'
@@ -46,7 +46,7 @@
           accordionCondition
         ],
         ['accordionItemInsertBefore', {
-          title: 'accordionitem-insertbefore.desc',
+          title: 'accordion.iteminsertbeforedesc',
           cmd: 'mceAccordionItemInsert',
           ui: false,
           image: '/++resource++collective.sweeteditor.img/accordion.gif'
@@ -96,7 +96,7 @@
     Handlebars.registerPartial('accordionItem', accordionItemTemplate);
     accordionTemplate = Handlebars.compile(accordionSource);
 
-    // TODO: tinymce.PluginManager.requireLangPack('accordion');
+    tinymce.PluginManager.requireLangPack('accordion');
     tinymce.create('tinymce.plugins.AccordionPlugin', {
         init: function(ed, url) {
             // contextual controls
