@@ -1,7 +1,30 @@
 collective.sweeteditor
 ======================
 
-TinyMCE accordion and tabs plugins for Plone.
+TinyMCE (vAPI3) plugin for Plone based on Twitter Bootstrap markup.
+Basically it adds a set of new TinyMCE commands in order to manage the
+following Twitter elements:
+* accordions
+* tabs (TODO)
+
+You can add and manage accordions and tabs:
+* clicking the add button (a new element is created)
+* select text and click the add
+
+Accordions
+----------
+
+The 
+
+Tabs
+----
+
+Still TODO.
+
+Install
+=======
+
+TODO
 
 Copyright and license
 =====================
