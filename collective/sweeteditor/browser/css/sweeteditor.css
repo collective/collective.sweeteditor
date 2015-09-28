@@ -17,17 +17,11 @@
     content: "▼ " !important;
 }
 
+.mceContentBody .collapse {
+    display: block;
+}
+
 .mceContentBody .panel-group {
-    display: inherit;
-    border: thin dashed red;
-}
-
-.mceContentBody .panel {
-    display: inherit;
-    border: thin dashed red;
-}
-
-.mceContentBody .collapsedBody {
     display: inherit;
     border: thin dashed red;
 }
