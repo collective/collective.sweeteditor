@@ -26,6 +26,11 @@
     border: thin dashed red;
 }
 
+.mceContentBody .panel-heading {
+    display: inherit;
+    border: thin dashed red;
+}
+
 /* expandable */
 .collapsedHeading {
     cursor: hand;
