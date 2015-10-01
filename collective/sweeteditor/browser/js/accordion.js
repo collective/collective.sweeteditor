@@ -204,11 +204,11 @@
                 });
             });
 
-            ed.addCommand('mceAccordion', function() {
+            ed.addCommand('mceAccordion', function(length) {
                 // add accordion
                 var selected, $selected, selectedContent, content,
                     $selectedChildren, template,
-                    context, html,
+                    context, html, index,
                     randomString1 = Math.floor(10000 * (Math.random() % 1)).toString(),
                     randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
                 context = {
@@ -247,7 +247,21 @@
                     });
                 } else {
                     // no selection
-                    context.panels.push(defaultAccordionItem);
+                    if (arguments[1] !== undefined) {
+                        for (var index=0; index <arguments[1]; index++) {
+                            context.panels.push(defaultAccordionItem);
+                        }
+                    } else {
+                        ed.windowManager.open({
+                            file : url + '/accordion.html',
+                            width : 430 + parseInt(ed.getLang('media.delta_width', 0)),
+                            height : 500 + parseInt(ed.getLang('media.delta_height', 0)),
+                            inline : 1
+                            }, {
+                            plugin_url : url
+                           });
+                    }
+
                 }
                 if (context.panels.length) {
                     html = accordionTemplate(context);
