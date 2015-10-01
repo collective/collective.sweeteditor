@@ -11,8 +11,6 @@ var AccordionDialog = {
     insert : function() {
         // Insert the contents from the textarea into the document
         var value = document.forms[0].length.value;
-alert('SONO QUI');
-alert(value);
         tinyMCEPopup.editor.execCommand('mceAccordion', false, value);
         tinyMCEPopup.close();
 	}
