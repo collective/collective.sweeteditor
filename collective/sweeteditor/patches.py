@@ -12,4 +12,12 @@ def getValidElements(self):
                         'aria-expanded',
                         'aria-controls',
                         ])
+    a_options = valid_elements.get('a', [])
+    a_options.extend(['role',
+                      'aria-controls',
+                      ])
+    ul_options = valid_elements.get('ul', [])
+    ul_options.extend(['role'])
+    li_options = valid_elements.get('li', [])
+    li_options.extend(['role'])
     return valid_elements
