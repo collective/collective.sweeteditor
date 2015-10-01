@@ -3,6 +3,7 @@
  <resourcetypes purge="False">
   <customplugins purge="False">
     <element value="accordion|++resource++collective.sweeteditor.js/accordion/accordion.js"/>
+    <element value="tabs|++resource++collective.sweeteditor.js/tabs/tabs.js"/>
   </customplugins>
  </resourcetypes>
  <toolbar>
@@ -12,6 +13,11 @@
     <element value="accordionItemDelete"/>
     <element value="accordionItemInsertBefore"/>
     <element value="accordionItemInsertAfter"/>
+    <element value="tabs"/>
+    <element value="tabsDelete"/>
+    <element value="tabsItemDelete"/>
+    <element value="tabsItemInsertBefore"/>
+    <element value="tabsItemInsertAfter"/>
   </customtoolbarbuttons>
  </toolbar>
 </object>

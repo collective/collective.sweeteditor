@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>{#tabs_dlg.title}</title>
+    <script type="text/javascript" src="../../tiny_mce_popup.js?v={tinymce_version}"></script>
+    <script type="text/javascript" src="../../utils/validate.js?v={tinymce_version}"></script>
+    <script type="text/javascript" src="js/tabs.js?v={tinymce_version}"></script>
+  </head>
+  <body role="application" aria-labelledby="app_title">
+    <span style="display:none;" id="app_title">{#tabs_dlg.title}</span>
+    <div class="dialog-wrapper" id="content">
+      <form onsubmit="TabsDialog.insert();return false;" action="#">
+        <fieldset>
+          <legend>{#tabs_dlg.legend}</legend>
+          <div class="field">
+            <label for="mceTabsLength">{#tabs_dlg.length_label}</label>
+              <div class="formHelp"> {#tabs_dlg.length_help}</div>
+              <div class="widget">
+                <input id="mceTabsLength" name="tabsLength" class="mceFocus required int min1" size="3"
+                       maxlength="3" aria-required="true" value="1" />
+              </div>
+          </div>
+        </fieldset>
+        <div class="mceActionPanel">
+          <input type="submit" id="insert" name="insert" value="{#insert}" />
+          <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

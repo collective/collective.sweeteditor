@@ -51,32 +51,55 @@
     background: url('++resource++collective.sweeteditor.img/accordion-item-insert-before.gif') !important;
 }
 
-/* expandable */
-.collapsedHeading {
-    cursor: hand;
-    cursor: pointer;
+/* tabs */
+.mceContentBody .panel-group:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "tabs";
 }
 
-.collapsedHeading.collapsed:before {
+.mceContentBody .panel .panel-title:before {
+    font-family: monospace;
+    font-size: 16px;
     content: "▶ ";
 }
 
-.collapsedHeading:before {
+.mceContentBody .panel:first-child .panel-title:before {
     font-family: monospace;
     font-size: 16px;
-    content: "▼ ";
+    content: "▼ " !important;
 }
 
-.collapsedHeading.collapsed + *{
-    display:none;
+.mceContentBody .collapse {
+    display: block;
 }
 
-.mceContentBody .collapsedHeading {
+.mceContentBody .panel-group {
     display: inherit;
     border: thin dashed red;
 }
 
-.mceContentBody .collapsedBody {
+.mceContentBody .panel-heading {
     display: inherit;
     border: thin dashed red;
+}
+
+.ploneSkin .mce_tabs {
+    background: url('++resource++collective.sweeteditor.img/tabs.gif') !important;
+}
+
+.ploneSkin .mce_tabs-delete {
+    background: url('++resource++collective.sweeteditor.img/tabs-delete.gif') !important;
+}
+
+.ploneSkin .mce_tabs-item-delete {
+    background: url('++resource++collective.sweeteditor.img/tabs-item-delete.gif') !important;
+}
+
+.ploneSkin .mce_tabs-item-insert-after {
+    background: url('++resource++collective.sweeteditor.img/tabs-item-insert-after.gif') !important;
+}
+
+.ploneSkin .mce_tabs-item-insert-before {
+    background: url('++resource++collective.sweeteditor.img/tabs-item-insert-before.gif') !important;
 }
