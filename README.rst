@@ -10,6 +10,7 @@ following Twitter elements:
 How to manage accordions or tabs:
 
 * add new accordion/tabs
+
     * click on the ``Create new accordion/tabs button``
     * select one or more paragraphs and click on
       the ``Create new accordion/tabs button``. Each selected
@@ -19,6 +20,7 @@ How to manage accordions or tabs:
     There are both buttons and contextual menus (right click),
     depending on the selected node one or more buttons could
     be disabled or not shown:
+
     * ``Remove entire accordion/tab``
     * ``Remove accordion/tab item``
     * ``Insert new accordion/tab item up``
