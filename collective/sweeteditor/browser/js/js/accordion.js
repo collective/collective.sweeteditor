@@ -6,7 +6,12 @@ var AccordionDialog = {
 
     insert : function() {
         // Insert accordion
-        var value = document.forms[0].length.value;
+        var formObj = document.forms[0], value = formObj.accordionLength.value;
+
+        if (!AutoValidator.validate(formObj)) {
+            tinyMCEPopup.alert(AutoValidator.getErrorMessages(formObj).join('. ') + '.');
+            return false;
+        }
         tinyMCEPopup.editor.execCommand('mceAccordion', false, value);
         tinyMCEPopup.close();
 	}

@@ -3,6 +3,7 @@
   <head>
     <title>{#accordion_dlg.title}</title>
     <script type="text/javascript" src="../tiny_mce_popup.js?v={tinymce_version}"></script>
+    <script type="text/javascript" src="../utils/validate.js?v={tinymce_version}"></script>
     <script type="text/javascript" src="js/accordion.js?v={tinymce_version}"></script>
   </head>
   <body role="application" aria-labelledby="app_title">
@@ -15,7 +16,8 @@
             <label for="mceAccordionLength">{#accordion_dlg.length_label}</label>
               <div class="formHelp"> {#accordion_dlg.length_help}</div>
               <div class="widget">
-                <input id="mceAccordionLength" name="length" class="mceFocus" value="1" />
+                <input id="mceAccordionLength" name="accordionLength" class="mceFocus required int min1" size="3"
+                       maxlength="3" aria-required="true" value="1" />
               </div>
           </div>
         </fieldset>
