@@ -2,17 +2,11 @@
 <object>
  <resourcetypes purge="False">
   <customplugins purge="False">
-    <!--
-    <element value="expandable|++resource++collective.sweeteditor.js/expandable.js"/>
-    -->
-    <element value="accordion|++resource++collective.sweeteditor.js/accordion.js"/>
+    <element value="accordion|++resource++collective.sweeteditor.js/accordion/accordion.js"/>
   </customplugins>
  </resourcetypes>
  <toolbar>
   <customtoolbarbuttons purge="False">
-    <!--
-    <element value="expandable"/>
-    -->
     <element value="accordion"/>
     <element value="accordionDelete"/>
     <element value="accordionItemDelete"/>
@@ -20,12 +14,4 @@
     <element value="accordionItemInsertAfter"/>
   </customtoolbarbuttons>
  </toolbar>
- <layout>
-  <styles>
-    <!--
-    <element value="Expanded Heading|h2|collapsedHeading"/>
-    <element value="Collapsed Heading|h2|collapsedHeading collapsed"/>
-    -->
-  </styles>
- </layout>
 </object>
