@@ -23,6 +23,7 @@ setup(name='collective.sweeteditor',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+          'setuptools',
           # -*- Extra requirements: -*-
           'collective.monkeypatcher',
       ],
