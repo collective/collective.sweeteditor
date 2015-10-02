@@ -1,4 +1,4 @@
-tinyMCE.addI18n('en.tabs',{
+tinyMCE.addI18n('en.tabs', {
     group : 'Tabs',
     desc : 'Create new tabs',
     deletedesc : 'Remove entire tabs',
