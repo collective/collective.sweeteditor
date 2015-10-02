@@ -166,36 +166,56 @@
                 }
             });
             ed.addCommand('mceTabsItemInsert', function(after) {
-                return;
                 // insert another tabs, after or before the selected item
-                var selected, randomString1, randomString2, context, html, tabsItem, el;
+                var selected, randomString1, context, htmlHeader, htmlBody, tabsItem, el1, el2, index, swap;
 
+                containerSelectors = '.nav-tabs,.tab-content';
                 selected = ed.selection.getNode();
-                tabsItem = ed.dom.getParent(selected, 'div.panel');
-                tabsParent = ed.dom.getParent(tabsItem, 'div.panel-group');
-                randomString1 = tabsParent.id.replace('-tabs', '');
-                randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
+                parent1 = ed.dom.getParent(selected, '.nav-tabs,.tab-content');
+                parent2 = ed.dom.getNext(parent1, containerSelectors) || ed.dom.getPrev(parent1, containerSelectors);
+                if (! ed.dom.hasClass(parent1, 'nav-tabs')) {
+                    // parent1 -> header container
+                    // parent2 -> body container
+                    swap = parent2;
+                    parent2 = parent1;
+                    parent1 = swap;
+                    tabsItem2 = ed.dom.getParent(selected, '.nav-tabs li,.tab-pane');
+                    index = ed.dom.nodeIndex(tabsItem2);
+                    tabsItem1 = parent1.childNodes[index];
+                } else {
+                    tabsItem1 = ed.dom.getParent(selected, '.nav-tabs li,.tab-pane');
+                    index = ed.dom.nodeIndex(tabsItem1);
+                    tabsItem2 = parent2.childNodes[index];
+                }
+                randomString1 = Math.floor(10000 * (Math.random() % 1)).toString();
                 context = {};
                 context.header = defaultTabsItem.header;
                 context.body = defaultTabsItem.body;
                 context.random1 = randomString1;
-                context.random2 = randomString2;
-                html = tabsItemTemplate(context);
-                el = ed.dom.create('div');
+                htmlHeader = tabsItemHeaderTemplate(context);
+                htmlBody = tabsItemBodyTemplate(context);
+                el1 = ed.dom.create('div');
+                el2 = ed.dom.create('div');
                 if (after) {
-                    ed.dom.insertAfter(el, tabsItem);
+                    ed.dom.insertAfter(el1, tabsItem1);
+                    ed.dom.insertAfter(el2, tabsItem2);
                 } else {
-                    tabsParent.insertBefore(el, tabsItem);
+                    parent1.insertBefore(el1, tabsItem1);
+                    parent2.insertBefore(el2, tabsItem2);
                 }
-                ed.dom.setOuterHTML(el, html);
+                ed.dom.setOuterHTML(el1, htmlHeader);
+                ed.dom.setOuterHTML(el2, htmlBody);
 
-                if (!after && ed.dom.hasClass(tabsItem.lastChild, 'in')) {
+/*
+                if (!after && ed.dom.hasClass(parent1.firstChild, 'active')) {
                     // if the current tabs item is the first one and we are
                     // prepending another tabs item, we need to toggle the
                     // "in" class
-                    ed.dom.removeClass(tabsItem.lastChild, 'in');
-                    ed.dom.addClass(tabsParent.firstChild.lastChild, 'in');
+                    ed.dom.removeClass(parent1.firstChild, 'active');
+                    ed.dom.removeClass(parent2.firstChild, 'active');
+                    ed.dom.addClass(tabsParent.firstChild.lastChild, 'active');
                 }
+*/
             });
 
             // Handle node change updates
