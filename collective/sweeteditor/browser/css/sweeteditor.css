@@ -67,7 +67,7 @@
 .mceContentBody .sweet-tabs:before {
     font-family: monospace;
     font-size: 8px;
-    content: "accordion";
+    content: "tabs";
 }
 .mceContentBody .sweet-tabs {
     display: inherit;
