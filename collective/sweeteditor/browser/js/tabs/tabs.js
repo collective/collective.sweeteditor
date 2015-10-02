@@ -12,7 +12,7 @@
         return ! ed.dom.getParent(element, 'div.sweet-tabs');
     };
     tabsCondition = function (ed, element) {
-        return ed.dom.getParent(element, 'div.tab-content');
+        return ed.dom.getParent(element, 'div.sweet-tabs');
     };
 
     // buttons
