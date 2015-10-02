@@ -5,11 +5,13 @@ TinyMCE (vAPI3) plugin for Plone based on Twitter Bootstrap (3.3.x) markup.
 Basically it adds a set of new TinyMCE commands in order to manage the
 following Twitter elements:
 * accordions
-* tabs (TODO)
+* tabs
+* collapsable sections (TODO)
 
 How to manage accordions or tabs:
 * add new accordion/tabs
  * click on the ``Create new accordion/tabs button``
+   and choose the accordion/tabs length
  * select one or more paragraphs and click on
    the ``Create new accordion/tabs button``. Each selected
    paragraph will be converted to header or body
