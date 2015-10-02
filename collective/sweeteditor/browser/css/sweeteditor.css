@@ -52,36 +52,79 @@
 }
 
 /* tabs */
-.mceContentBody .panel-group:before {
-    font-family: monospace;
-    font-size: 8px;
-    content: "tabs";
+
+.sweet-tabs .nav-tabs {
+    list-style-type: none !important;
+    margin-left: 0px !important;
+}
+.sweet-tabs .nav-tabs li {
+    margin-bottom: 0px !important;
+}
+.sweet-tabs .nav-tabs a {
+    border-bottom: 0px !important;
 }
 
-.mceContentBody .panel .panel-title:before {
+.mceContentBody .sweet-tabs:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "accordion";
+}
+.mceContentBody .sweet-tabs {
+    display: inherit;
+    border: 2px dashed red;
+}
+
+.mceContentBody .sweet-tabs .nav-tabs {
+    display: inherit;
+    border-bottom: 2px dashed red !important;
+}
+
+.mceContentBody .sweet-tabs .nav-tabs > li:first-child {
+    display: inherit;
+    border-top: 1px dashed red !important;
+}
+
+.mceContentBody .sweet-tabs .nav-tabs > li:not(:last-child),
+.mceContentBody .sweet-tabs .tab-pane:not(:last-child) {
+    display: inherit;
+    border-bottom: 1px dashed red !important;
+}
+
+.mceContentBody .sweet-tabs .nav-tabs > li a:before {
     font-family: monospace;
     font-size: 16px;
     content: "▶ ";
 }
 
-.mceContentBody .panel:first-child .panel-title:before {
+.mceContentBody .sweet-tabs .nav-tabs > li.active a:before {
     font-family: monospace;
     font-size: 16px;
     content: "▼ " !important;
 }
 
-.mceContentBody .collapse {
+.mceContentBody .sweet-tabs .nav-tabs > li {
+    float: none !important;
+}
+
+.mceContentBody .sweet-tabs .nav-tabs a:link {
+    border-bottom: none !important;
+    padding: 0px;
+}
+
+.mceContentBody .sweet-tabs .nav-tabs > li a,
+.mceContentBody .sweet-tabs .nav-tabs > li a:hover,
+.mceContentBody .sweet-tabs .nav-tabs > li.active a,
+.mceContentBody .sweet-tabs .nav-tabs > li.active a:hover {
+    border: none;
+    background-color: inherit;
+}
+
+.mceContentBody .sweet-tabs .tab-content > .tab-pane {
     display: block;
 }
 
-.mceContentBody .panel-group {
-    display: inherit;
-    border: thin dashed red;
-}
-
-.mceContentBody .panel-heading {
-    display: inherit;
-    border: thin dashed red;
+.mceContentBody .sweet-tabs ul.nav-tabs {
+    border-bottom: none;
 }
 
 .ploneSkin .mce_tabs {
