@@ -82,7 +82,7 @@
         '    {{> tabsItemBody random1=../random1}}' +
         '    {{/each}}' +
         '  </div>' +
-        '</div>';
+        '</div>' + emptyParagraph;
 
     tabsItemHeaderTemplate = Handlebars.compile(tabsItemHeaderSource);
     Handlebars.registerPartial('tabsItemHeader', tabsItemHeaderTemplate);
