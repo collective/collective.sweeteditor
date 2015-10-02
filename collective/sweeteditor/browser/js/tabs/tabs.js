@@ -168,7 +168,7 @@
             ed.addCommand('mceTabsItemInsert', function(after) {
                 // insert another tabs, after or before the selected item
                 var selected, randomString1, context, htmlHeader, htmlBody,
-                    parent1, parent2, tabsItem1, tabsItem2, index, el1, el2, index, swap, containerSelectors;
+                    parent1, parent2, tabsItem1, tabsItem2, index, el1, el2, swap, containerSelectors;
 
                 containerSelectors = '.nav-tabs,.tab-content';
                 selected = ed.selection.getNode();
@@ -234,7 +234,7 @@
                 // add tabs
                 var selected, $selected, selectedContent, content,
                     $selectedChildren, template,
-                    context, html, index,
+                    context, html, index, iter,
                     randomString1 = Math.floor(10000 * (Math.random() % 1)).toString(),
                     randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
                 context = {
@@ -274,7 +274,7 @@
                 } else {
                     // no selection
                     if (arguments[1] !== undefined) {
-                        for (var index=0; index <arguments[1]; index++) {
+                        for (iter=0; iter<arguments[1]; iter++) {
                             context.items.push(defaultTabsItem);
                         }
                     } else {
