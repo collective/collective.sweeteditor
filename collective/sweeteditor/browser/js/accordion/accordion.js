@@ -91,7 +91,7 @@
         '     id="{{random1}}-accordion" ' +
         '     role="tablist" ' +
         '     aria-multiselectable="true">' +
-        '  {{#each panels}}' +
+        '  {{#each items}}' +
         '  {{> accordionItem random1=../random1 random2=../random2}}' +
         '  {{/each}}' +
         '</div>' +
@@ -212,7 +212,7 @@
                     randomString1 = Math.floor(10000 * (Math.random() % 1)).toString(),
                     randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
                 context = {
-                    panels: [],
+                    items: [],
                     random1: randomString1,
                     random2: randomString2
                 };
@@ -229,19 +229,19 @@
                         var $this = $(this),
                             text = $this.text(),
                             odd = index % 2 === 0,
-                            panelsLength = context.panels.length,
-                            lastPanelIndex = panelsLength ? panelsLength - 1 : 0;
+                            itemsLength = context.items.length,
+                            lastItemIndex = itemsLength ? itemsLength - 1 : 0;
                         if (odd) {
                             // we use the header template
                             if (text) {
-                                context.panels.push({
+                                context.items.push({
                                     header: text
                                 });
                             }
                         } else {
                             // we use the body template
-                            if (!context.panels[lastPanelIndex].body) {
-                                context.panels[lastPanelIndex].body = $this.get(0).innerHTML;
+                            if (!context.items[lastItemIndex].body) {
+                                context.items[lastItemIndex].body = $this.get(0).innerHTML;
                             }
                         }
                     });
@@ -249,7 +249,7 @@
                     // no selection
                     if (arguments[1] !== undefined) {
                         for (iter=0; iter<arguments[1]; iter++) {
-                            context.panels.push(defaultAccordionItem);
+                            context.items.push(defaultAccordionItem);
                         }
                     } else {
                         ed.windowManager.open({
@@ -263,7 +263,7 @@
                     }
 
                 }
-                if (context.panels.length) {
+                if (context.items.length) {
                     html = accordionTemplate(context);
                     ed.execCommand('mceInsertContent', false, html);
                 }
