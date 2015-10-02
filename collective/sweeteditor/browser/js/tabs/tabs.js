@@ -142,17 +142,28 @@
                 ed.dom.remove(tabs);
             });
             ed.addCommand('mceTabsItemDelete', function() {
-                return;
                 // delete the selected tabs item. If it is the last one,
                 // the entire tabs will be removed
-                var selected, toBeRemoved;
+                var selected, toBeRemoved1, parent1, toBeRemoved2, parent2, index, containerSelectors;
+
+                containerSelectors = '.nav-tabs,.tab-content';
 
                 selected = ed.selection.getNode();
-                toBeRemoved = ed.dom.getParent(selected, 'div.panel');
-                if (! ed.dom.getNext(toBeRemoved, 'div.panel') && ! ed.dom.getPrev(toBeRemoved, 'div.panel')) {
-                    toBeRemoved = ed.dom.getParent(selected, 'div.panel-group');
+                toBeRemoved1 = ed.dom.getParent(selected, '.nav-tabs li,.tab-pane');
+                if (toBeRemoved1) {
+                    parent1 = ed.dom.getParent(toBeRemoved1, '.nav-tabs,.tab-content');
+                    if (parent1) {
+                        parent2 = ed.dom.getNext(parent1, containerSelectors) || ed.dom.getPrev(parent1, containerSelectors);
+                        if (parent2) {
+                            index = ed.dom.nodeIndex(toBeRemoved1);
+                            toBeRemoved2 = parent2.childNodes[index];
+                            if (toBeRemoved2) {
+                                ed.dom.remove(toBeRemoved1);
+                                ed.dom.remove(toBeRemoved2);
+                            }
+                        }
+                    }
                 }
-                ed.dom.remove(toBeRemoved);
             });
             ed.addCommand('mceTabsItemInsert', function(after) {
                 return;
