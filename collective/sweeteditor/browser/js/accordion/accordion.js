@@ -8,7 +8,7 @@
         accordionSource, accordionTemplate, buttons, addAccordionCondition, accordionCondition;
 
     addAccordionCondition = function (ed, element) {
-        return ! ed.dom.getParent(element, 'div.panel-group') && ! ed.dom.getParent(element, '.sweet-tabs') && ! ed.dom.getParent(element, '.panel-heading');
+        return ! ed.dom.getParent(element, 'div.panel-group') && ! ed.dom.getParent(element, '.nav-tabs') && ! ed.dom.getParent(element, '.panel-heading');
     };
     accordionCondition = function (ed, element) {
         return ed.dom.getParent(element, 'div.panel');
