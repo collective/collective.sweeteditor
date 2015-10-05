@@ -112,21 +112,37 @@
 
                 // Events
                 ed.onKeyDown.add(function(ed, e) {
+                    var range, elem, tabsRootSelector, textContentLength, keyCode;
+
+                    keyCode = e.keyCode;
+                    tabsRootSelector = '.sweet-tabs';
+
+                    // Prevent element duplication due to "return" key or undesired
+                    // editing in not allowed areas (mceNonEditable does not work as
+                    // expected on this particular version).
+                    elem = ed.selection.getNode();
+                    if (keyCode === 13) {
+                        if (! e.shiftKey) {
+                            if (ed.dom.getParent(elem, tabsRootSelector)) {
+                                return tinymce.dom.Event.cancel(e);
+                            }
+                        } else {
+                            // we should prevent shift+enter if we are inside of .panel-heading
+                            if (ed.dom.getParent(elem, '.nav-tabs')) {
+                                return tinymce.dom.Event.cancel(e);
+                            }
+                        }
+                    }
                     // Prevent undesired tabs markup removals
                     // pressing back delete or canc
-                    var range, elem, tabsRoot, textContentLength;
-
-                    if (e.keyCode === 8 || e.keyCode === 46) {
+                    if (keyCode === 8 || keyCode === 46) {
                         range = ed.selection.getRng();
-                        elem = ed.selection.getNode();
-                        tabsRoot = ed.dom.getParent(elem, '.sweet-tabs');
                         textContentLength = elem.textContent.length;
 
-                        if (tabsRoot &&
-                           ((e.keyCode === 8 && range.startOffset === 0) ||
-                           (e.keyCode === 46 && range.startOffset === textContentLength))) {
-                            e.preventDefault();
-                            return false;
+                        if (ed.dom.getParent(elem, tabsRootSelector) &&
+                           ((keyCode === 8 && range.startOffset === 0) ||
+                           (keyCode === 46 && range.startOffset === textContentLength))) {
+                            return tinymce.dom.Event.cancel(e);
                         }
                     }
                 });
