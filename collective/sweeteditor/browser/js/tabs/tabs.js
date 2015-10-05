@@ -9,10 +9,10 @@
         tabsSource, tabsTemplate, buttons, addTabsCondition, tabsCondition;
 
     addTabsCondition = function (ed, element) {
-        return ! ed.dom.getParent(element, 'div.sweet-tabs');
+        return ! ed.dom.getParent(element, '.sweet-tabs');
     };
     tabsCondition = function (ed, element) {
-        return ed.dom.getParent(element, 'div.sweet-tabs');
+        return ed.dom.getParent(element, '.sweet-tabs');
     };
 
     // buttons
@@ -116,11 +116,17 @@
 
                     keyCode = e.keyCode;
                     tabsRootSelector = '.sweet-tabs';
+                    elem = ed.selection.getNode();
+
+                    // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
+                    // work on older versions of TinyMCE)
+                    if (ed.dom.is(elem, '.nav-tabs > li') || ed.dom.is(elem, '.nav-tabs') || ed.dom.is(elem, '.tab-content') || ed.dom.is(elem, '.sweet-tabs')) {
+                        return tinymce.dom.Event.cancel(e);
+                    }
 
                     // Prevent element duplication due to "return" key or undesired
                     // editing in not allowed areas (mceNonEditable does not work as
                     // expected on this particular version).
-                    elem = ed.selection.getNode();
                     if (keyCode === 13) {
                         if (! e.shiftKey) {
                             if (ed.dom.getParent(elem, tabsRootSelector)) {
@@ -154,7 +160,7 @@
                 var selected, tabs;
 
                 selected = ed.selection.getNode();
-                tabs = ed.dom.getParent(selected, 'div.sweet-tabs');
+                tabs = ed.dom.getParent(selected, '.sweet-tabs');
                 ed.dom.remove(tabs);
             });
             ed.addCommand('mceTabsItemDelete', function() {
