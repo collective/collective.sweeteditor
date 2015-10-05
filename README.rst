@@ -25,6 +25,13 @@ How to manage accordions or tabs:
  * ``Insert new accordion/tab item up``
  * ``Insert new accordion/tab item down``
 
+Special notes about <br /> elements
+-----------------------------------
+If you want to insert a ``<br />`` inside **body** elements you should type ``SHIFT+RETURN``,
+while plain ``RETURN`` is disabled.
+
+Any kind of return (``RETURN`` or ``SHIFT+RETURN``) is disabled on **header** areas.
+
 Install
 =======
 
