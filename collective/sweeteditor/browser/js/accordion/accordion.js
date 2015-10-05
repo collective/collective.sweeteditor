@@ -69,20 +69,20 @@
     accordionItemSource = '<div class="panel panel-default">' +
         '  <div class="panel-heading" ' +
         '       role="tab" ' +
-        '       id="{{random1}}-{{random2}}-heading">' +
+        '       id="{{random1}}-{{random2}}{{@index}}-heading">' +
         '    <h4 class="panel-title">' +
         '      <a role="button" ' +
         '         data-toggle="collapse" ' +
         '         data-parent="#{{random1}}-accordion" ' +
-        '         href="#{{random1}}-{{random2}}-body" ' +
+        '         href="#{{random1}}-{{random2}}{{@index}}-body" ' +
         '         aria-expanded="true" ' +
-        '         aria-controls="{{random1}}-{{random2}}-body">{{{header}}}</a>' +
+        '         aria-controls="{{random1}}-{{random2}}{{@index}}-body">{{{header}}}</a>' +
         '    </h4>' +
         '  </div>' +
-        '  <div id="{{random1}}-{{random2}}-body" ' +
+        '  <div id="{{random1}}-{{random2}}{{@index}}-body" ' +
         '       class="panel-collapse collapse {{#if @first}}in{{/if}}" ' +
         '       role="tabpanel" ' +
-        '       aria-labelledby="{{random1}}-{{random2}}-heading">' +
+        '       aria-labelledby="{{random1}}-{{random2}}{{@index}}-heading">' +
         '    <div class="panel-body">{{{body}}}</div>' +
         '  </div>' +
         '</div>';
