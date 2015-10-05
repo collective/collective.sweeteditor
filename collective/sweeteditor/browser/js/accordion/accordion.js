@@ -124,37 +124,49 @@
                 // Events
                 ed.onKeyDown.add(function(ed, e) {
                     // Safe editing mode
-                    var range, elem, accordionRootSelector, textContentLength, keyCode;
+                    var range, elem, accordionRootSelector, textContentLength, keyCode, moveKeys;
 
                     keyCode = e.keyCode;
                     accordionRootSelector = '.panel-group';
-
-                    // Prevent element duplication due to "return" key or undesired
-                    // editing in not allowed areas (mceNonEditable does not work as
-                    // expected on this particular version).
+                    moveKeys = [37, 38, 39, 40];
                     elem = ed.selection.getNode();
-                    if (keyCode === 13) {
-                        if (! e.shiftKey) {
-                            if (ed.dom.getParent(elem, accordionRootSelector)) {
-                                return tinymce.dom.Event.cancel(e);
-                            }
-                        } else {
-                            // we should prevent shift+enter if we are inside of .panel-heading
-                            if (ed.dom.getParent(elem, '.panel-heading')) {
-                                return tinymce.dom.Event.cancel(e);
-                            }
-                        }
-                    }
-                    // Prevent undesired accordion markup removals
-                    // pressing back delete or canc
-                    if (keyCode === 8 || keyCode === 46) {
-                        range = ed.selection.getRng();
-                        textContentLength = elem.textContent.length;
 
-                        if (ed.dom.getParent(elem, accordionRootSelector) &&
-                           ((keyCode === 8 && range.startOffset === 0) ||
-                           (keyCode === 46 && range.startOffset === textContentLength))) {
-                            return tinymce.dom.Event.cancel(e);
+                    // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
+                    // work on older versions of TinyMCE)
+                    if (ed.dom.getParent(elem, accordionRootSelector)) {
+                        if (moveKeys.indexOf(keyCode) === -1) {
+                            // Ignore movement keys (arrows)
+                            if (ed.dom.getParent(elem, '.panel-heading a') || ed.dom.getParent(elem, '.panel-body')) {
+                                // Prevent element duplication due to "return" key or undesired
+                                // editing in not allowed areas (mceNonEditable does not work as
+                                // expected on this particular version).
+                                if (keyCode === 13) {
+                                    if (! e.shiftKey) {
+                                        if (ed.dom.getParent(elem, accordionRootSelector)) {
+                                            return tinymce.dom.Event.cancel(e);
+                                        }
+                                    } else {
+                                        // we should prevent shift+enter if we are inside of .panel-heading
+                                        if (ed.dom.getParent(elem, '.panel-heading')) {
+                                            return tinymce.dom.Event.cancel(e);
+                                        }
+                                    }
+                                }
+                                // Prevent undesired accordion markup removals
+                                // pressing back delete or canc
+                                if (keyCode === 8 || keyCode === 46) {
+                                    range = ed.selection.getRng();
+                                    textContentLength = elem.textContent.length;
+
+                                    if (ed.dom.getParent(elem, accordionRootSelector) &&
+                                       ((keyCode === 8 && range.startOffset === 0) ||
+                                       (keyCode === 46 && range.startOffset === textContentLength))) {
+                                        return tinymce.dom.Event.cancel(e);
+                                    }
+                                }
+                            } else {
+                                return tinymce.dom.Event.cancel(e);
+                            }
                         }
                     }
                 });
