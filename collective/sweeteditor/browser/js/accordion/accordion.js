@@ -8,10 +8,10 @@
         accordionSource, accordionTemplate, buttons, addAccordionCondition, accordionCondition;
 
     addAccordionCondition = function (ed, element) {
-        return ! ed.dom.getParent(element, 'div.panel-group') && ! ed.dom.getParent(element, '.nav-tabs') && ! ed.dom.getParent(element, '.panel-heading');
+        return ! ed.dom.getParent(element, '.panel-group') && ! ed.dom.getParent(element, '.nav-tabs') && ! ed.dom.getParent(element, '.panel-heading');
     };
     accordionCondition = function (ed, element) {
-        return ed.dom.getParent(element, 'div.panel');
+        return ed.dom.getParent(element, '.panel');
     };
 
     // buttons
@@ -178,7 +178,7 @@
                 var selected, accordion;
 
                 selected = ed.selection.getNode();
-                accordion = ed.dom.getParent(selected, 'div.panel-group');
+                accordion = ed.dom.getParent(selected, '.panel-group');
                 ed.dom.remove(accordion);
             });
             ed.addCommand('mceAccordionItemDelete', function() {
@@ -187,9 +187,9 @@
                 var selected, toBeRemoved;
 
                 selected = ed.selection.getNode();
-                toBeRemoved = ed.dom.getParent(selected, 'div.panel');
-                if (! ed.dom.getNext(toBeRemoved, 'div.panel') && ! ed.dom.getPrev(toBeRemoved, 'div.panel')) {
-                    toBeRemoved = ed.dom.getParent(selected, 'div.panel-group');
+                toBeRemoved = ed.dom.getParent(selected, '.panel');
+                if (! ed.dom.getNext(toBeRemoved, '.panel') && ! ed.dom.getPrev(toBeRemoved, '.panel')) {
+                    toBeRemoved = ed.dom.getParent(selected, '.panel-group');
                 }
                 ed.dom.remove(toBeRemoved);
             });
@@ -198,8 +198,8 @@
                 var selected, randomString1, randomString2, context, html, accordionItem, el;
 
                 selected = ed.selection.getNode();
-                accordionItem = ed.dom.getParent(selected, 'div.panel');
-                accordionParent = ed.dom.getParent(accordionItem, 'div.panel-group');
+                accordionItem = ed.dom.getParent(selected, '.panel');
+                accordionParent = ed.dom.getParent(accordionItem, '.panel-group');
                 randomString1 = accordionParent.id.replace('-accordion', '');
                 randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
                 context = {};
