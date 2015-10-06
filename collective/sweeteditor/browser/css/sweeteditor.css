@@ -17,6 +17,11 @@
     content: "▼ " !important;
 }
 
+.mceContentBody .panel-title a {
+    border-bottom: none !important;
+    cursor: default;
+}
+
 .mceContentBody .collapse {
     display: block;
 }
@@ -94,12 +99,14 @@
     font-family: monospace;
     font-size: 16px;
     content: "▶ ";
+    color: black;
 }
 
 .mceContentBody .sweet-tabs .nav-tabs > li.active a:before {
     font-family: monospace;
     font-size: 16px;
     content: "▼ " !important;
+    color: black;
 }
 
 .mceContentBody .sweet-tabs .nav-tabs > li {
@@ -109,6 +116,20 @@
 .mceContentBody .sweet-tabs .nav-tabs a:link {
     border-bottom: none !important;
     padding: 0px;
+}
+
+.mceContentBody .tab-pane {
+    min-height: 25px;
+    padding: 18px;
+}
+
+.mceContentBody .nav-tabs li a {
+    padding: 18px;
+    font-size: 18px;
+}
+
+.mceContentBody .nav-tabs li {
+    padding-left: 16px;
 }
 
 .mceContentBody .sweet-tabs .nav-tabs > li a,
