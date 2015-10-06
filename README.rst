@@ -4,26 +4,26 @@ collective.sweeteditor
 TinyMCE (vAPI3) plugin for Plone based on Twitter Bootstrap (3.3.x) markup.
 Basically it adds a set of new TinyMCE commands in order to manage the
 following Twitter elements:
-* accordions
+* accordions, vertical stacked list with exactly one or zero expanded items at the same time
+* collapsable, vertical stacked list with more than one items expanded at the same time
 * tabs
-* collapsable sections (TODO)
 
 How to manage accordions or tabs:
-* add new accordion/tabs
- * click on the ``Create new accordion/tabs button``
-   and choose the accordion/tabs length
+* add new accordion/collapsable/tabs
+ * click on the ``Create new accordion/collapsable/tabs button``
+   and choose the accordion/collapsable/tabs length
  * select one or more paragraphs and click on
-   the ``Create new accordion/tabs button``. Each selected
+   the ``Create new accordion/collapsable/tabs button``. Each selected
    paragraph will be converted to header or body
    elements
-* manage existing accordion/tabs.
+* manage existing accordion/collapsable/tabs.
   There are both buttons and contextual menus (right click),
   depending on the selected node one or more buttons could
   be disabled or not shown:
- * ``Remove entire accordion/tab``
- * ``Remove accordion/tab item``
- * ``Insert new accordion/tab item up``
- * ``Insert new accordion/tab item down``
+ * ``Remove entire accordion/collapsable/tab``
+ * ``Remove accordion/collapsable/tab item``
+ * ``Insert new accordion/collapsable/tab item up``
+ * ``Insert new accordion/collapsable/tab item down``
 
 Special notes about <br /> elements
 -----------------------------------
