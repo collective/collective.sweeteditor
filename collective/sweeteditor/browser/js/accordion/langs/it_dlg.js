@@ -1,5 +1,5 @@
 tinyMCE.addI18n("it.accordion_dlg", {
-    title : "Accordion",
+    title : "Accordion/Collapsable",
     legend : "Crea nuovo accordion/collapsable",
     length_label : "Numero elementi accordion/collapsable",
     length_help : "Quanti elementi vuoi che abbia l'accordion/collapsable",
