@@ -56,6 +56,13 @@
     background: url('++resource++collective.sweeteditor.img/accordion-item-insert-before.gif') !important;
 }
 
+/* collapsable */
+.mceContentBody .panel-group.sweet-collapsable:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "collapsable";
+}
+
 /* tabs */
 
 .sweet-tabs .nav-tabs {
