@@ -132,6 +132,11 @@
     padding-left: 16px;
 }
 
+.mceContentBody .sweet-tabs .nav-tabs > li a {
+    padding-top: 10px !important;
+    margin-bottom: -5px !important;
+}
+
 .mceContentBody .sweet-tabs .nav-tabs > li a,
 .mceContentBody .sweet-tabs .nav-tabs > li a:hover,
 .mceContentBody .sweet-tabs .nav-tabs > li.active a,
