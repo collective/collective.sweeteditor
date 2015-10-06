@@ -113,15 +113,23 @@
                 if (ed && ed.plugins.contextmenu) {
                     ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
                         var groupMenu;
-                        menu.addSeparator();
-                        groupMenu = menu.addMenu({title : 'accordion.group'});
-                        tinymce.each(buttons, function (item){
-                            var condition;
-                            condition = item[2];
-                            if (! condition || condition(ed, element)) {
-                                groupMenu.add(item[1]);
+                        if (! ed.dom.getParent(element, '.nav-tabs')) {
+                            // Don't add the accordion/collapsable contextmenu if we are
+                            // inside a tabs header
+                            if (ed.dom.getParent(element, '.panel-heading')) {
+                                menu.removeAll();
+                            } else {
+                                menu.addSeparator();
                             }
-                        });
+                            groupMenu = menu.addMenu({title : 'accordion.group'});
+                            tinymce.each(buttons, function (item){
+                                var condition;
+                                condition = item[2];
+                                if (! condition || condition(ed, element)) {
+                                    groupMenu.add(item[1]);
+                                }
+                            });
+                        }
                     });
                 }
 
