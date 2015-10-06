@@ -19,6 +19,8 @@
         ['accordion',
          {title: 'accordion.desc',
           cmd: 'mceAccordion',
+          ui: false,
+          value: {},
           image: '/++resource++collective.sweeteditor.img/accordion.gif',
           icon: 'accordion'
          },
@@ -73,7 +75,7 @@
         '    <h4 class="panel-title">' +
         '      <a role="button" ' +
         '         data-toggle="collapse" ' +
-        '         data-parent="#{{random1}}-accordion" ' +
+        '         {{#unless collapsable}}data-parent="#{{random1}}-accordion"{{/unless}} ' +
         '         href="#{{random1}}-{{random2}}{{@index}}-body" ' +
         '         aria-expanded="true" ' +
         '         aria-controls="{{random1}}-{{random2}}{{@index}}-body">{{{header}}}</a>' +
@@ -87,12 +89,12 @@
         '  </div>' +
         '</div>';
     accordionSource = emptyParagraph +
-        '<div class="panel-group" ' +
+        '<div class="panel-group {{#if collapsable}}sweet-collapsable{{/if}}" ' +
         '     id="{{random1}}-accordion" ' +
         '     role="tablist" ' +
         '     aria-multiselectable="true">' +
         '  {{#each items}}' +
-        '  {{> accordionItem random1=../random1 random2=../random2}}' +
+        '  {{> accordionItem random1=../random1 random2=../random2 collapsable=../collapsable}}' +
         '  {{/each}}' +
         '</div>' +
         emptyParagraph;
@@ -233,15 +235,18 @@
                 });
             });
 
-            ed.addCommand('mceAccordion', function(length) {
+            ed.addCommand('mceAccordion', function(ui, conf) {
                 // add accordion
                 var selected, $selected, selectedContent, content,
                     $selectedChildren, template,
                     context, html, index, iter,
+                    itemsLength = conf.itemsLength,
+                    collapsable = conf.collapsable,
                     randomString1 = Math.floor(10000 * (Math.random() % 1)).toString(),
                     randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
                 context = {
                     items: [],
+                    collapsable: collapsable,
                     random1: randomString1,
                     random2: randomString2
                 };
@@ -276,8 +281,8 @@
                     });
                 } else {
                     // no selection
-                    if (arguments[1] !== undefined) {
-                        for (iter=0; iter<arguments[1]; iter++) {
+                    if (itemsLength !== undefined) {
+                        for (iter=0; iter<itemsLength; iter++) {
                             context.items.push(defaultAccordionItem);
                         }
                     } else {

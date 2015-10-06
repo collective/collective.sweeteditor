@@ -16,8 +16,16 @@
             <label for="mceAccordionLength">{#accordion_dlg.length_label}</label>
               <div class="formHelp"> {#accordion_dlg.length_help}</div>
               <div class="widget">
-                <input id="mceAccordionLength" name="accordionLength" class="mceFocus required int min1" size="3"
+                <input type="text" id="mceAccordionLength" name="accordionLength"
+                       class="mceFocus required int min1" size="3"
                        maxlength="3" aria-required="true" value="1" />
+              </div>
+          </div>
+          <div class="field">
+            <label for="mceAccordionCollapsable">{#accordion_dlg.collapsable_label}</label>
+              <div class="formHelp"> {#accordion_dlg.collapsable_help}</div>
+              <div class="widget">
+                <input type="checkbox" id="mceAccordionCollapsable" name="accordionCollapsable" aria-required="false" />
               </div>
           </div>
         </fieldset>

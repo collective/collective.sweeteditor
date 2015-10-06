@@ -6,7 +6,13 @@ var AccordionDialog = {
 
     insert : function() {
         // Insert accordion
-        var formObj = document.forms[0], value = formObj.accordionLength.value;
+        var formObj, value;
+
+        formObj = document.forms[0];
+        value = {
+            itemsLength: formObj.accordionLength.value,
+            collapsable: formObj.accordionCollapsable.checked
+        };
 
         if (!AutoValidator.validate(formObj)) {
             tinyMCEPopup.alert(AutoValidator.getErrorMessages(formObj).join('. ') + '.');
