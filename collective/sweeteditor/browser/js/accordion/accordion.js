@@ -267,7 +267,25 @@
                 selected = ed.selection.getNode();
                 selectedContent = ed.selection.getContent();
 
-                if (selectedContent) {
+                if (conf.node || selectedContent) {
+                    // There is a selected content OR a node passed by the initialization popup
+                    if (! conf.node) {
+                        // There is no node in conf, let's open the popup and choose if we
+                        // want to create an accordion or collapsable elem
+                        ed.windowManager.open({
+                            file : url + '/accordion.html',
+                            width : 430 + parseInt(ed.getLang('media.delta_width', 0)),
+                            height : 500 + parseInt(ed.getLang('media.delta_height', 0)),
+                            inline : 1
+                            }, {
+                            node : selected,
+                            plugin_url : url
+                        });
+                        return;
+                    } else {
+                        // There is a node in conf passed by the popup, let's proceed
+                        selected = conf.node;
+                    }
                     // selection
                     $selected = $(selected);
                     // prepend an extra final paragraph
@@ -276,8 +294,8 @@
                         var $this = $(this),
                             text = $this.text(),
                             odd = index % 2 === 0,
-                            itemsLength = context.items.length,
-                            lastItemIndex = itemsLength ? itemsLength - 1 : 0;
+                            contextItemsLength = context.items.length,
+                            lastItemIndex = contextItemsLength ? contextItemsLength - 1 : 0;
                         if (odd) {
                             // we use the header template
                             if (text) {

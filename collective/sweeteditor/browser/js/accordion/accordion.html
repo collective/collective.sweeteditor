@@ -12,7 +12,7 @@
       <form onsubmit="AccordionDialog.insert();return false;" action="#">
         <fieldset>
           <legend>{#accordion_dlg.legend}</legend>
-          <div class="field">
+          <div class="field" id="mceAccordionLengthField">
             <label for="mceAccordionLength">{#accordion_dlg.length_label}</label>
               <div class="formHelp"> {#accordion_dlg.length_help}</div>
               <div class="widget">
@@ -21,7 +21,7 @@
                        maxlength="3" aria-required="true" value="1" />
               </div>
           </div>
-          <div class="field">
+          <div class="field" id="mceAccordionCollapsableField">
             <label for="mceAccordionCollapsable">{#accordion_dlg.collapsable_label}</label>
               <div class="formHelp"> {#accordion_dlg.collapsable_help}</div>
               <div class="widget">
