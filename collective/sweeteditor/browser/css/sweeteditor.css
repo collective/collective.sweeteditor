@@ -124,17 +124,14 @@
 }
 
 .mceContentBody .nav-tabs li a {
-    padding: 18px;
-    font-size: 18px;
+    padding-top: 6px !important;
+    padding-left: 6px !important;
+    margin-bottom: -4px !important;
+    font-size: 16px;
 }
 
 .mceContentBody .nav-tabs li {
     padding-left: 16px;
-}
-
-.mceContentBody .sweet-tabs .nav-tabs > li a {
-    padding-top: 10px !important;
-    margin-bottom: -5px !important;
 }
 
 .mceContentBody .sweet-tabs .nav-tabs > li a,
