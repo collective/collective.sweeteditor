@@ -45,7 +45,8 @@
         ['accordionItemInsertAfter', {
           title: 'accordion.iteminsertafterdesc',
           cmd: 'mceAccordionItemInsert',
-          ui: true,
+          ui: false,
+          value: {after: true},
           image: '/++resource++collective.sweeteditor.img/accordion-item-insert-after.gif',
           icon: 'accordion-item-insert-after'
           },
@@ -55,6 +56,7 @@
           title: 'accordion.iteminsertbeforedesc',
           cmd: 'mceAccordionItemInsert',
           ui: false,
+          value: {after: false},
           image: '/++resource++collective.sweeteditor.img/accordion-item-insert-before.gif',
           icon: 'accordion-item-insert-before'
           },
@@ -195,9 +197,11 @@
                 }
                 ed.dom.remove(toBeRemoved);
             });
-            ed.addCommand('mceAccordionItemInsert', function(after) {
+            ed.addCommand('mceAccordionItemInsert', function(ui, conf) {
                 // insert another accordion, after or before the selected item
-                var selected, randomString1, randomString2, context, html, accordionItem, el;
+                var selected, randomString1, randomString2, context, html, accordionItem, el, after;
+
+                after = conf.after;
 
                 selected = ed.selection.getNode();
                 accordionItem = ed.dom.getParent(selected, '.panel');
@@ -209,6 +213,7 @@
                 context.body = defaultAccordionItem.body;
                 context.random1 = randomString1;
                 context.random2 = randomString2;
+                context.collapsable = ed.dom.hasClass(accordionParent, 'sweet-collapsable');
                 html = accordionItemTemplate(context);
                 el = ed.dom.create('div');
                 if (after) {
@@ -240,8 +245,8 @@
                 var selected, $selected, selectedContent, content,
                     $selectedChildren, template,
                     context, html, index, iter,
-                    itemsLength = conf.itemsLength,
-                    collapsable = conf.collapsable,
+                    itemsLength = conf ? conf.itemsLength : undefined,
+                    collapsable = conf ? conf.collapsable : undefined,
                     randomString1 = Math.floor(10000 * (Math.random() % 1)).toString(),
                     randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
                 context = {
