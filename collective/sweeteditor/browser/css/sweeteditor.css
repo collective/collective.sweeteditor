@@ -1,4 +1,18 @@
 /* css rules if you enabled the optional bootstrap profile */
+
+.sweet-tabs .nav-tabs {
+    list-style-type: none !important;
+    margin-left: 0px !important;
+}
+
+.sweet-tabs .nav-tabs li {
+    margin-bottom: 0px !important;
+}
+
+.sweet-tabs .nav-tabs a {
+    border-bottom: 0px !important;
+}
+
 .mceContentBody .sweet-tabs .nav-tabs > li {
     float: none !important;
 }
