@@ -64,7 +64,7 @@
     // templates
     defaultTabsItem = {
         header: 'Header',
-        body: 'Body'
+        body: '<p>Body</p>'
     };
     emptyParagraph = '<p></p>';
     tabsItemHeaderSource = '<li role="presentation" class="{{#if @first}}active{{/if}}">' +
@@ -137,15 +137,9 @@
                                 // editing in not allowed areas (mceNonEditable does not work as
                                 // expected on this particular version).
                                 if (keyCode === 13) {
-                                    if (! e.shiftKey) {
-                                        if (ed.dom.getParent(elem, tabsRootSelector)) {
-                                            return tinymce.dom.Event.cancel(e);
-                                        }
-                                    } else {
-                                        // we should prevent shift+enter if we are inside of .panel-heading
-                                        if (ed.dom.getParent(elem, '.nav-tabs')) {
-                                            return tinymce.dom.Event.cancel(e);
-                                        }
+                                    // we should prevent shift+enter if we are inside of .panel-heading
+                                    if (ed.dom.getParent(elem, '.nav-tabs')) {
+                                        return tinymce.dom.Event.cancel(e);
                                     }
                                 }
                                 // Prevent undesired tabs markup removals
@@ -314,7 +308,7 @@
                         } else {
                             // we use the body template
                             if (!context.items[lastItemIndex].body) {
-                                context.items[lastItemIndex].body = $this.get(0).innerHTML;
+                                context.items[lastItemIndex].body = $this.get(0).outerHTML;
                             }
                         }
                     });

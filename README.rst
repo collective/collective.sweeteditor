@@ -33,13 +33,6 @@ sense for simple markup like the following:
     <p>header2</p>
     <p>body2</p>
 
-Special notes about <br /> elements
------------------------------------
-If you want to insert a ``<br />`` inside **body** elements you should type ``SHIFT+RETURN``,
-while plain ``RETURN`` is disabled.
-
-Any kind of return (``RETURN`` or ``SHIFT+RETURN``) is disabled on **header** areas.
-
 Install
 =======
 
