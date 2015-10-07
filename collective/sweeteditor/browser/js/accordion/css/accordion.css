@@ -1,0 +1,64 @@
+/* accordion */
+.mceContentBody .panel-group:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "accordion";
+}
+
+.mceContentBody .panel .panel-title:before {
+    font-family: monospace;
+    font-size: 16px;
+    content: "▶ ";
+}
+
+.mceContentBody .panel:first-child .panel-title:before {
+    font-family: monospace;
+    font-size: 16px;
+    content: "▼ " !important;
+}
+
+.mceContentBody .panel-title a {
+    border-bottom: none !important;
+    cursor: default;
+}
+
+.mceContentBody .collapse {
+    display: block;
+}
+
+.mceContentBody .panel-group {
+    display: inherit;
+    border: thin dashed red;
+}
+
+.mceContentBody .panel-heading {
+    display: inherit;
+    border: thin dashed red;
+}
+
+.mce_accordion {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion.gif') !important;
+}
+
+.mce_accordion-delete {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion-delete.gif') !important;
+}
+
+.mce_accordion-item-delete {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion-item-delete.gif') !important;
+}
+
+.mce_accordion-item-insert-after {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion-item-insert-after.gif') !important;
+}
+
+.mce_accordion-item-insert-before {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion-item-insert-before.gif') !important;
+}
+
+/* collapsable */
+.mceContentBody .panel-group.sweet-collapsable:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "collapsable";
+}

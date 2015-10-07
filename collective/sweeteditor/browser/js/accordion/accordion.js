@@ -5,7 +5,7 @@
  */
 (function($) {
     var defaultAccordionItem, emptyParagraph, accordionItemSource, accordionItemTemplate,
-        accordionSource, accordionTemplate, buttons, addAccordionCondition, accordionCondition;
+        accordionSource, accordionTemplate, addAccordionCondition, accordionCondition;
 
     addAccordionCondition = function (ed, element) {
         return ! (ed.dom.getParent(element, '.panel-group') || ed.dom.getParent(element, '.nav-tabs'));
@@ -58,6 +58,7 @@
     tinymce.PluginManager.requireLangPack('accordion');
     tinymce.create('tinymce.plugins.AccordionPlugin', {
         init: function(ed, url) {
+            var buttons;
 
             // buttons
             buttons = [
@@ -111,6 +112,10 @@
 
             // contextual controls
             ed.onInit.add(function() {
+                if (ed && ed.dom.loadCSS) {
+                    // load plugin's css
+                    ed.dom.loadCSS(url + '/css/accordion.css');
+                }
                 if (ed && ed.plugins.contextmenu) {
                     ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
                         var groupMenu;
