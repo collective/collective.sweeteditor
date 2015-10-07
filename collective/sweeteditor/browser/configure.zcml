@@ -13,9 +13,5 @@
       name="collective.sweeteditor.css"
       directory="css"
       />
-  <browser:resourceDirectory
-      name="collective.sweeteditor.img"
-      directory="img"
-      />
   
 </configure>
