@@ -196,12 +196,17 @@
             ed.addCommand('mceAccordionItemDelete', function() {
                 // delete the selected accordion item. If it is the last one,
                 // the entire accordion will be removed
-                var selected, toBeRemoved;
+                var selected, toBeRemoved, next;
 
                 selected = ed.selection.getNode();
                 toBeRemoved = ed.dom.getParent(selected, '.panel');
-                if (! ed.dom.getNext(toBeRemoved, '.panel') && ! ed.dom.getPrev(toBeRemoved, '.panel')) {
+                next = ed.dom.getNext(toBeRemoved, '.panel');
+                if (! next && ! ed.dom.getPrev(toBeRemoved, '.panel')) {
                     toBeRemoved = ed.dom.getParent(selected, '.panel-group');
+                }
+
+                if (toBeRemoved === ed.dom.getParent(selected, '.panel-group').firstChild && next) {
+                    ed.dom.addClass(next.lastChild, 'in');
                 }
                 ed.dom.remove(toBeRemoved);
             });
