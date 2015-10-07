@@ -9,5 +9,9 @@
       name="collective.sweeteditor.js"
       directory="js"
       />
+  <browser:resourceDirectory
+      name="collective.sweeteditor.css"
+      directory="css"
+      />
   
 </configure>

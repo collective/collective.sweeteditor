@@ -8,4 +8,11 @@
     expression=""
     enabled="1" />
 
+ <stylesheet title=""
+    id="++resource++collective.sweeteditor.css/sweeteditor.css"
+    media="" rel="stylesheet" rendering="import"
+    cacheable="True" compression="safe" cookable="True"
+    expression=""
+    enabled="1" />
+
 </object>
