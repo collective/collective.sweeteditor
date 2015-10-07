@@ -168,22 +168,22 @@
     color: #333;
 }
 
-.ploneSkin .mce_tabs {
-    background: url('++resource++collective.sweeteditor.img/tabs.gif') !important;
+.mce_tabs {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs.gif') !important;
 }
 
-.ploneSkin .mce_tabs-delete {
-    background: url('++resource++collective.sweeteditor.img/tabs-delete.gif') !important;
+.mce_tabs-delete {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs-delete.gif') !important;
 }
 
-.ploneSkin .mce_tabs-item-delete {
-    background: url('++resource++collective.sweeteditor.img/tabs-item-delete.gif') !important;
+.mce_tabs-item-delete {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs-item-delete.gif') !important;
 }
 
-.ploneSkin .mce_tabs-item-insert-after {
-    background: url('++resource++collective.sweeteditor.img/tabs-item-insert-after.gif') !important;
+.mce_tabs-item-insert-after {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs-item-insert-after.gif') !important;
 }
 
-.ploneSkin .mce_tabs-item-insert-before {
-    background: url('++resource++collective.sweeteditor.img/tabs-item-insert-before.gif') !important;
+.mce_tabs-item-insert-before {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs-item-insert-before.gif') !important;
 }

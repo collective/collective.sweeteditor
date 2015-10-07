@@ -15,52 +15,6 @@
         return ed.dom.getParent(element, '.sweet-tabs');
     };
 
-    // buttons
-    buttons = [
-        ['tabs',
-         {title: 'tabs.desc',
-          cmd: 'mceTabs',
-          image: '/++resource++collective.sweeteditor.img/tabs.gif',
-          icon: 'tabs'
-         },
-         addTabsCondition
-        ],
-        ['tabsDelete',
-         {title: 'tabs.deletedesc',
-          cmd: 'mceTabsDelete',
-          image: '/++resource++collective.sweeteditor.img/tabs-delete.gif',
-          icon: 'tabs-delete'
-          },
-          tabsCondition
-        ],
-        ['tabsItemDelete', {
-          title: 'tabs.itemdeletedesc',
-          cmd: 'mceTabsItemDelete',
-          image: '/++resource++collective.sweeteditor.img/tabs-item-delete.gif',
-          icon: 'tabs-item-delete'
-          },
-          tabsCondition
-        ],
-        ['tabsItemInsertAfter', {
-          title: 'tabs.iteminsertafterdesc',
-          cmd: 'mceTabsItemInsert',
-          ui: true,
-          image: '/++resource++collective.sweeteditor.img/tabs-item-insert-after.gif',
-          icon: 'tabs-item-insert-after'
-          },
-          tabsCondition
-        ],
-        ['tabsItemInsertBefore', {
-          title: 'tabs.iteminsertbeforedesc',
-          cmd: 'mceTabsItemInsert',
-          ui: false,
-          image: '/++resource++collective.sweeteditor.img/tabs-item-insert-before.gif',
-          icon: 'tabs-item-insert-before'
-          },
-          tabsCondition
-        ]
-    ];
-
     // templates
     defaultTabsItem = {
         header: 'Header',
@@ -93,6 +47,52 @@
     tinymce.PluginManager.requireLangPack('tabs');
     tinymce.create('tinymce.plugins.TabsPlugin', {
         init: function(ed, url) {
+            // buttons
+            buttons = [
+                ['tabs',
+                 {title: 'tabs.desc',
+                  cmd: 'mceTabs',
+                  image: url + '/img/tabs.gif',
+                  icon: 'tabs'
+                 },
+                 addTabsCondition
+                ],
+                ['tabsDelete',
+                 {title: 'tabs.deletedesc',
+                  cmd: 'mceTabsDelete',
+                  image: url + '/img/tabs-delete.gif',
+                  icon: 'tabs-delete'
+                  },
+                  tabsCondition
+                ],
+                ['tabsItemDelete', {
+                  title: 'tabs.itemdeletedesc',
+                  cmd: 'mceTabsItemDelete',
+                  image: url + '/img/tabs-item-delete.gif',
+                  icon: 'tabs-item-delete'
+                  },
+                  tabsCondition
+                ],
+                ['tabsItemInsertAfter', {
+                  title: 'tabs.iteminsertafterdesc',
+                  cmd: 'mceTabsItemInsert',
+                  ui: true,
+                  image: url + '/img/tabs-item-insert-after.gif',
+                  icon: 'tabs-item-insert-after'
+                  },
+                  tabsCondition
+                ],
+                ['tabsItemInsertBefore', {
+                  title: 'tabs.iteminsertbeforedesc',
+                  cmd: 'mceTabsItemInsert',
+                  ui: false,
+                  image: url + '/img/tabs-item-insert-before.gif',
+                  icon: 'tabs-item-insert-before'
+                  },
+                  tabsCondition
+                ]
+            ];
+
             // contextual controls
             ed.onInit.add(function() {
                 if (ed && ed.plugins.contextmenu) {
