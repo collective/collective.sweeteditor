@@ -9,7 +9,7 @@
         tabsSource, tabsTemplate, buttons, addTabsCondition, tabsCondition;
 
     addTabsCondition = function (ed, element) {
-        return ! ed.dom.getParent(element, '.sweet-tabs') && ! ed.dom.getParent(element, '.panel-heading') && ! ed.dom.getParent(element, '.nav-tabs');
+        return ! (ed.dom.getParent(element, '.sweet-tabs') || ed.dom.getParent(element, '.panel-heading'));
     };
     tabsCondition = function (ed, element) {
         return ed.dom.getParent(element, '.sweet-tabs');
