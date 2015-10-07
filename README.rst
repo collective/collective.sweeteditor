@@ -25,6 +25,14 @@ How to manage accordions or tabs:
  * ``Insert new accordion/collapsable/tab item up``
  * ``Insert new accordion/collapsable/tab item down``
 
+The initialization based on text selection only makes
+sense for simple markup like the following:
+
+    <p>header1</p>
+    <p>body1</p>
+    <p>header2</p>
+    <p>body2</p>
+
 Special notes about <br /> elements
 -----------------------------------
 If you want to insert a ``<br />`` inside **body** elements you should type ``SHIFT+RETURN``,

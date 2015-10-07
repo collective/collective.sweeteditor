@@ -285,7 +285,20 @@
                 if (selectedContent) {
                     // selection
                     $selected = $(selected);
-                    // prepend an extra final paragraph
+
+                    if ($selected.is('p,table,b,a,br')) {
+                        /* The initialization based on text selection only makes
+                           sense for simple markup like the following:
+                               <p>header1</p>
+                               <p>body1</p>
+                               <p>header2</p>
+                               <p>body2</p>
+
+                           Not like:
+                               <p>header1<br />body1<br />header2<br />body2</p>
+                        */
+                        return;
+                    }
                     $selectedChildren = $selected.children();
                     $selectedChildren.each(function(index) {
                         var $this = $(this),
@@ -295,11 +308,9 @@
                             lastItemIndex = itemsLength ? itemsLength - 1 : 0;
                         if (odd) {
                             // we use the header template
-                            if (text) {
-                                context.items.push({
-                                    header: text
-                                });
-                            }
+                            context.items.push({
+                                header: text ? text : 'Header'
+                            });
                         } else {
                             // we use the body template
                             if (!context.items[lastItemIndex].body) {
