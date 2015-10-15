@@ -327,8 +327,8 @@
                 } else {
                     // no selection
                     if (itemsLength !== undefined) {
-                        for (iter=0; iter<itemsLength; iter++) {
-                            context.items.push(defaultAccordionItem);
+                        for (iter=1; iter<=itemsLength; iter++) {
+                            context.items.push({header: 'Header 1', body: '<p>Body ' + iter + '</p>'});
                         }
                     } else {
                         ed.windowManager.open({

@@ -340,8 +340,8 @@
                 } else {
                     // no selection
                     if (arguments[1] !== undefined) {
-                        for (iter=0; iter<arguments[1]; iter++) {
-                            context.items.push(defaultTabsItem);
+                        for (iter=1; iter<=arguments[1]; iter++) {
+                            context.items.push({header: 'Header ' + iter, body: '<p>Body ' + iter + '</p>'});
                         }
                     } else {
                         ed.windowManager.open({
