@@ -3,7 +3,7 @@
  *
  * @author Davide Moro (inspired by Maurizio Lupo's redomino.tinymceplugins.snippet)
  */
-(function($) {
+(function() {
     var defaultTabsItem, emptyParagraph, tabsItemHeaderSource, tabsItemBodySource,
         tabsItemHeaderTemplate, tabsItemBodyTemplate,
         tabsSource, tabsTemplate, addTabsCondition, tabsCondition, version;
@@ -290,8 +290,8 @@
 
             ed.addCommand('mceTabs', function(length) {
                 // add tabs
-                var selected, $selected, selectedContent, content,
-                    $selectedChildren, template,
+                var selected, selectedContent, content,
+                    template,
                     context, html, index, iter,
                     randomString1 = Math.floor(10000 * (Math.random() % 1)).toString(),
                     randomString2 = Math.floor(10000 * (Math.random() % 1)).toString();
@@ -306,9 +306,8 @@
 
                 if (selectedContent) {
                     // selection
-                    $selected = $(selected);
 
-                    if ($selected.is('p,table,b,a,br')) {
+                    if (['p', 'table', 'b', 'a', 'br'].indexOf(selected.nodeName) !== -1) {
                         /* The initialization based on text selection only makes
                            sense for simple markup like the following:
                                <p>header1</p>
@@ -321,10 +320,8 @@
                         */
                         return;
                     }
-                    $selectedChildren = $selected.children();
-                    $selectedChildren.each(function(index) {
-                        var $this = $(this),
-                            text = $this.text(),
+                    tinymce.each(selected.children, function (child, index) {
+                        var text = child.textContent,
                             odd = index % 2 === 0,
                             itemsLength = context.items.length,
                             lastItemIndex = itemsLength ? itemsLength - 1 : 0;
@@ -336,7 +333,7 @@
                         } else {
                             // we use the body template
                             if (!context.items[lastItemIndex].body) {
-                                context.items[lastItemIndex].body = $this.get(0).outerHTML;
+                                context.items[lastItemIndex].body = child.outerHTML;
                             }
                         }
                     });
@@ -384,4 +381,4 @@
 
     // Register plugin
     tinymce.PluginManager.add('tabs', tinymce.plugins.TabsPlugin);
-})(jQuery);
+})();

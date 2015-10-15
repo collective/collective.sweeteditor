@@ -3,7 +3,7 @@
  *
  * @author Davide Moro (inspired by Maurizio Lupo's redomino.tinymceplugins.snippet)
  */
-(function($) {
+(function() {
     var defaultAccordionItem, emptyParagraph, accordionItemSource, accordionItemTemplate,
         accordionSource, accordionTemplate, addAccordionCondition, accordionCondition, version;
 
@@ -257,8 +257,8 @@
 
             ed.addCommand('mceAccordion', function(ui, conf) {
                 // add accordion
-                var selected, $selected, selectedContent, content,
-                    $selectedChildren, template,
+                var selected, selectedContent, content,
+                    template,
                     context, html, index, iter,
                     itemsLength = conf ? conf.itemsLength : undefined,
                     collapsable = conf ? conf.collapsable : undefined,
@@ -293,10 +293,8 @@
                         // There is a node in conf passed by the popup, let's proceed
                         selected = conf.node;
                     }
-                    // selection
-                    $selected = $(selected);
 
-                    if ($selected.is('p,table,b,a,br')) {
+                    if (['p', 'table', 'b', 'a', 'br'].indexOf(selected.nodeName) !== -1) {
                         /* The initialization based on text selection only makes
                            sense for simple markup like the following:
                                <p>header1</p>
@@ -309,10 +307,8 @@
                         */
                         return;
                     }
-                    $selectedChildren = $selected.children();
-                    $selectedChildren.each(function(index) {
-                        var $this = $(this),
-                            text = $this.text(),
+                    tinymce.each(selected.children, function(child, index) {
+                        var text = child.textContent,
                             odd = index % 2 === 0,
                             contextItemsLength = context.items.length,
                             lastItemIndex = contextItemsLength ? contextItemsLength - 1 : 0;
@@ -324,7 +320,7 @@
                         } else {
                             // we use the body template
                             if (!context.items[lastItemIndex].body) {
-                                context.items[lastItemIndex].body = $this.get(0).outerHTML;
+                                context.items[lastItemIndex].body = child.outerHTML;
                             }
                         }
                     });
@@ -372,4 +368,4 @@
 
     // Register plugin
     tinymce.PluginManager.add('accordion', tinymce.plugins.AccordionPlugin);
-})(jQuery);
+})();
