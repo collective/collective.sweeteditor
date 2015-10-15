@@ -320,7 +320,7 @@
                         */
                         return;
                     }
-                    tinymce.each(selected.children, function (child, index) {
+                    tinymce.each(ed.selection.getSelectedBlocks(), function (child, index) {
                         var text = child.textContent,
                             odd = index % 2 === 0,
                             itemsLength = context.items.length,
