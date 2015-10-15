@@ -3,6 +3,6 @@ tinyMCE.addI18n('it.accordion', {
     desc : 'Crea nuovo accordion/collapsable',
     deletedesc : 'Cancella intero accordion/collapsable',
     itemdeletedesc : 'Cancella elemento accordion/collapsable',
-    iteminsertafterdesc : 'Inserisce nuovo elemento accordion/collapsable sotto',
-    iteminsertbeforedesc : 'Inserisce nuovo elemento accordion/collapsable sopra'
+    iteminsertafterdesc : 'Inserisci sotto nuovo elemento accordion/collapsable',
+    iteminsertbeforedesc : 'Inserisci sopra nuovo elemento accordion/collapsable'
 });
