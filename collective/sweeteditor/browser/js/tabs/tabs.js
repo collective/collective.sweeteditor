@@ -6,7 +6,9 @@
 (function($) {
     var defaultTabsItem, emptyParagraph, tabsItemHeaderSource, tabsItemBodySource,
         tabsItemHeaderTemplate, tabsItemBodyTemplate,
-        tabsSource, tabsTemplate, addTabsCondition, tabsCondition;
+        tabsSource, tabsTemplate, addTabsCondition, tabsCondition, version;
+
+    version = '0.1';
 
     addTabsCondition = function (ed, element) {
         return ! (ed.dom.getParent(element, '.sweet-tabs') || ed.dom.getParent(element, '.panel-heading'));
@@ -99,7 +101,7 @@
             ed.onInit.add(function() {
                 if (ed && ed.dom.loadCSS) {
                     // load plugin's css
-                    ed.dom.loadCSS(url + '/css/tabs.css');
+                    ed.dom.loadCSS(url + '/css/tabs.css?version=' + version);
                 }
                 if (ed && ed.plugins.contextmenu) {
                     ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
@@ -375,7 +377,7 @@
                 author: 'Davide Moro (@ Abstract srl for EEA)',
                 authorurl: 'http://davidemoro.blogspot.it/',
                 infourl: 'https://github.com/davidemoro/collective.sweeteditor',
-                version: "0.1"
+                version: version
             };
         }
     });
