@@ -376,7 +376,7 @@
                 longname: 'Tabs Plugin',
                 author: 'Davide Moro (@ Abstract srl for EEA)',
                 authorurl: 'http://davidemoro.blogspot.it/',
-                infourl: 'https://github.com/davidemoro/collective.sweeteditor',
+                infourl: 'https://github.com/collective/collective.sweeteditor',
                 version: version
             };
         }
