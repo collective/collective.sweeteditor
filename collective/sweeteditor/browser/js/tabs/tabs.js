@@ -180,22 +180,42 @@
             ed.addCommand('mceTabsItemDelete', function() {
                 // delete the selected tabs item. If it is the last one,
                 // the entire tabs will be removed
-                var selected, toBeRemoved1, parent1, toBeRemoved2, parent2, index, containerSelectors;
+                var selected, toBeRemoved1, parent1, toBeRemoved2, parent2,
+                    index, containerSelectors, next1, next2, tabsContainer, tabSelectors;
 
                 containerSelectors = '.nav-tabs,.tab-content';
+                tabSelectors = '.nav-tabs li,.tab-pane';
 
                 selected = ed.selection.getNode();
-                toBeRemoved1 = ed.dom.getParent(selected, '.nav-tabs li,.tab-pane');
-                if (toBeRemoved1) {
-                    parent1 = ed.dom.getParent(toBeRemoved1, '.nav-tabs,.tab-content');
-                    if (parent1) {
-                        parent2 = ed.dom.getNext(parent1, containerSelectors) || ed.dom.getPrev(parent1, containerSelectors);
-                        if (parent2) {
-                            index = ed.dom.nodeIndex(toBeRemoved1);
-                            toBeRemoved2 = parent2.childNodes[index];
-                            if (toBeRemoved2) {
-                                ed.dom.remove(toBeRemoved1);
-                                ed.dom.remove(toBeRemoved2);
+                toBeRemoved1 = ed.dom.getParent(selected, tabSelectors);
+                next1 = ed.dom.getNext(toBeRemoved1, tabSelectors);
+                if (!next1 && ! ed.dom.getPrev(toBeRemoved1, tabSelectors)) {
+                    // we are deleting the last elem, there is no prev and no next tab item
+                    // so let's remote the whole tabs container
+                    tabsContainer = ed.dom.getParent(toBeRemoved1, '.sweet-tabs');
+                    if (tabsContainer) {
+                        ed.dom.remove(tabsContainer);
+                    }
+                } else {
+                    // there are more than one tab items
+                    if (toBeRemoved1) {
+                        parent1 = ed.dom.getParent(toBeRemoved1, containerSelectors);
+                        if (parent1) {
+                            parent2 = ed.dom.getNext(parent1, containerSelectors) || ed.dom.getPrev(parent1, containerSelectors);
+                            if (parent2) {
+                                index = ed.dom.nodeIndex(toBeRemoved1);
+                                toBeRemoved2 = parent2.childNodes[index];
+                                next2 = toBeRemoved2 ? ed.dom.getNext(toBeRemoved2, '.nav-tabs li,.tab-pane') : undefined;
+
+                                if (toBeRemoved1 === parent1.firstChild && next1 && next2) {
+                                    // we are removing the first child and there is a next elem
+                                    ed.dom.addClass(next1, 'active');
+                                    ed.dom.addClass(next2, 'active');
+                                }
+                                if (toBeRemoved2) {
+                                    ed.dom.remove(toBeRemoved1);
+                                    ed.dom.remove(toBeRemoved2);
+                                }
                             }
                         }
                     }
