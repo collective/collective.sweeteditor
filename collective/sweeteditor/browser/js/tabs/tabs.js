@@ -135,6 +135,15 @@
                     moveKeys = [37, 38, 39, 40];
                     elem = ed.selection.getNode();
 
+                    if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === 46) {
+                        // Prevent .sweet-tabs delete
+                        return tinymce.dom.Event.cancel(e);
+                    }
+                    if (ed.dom.hasClass(ed.dom.getPrev(elem, '*'), 'sweet-tabs') && keyCode === 8) {
+                        // Prevent .sweet-tabs delete
+                        return tinymce.dom.Event.cancel(e);
+                    }
+
                     // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
                     // work on older versions of TinyMCE)
                     if (ed.dom.getParent(elem, tabsRootSelector)) {
@@ -164,11 +173,14 @@
                                         // && header a element. If you remove the last character from
                                         // an 'a' node, tinymce erase the entire node instead of leaving
                                         // it empty. This is bad since the 'a' node is required by
-                                        // bootstrap, so we need a special rule here
-                                        if (keyCode === 8 && range.startOffset === 1) {
-                                            if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role', undefined) === 'tab') {
-                                                elem.innerHTML = '&nbsp;';
-                                                return tinymce.dom.Event.cancel(e);
+                                        // bootstrap, so we need a special rule here.
+                                        // The exact opposite for keyCode === 46
+                                        if (textContentLength === 1) {
+                                            if ((keyCode === 8 && range.startOffset === 1) || (keyCode === 46 && range.startOffset === 0)) {
+                                                if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role', undefined) === 'tab') {
+                                                    elem.innerHTML = '&nbsp;';
+                                                    return tinymce.dom.Event.cancel(e);
+                                                }
                                             }
                                         }
                                     }
