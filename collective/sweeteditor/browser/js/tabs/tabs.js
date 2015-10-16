@@ -156,10 +156,21 @@
                                     range = ed.selection.getRng();
                                     textContentLength = elem.textContent.length;
             
-                                    if (ed.dom.getParent(elem, tabsRootSelector) &&
-                                       ((keyCode === 8 && range.startOffset === 0) ||
-                                       (keyCode === 46 && range.startOffset === textContentLength))) {
+                                    if ((keyCode === 8 && range.startOffset === 0) ||
+                                       (keyCode === 46 && range.startOffset === textContentLength)) {
                                         return tinymce.dom.Event.cancel(e);
+                                    } else {
+                                        // special case for keyCode === 8 && range.startOffset === 1
+                                        // && header a element. If you remove the last character from
+                                        // an 'a' node, tinymce erase the entire node instead of leaving
+                                        // it empty. This is bad since the 'a' node is required by
+                                        // bootstrap, so we need a special rule here
+                                        if (keyCode === 8 && range.startOffset === 1) {
+                                            if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role', undefined) === 'tab') {
+                                                elem.innerHTML = '&nbsp;';
+                                                return tinymce.dom.Event.cancel(e);
+                                            }
+                                        }
                                     }
                                 }
                             } else {
