@@ -172,9 +172,8 @@
                                     range = ed.selection.getRng();
                                     textContentLength = elem.textContent.length;
 
-                                    if (ed.dom.getParent(elem, accordionRootSelector) &&
-                                       ((keyCode === 8 && range.startOffset === 0) ||
-                                       (keyCode === 46 && range.startOffset === textContentLength))) {
+                                    if ((keyCode === 8 && range.startOffset === 0) ||
+                                       (keyCode === 46 && range.startOffset === textContentLength)) {
                                         return tinymce.dom.Event.cancel(e);
                                     }
                                 }
