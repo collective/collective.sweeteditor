@@ -1,7 +1,7 @@
 collective.sweeteditor
 ======================
 
-TinyMCE (vAPI3) plugin for Plone based on Twitter Bootstrap (3.3.x) markup.
+TinyMCE (vAPI3) plugin for Plone (v4.x) based on Twitter Bootstrap (3.3.x) markup.
 Basically it adds a set of new TinyMCE commands in order to manage the
 following Twitter elements:
 * accordions, vertical stacked list with exactly one or zero expanded items at the same time
