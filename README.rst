@@ -33,6 +33,35 @@ sense for simple markup like the following:
     <p>header2</p>
     <p>body2</p>
 
+Special notes
+=============
+
+The plugin tries to protect bootstrap markup against unwanted deletion and
+it tries to prevent broken markup but TinyMCE is still an editor so it is
+always possible to break things.
+
+This plugin offers the following protection against:
+* markup removal when pressing ``<canc>`` or ``<back delete>`` keys
+* protect inserting content in areas where anything should be inserted
+* prevent adding a tab inside a tab
+
+So you should consider ``collective.sweeteditor`` as a useful editor plugin
+if you want to manage accordions, collapsables or tabs inside a rich text
+editor but be prepared to play with HTML source code in case you broke something.
+Nothing wrong with ``collective.sweeteditor``, it is just because it is impossible
+to prevent all situations. Even with a plain ``TinyMCE`` instance sometimes it happens
+the need to change things in HTML mode.
+
+You can broke things in several ways, for example:
+* copy and paste a tab inside a tab
+* move the cursor before an accordion/collapsable or tabs element and delete things
+  with ``<canc>``
+* move the cursor after an accordion/collapsable or tabs element and start to delete things
+  with ``<back delete>``
+* copy and paste complex html inside a header (where obviously Bootstrap supposes there
+  should be only a simple string)
+* probably there are other ways to broke things
+
 Install
 =======
 
