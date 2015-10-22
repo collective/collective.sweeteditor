@@ -127,6 +127,19 @@
                 }
 
                 // Events
+                ed.onPaste.add(function (ed, e) {
+                    var htmlContent, parser, rootNode;
+
+                    if (ed.dom.getParent(e.target, '.sweet-tabs')) {
+                        if (e.clipboardData) {
+                            htmlContent = e.clipboardData.getData('text/html');
+                            parser = new tinymce.html.DomParser({validate: true}, ed.schema);
+                            rootNode = parser.parse(htmlContent);
+                            // TODO: WIP
+                            // return tinymce.dom.Event.cancel(e);
+                        }
+                    }
+                });
                 ed.onKeyDown.add(function(ed, e) {
                     var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys;
 
