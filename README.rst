@@ -80,6 +80,7 @@ Generated markup
 Accordion
 ---------
 ::
+
     <div aria-multiselectable="true" class="panel-group" id="8466-accordion"
     role="tablist">
       <div class="panel panel-default">
@@ -113,6 +114,7 @@ Accordion
 Collapsable
 -----------
 ::
+
     <div aria-multiselectable="true" class="panel-group sweet-collapsable" id=
     "5973-accordion" role="tablist">
       <div class="panel panel-default">
@@ -145,6 +147,7 @@ Tabs
 ----
 
 ::
+
     <div class="sweet-tabs">
       <ul class="nav nav-tabs" role="tablist">
         <li class="active" role="presentation">
