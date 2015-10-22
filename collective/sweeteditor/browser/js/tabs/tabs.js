@@ -127,7 +127,7 @@
                 }
 
                 // Events
-                ed.onKeyDown.add(function(ed, e) {
+                ed.onKeyDown.addToTop(function(ed, e) {
                     var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys;
 
                     keyCode = e.keyCode;

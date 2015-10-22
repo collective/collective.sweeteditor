@@ -142,7 +142,7 @@
                 }
 
                 // Events
-                ed.onKeyDown.add(function(ed, e) {
+                ed.onKeyDown.addToTop(function(ed, e) {
                     // Safe editing mode
                     var range, elem, accordionRootSelector, textContentLength, keyCode, moveKeys;
 
