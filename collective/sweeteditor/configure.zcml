@@ -19,7 +19,7 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   <genericsetup:registerProfile
-      name="bootstrap"
+      name="optional-bootstrap"
       title="collective.sweeteditor optional bootstrap"
       directory="profiles/bootstrap"
       description="Enable twitter bootstrap"
