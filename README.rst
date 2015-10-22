@@ -4,11 +4,13 @@ collective.sweeteditor
 TinyMCE (vAPI3) plugin for Plone (v4.x) based on Twitter Bootstrap (3.3.x) markup.
 Basically it adds a set of new TinyMCE commands in order to manage the
 following Twitter elements:
+
 * accordions, vertical stacked list with exactly one or zero expanded items at the same time
 * collapsable, vertical stacked list with more than one items expanded at the same time
 * tabs
 
 How to manage accordions or tabs:
+
 * add new accordion/collapsable/tabs
  * click on the ``Create new accordion/collapsable/tabs button``
    and choose the accordion/collapsable/tabs length
@@ -41,6 +43,7 @@ it tries to prevent broken markup but TinyMCE is still an editor so it is
 always possible to break things.
 
 This plugin offers the following protection against:
+
 * markup removal when pressing ``<canc>`` or ``<back delete>`` keys
 * protect inserting content in areas where anything should be inserted
 * prevent adding a tab inside a tab (button conditions)
@@ -55,6 +58,7 @@ to prevent all situations. Even with a plain ``TinyMCE`` instance sometimes it h
 the need to change things in HTML mode.
 
 You can broke things in several ways, for example:
+
 * copy and paste a tab inside a tab
 * copy and paste complex html inside a header (where obviously Bootstrap supposes there
   should be only a simple string)
