@@ -74,6 +74,96 @@ it's up to you enabling Twitter Bootstrap in your Diazo theme.
 If you want to enable Twitter Bootstrap you can install the optional
 profile ``collective.sweeteditor optional bootstrap (Enable twitter bootstrap)``.
 
+Generated markup
+================
+
+Accordion
+---------
+    <div aria-multiselectable="true" class="panel-group" id="8466-accordion"
+    role="tablist">
+      <div class="panel panel-default">
+        <div class="panel-heading" id="8466-37230-heading" role="tab">
+          <h4 class="panel-title"><a aria-controls="8466-37230-body" data-parent=
+          "#8466-accordion" data-toggle="collapse" href="#8466-37230-body" role=
+          "button">Header 1</a></h4>
+        </div>
+        <div aria-labelledby="8466-37230-heading" class=
+        "panel-collapse collapse in" id="8466-37230-body" role="tabpanel">
+          <div class="panel-body">
+            <p>Body 1</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" id="8466-37231-heading" role="tab">
+          <h4 class="panel-title"><a aria-controls="8466-37231-body" data-parent=
+          "#8466-accordion" data-toggle="collapse" href="#8466-37231-body" role=
+          "button">Header 1</a></h4>
+        </div>
+        <div aria-labelledby="8466-37231-heading" class="panel-collapse collapse"
+        id="8466-37231-body" role="tabpanel">
+          <div class="panel-body">
+            <p>Body 2</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+Collapsable
+-----------
+
+    <div aria-multiselectable="true" class="panel-group sweet-collapsable" id=
+    "5973-accordion" role="tablist">
+      <div class="panel panel-default">
+        <div class="panel-heading" id="5973-11350-heading" role="tab">
+          <h4 class="panel-title"><a aria-controls="5973-11350-body" data-toggle=
+          "collapse" href="#5973-11350-body" role="button">Header 1</a></h4>
+        </div>
+        <div aria-labelledby="5973-11350-heading" class=
+        "panel-collapse collapse in" id="5973-11350-body" role="tabpanel">
+          <div class="panel-body">
+            <p>Body 1</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" id="5973-11351-heading" role="tab">
+          <h4 class="panel-title"><a aria-controls="5973-11351-body" data-toggle=
+          "collapse" href="#5973-11351-body" role="button">Header 1</a></h4>
+        </div>
+        <div aria-labelledby="5973-11351-heading" class="panel-collapse collapse"
+        id="5973-11351-body" role="tabpanel">
+          <div class="panel-body">
+            <p>Body 2</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+Tabs
+----
+
+    <div class="sweet-tabs">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="presentation">
+          <a aria-controls="8571-0" data-toggle="tab" href="#8571-0" role=
+          "tab">Header 1</a>
+        </li>
+        <li role="presentation">
+          <a aria-controls="8571-1" data-toggle="tab" href="#8571-1" role=
+          "tab">Header 2</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="8571-0" role="tabpanel">
+          <p>Body 1</p>
+        </div>
+        <div class="tab-pane" id="8571-1" role="tabpanel">
+          <p>Body 2</p>
+        </div>
+      </div>
+    </div>
+
 Copyright and license
 =====================
 The Initial Owner of the Original Code is European Environment Agency (EEA).
