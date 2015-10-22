@@ -28,7 +28,9 @@ How to manage accordions or tabs:
  * ``Insert new accordion/collapsable/tab item down``
 
 The initialization based on text selection only makes
-sense for simple markup like the following::
+sense for simple markup like the following:
+
+.. code-block:: html
 
     <p>header1</p>
     <p>body1</p>
