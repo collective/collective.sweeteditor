@@ -44,10 +44,8 @@ This plugin offers the following protection against:
 * markup removal when pressing ``<canc>`` or ``<back delete>`` keys
 * protect inserting content in areas where anything should be inserted
 * prevent adding a tab inside a tab (button conditions)
-* move the cursor before an accordion/collapsable or tabs element and delete things
-  with ``<canc>``
-* move the cursor after an accordion/collapsable or tabs element and start to delete things
-  with ``<back delete>``
+* move the cursor before an accordion/collapsable or tabs element and delete things with ``<canc>``
+* move the cursor after an accordion/collapsable or tabs element and start to delete things with ``<back delete>``
 
 So you should consider ``collective.sweeteditor`` as a useful editor plugin
 if you want to manage accordions, collapsables or tabs inside a rich text
