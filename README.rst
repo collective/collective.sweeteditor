@@ -26,14 +26,12 @@ How to manage accordions or tabs:
  * ``Insert new accordion/collapsable/tab item down``
 
 The initialization based on text selection only makes
-sense for simple markup like the following:
+sense for simple markup like the following::
 
-```
     <p>header1</p>
     <p>body1</p>
     <p>header2</p>
     <p>body2</p>
-```
 
 Special notes
 =============
@@ -81,7 +79,7 @@ Generated markup
 
 Accordion
 ---------
-```
+::
     <div aria-multiselectable="true" class="panel-group" id="8466-accordion"
     role="tablist">
       <div class="panel panel-default">
@@ -111,11 +109,10 @@ Accordion
         </div>
       </div>
     </div>
-```
 
 Collapsable
 -----------
-```
+::
     <div aria-multiselectable="true" class="panel-group sweet-collapsable" id=
     "5973-accordion" role="tablist">
       <div class="panel panel-default">
@@ -143,12 +140,11 @@ Collapsable
         </div>
       </div>
     </div>
-```
 
 Tabs
 ----
 
-```
+::
     <div class="sweet-tabs">
       <ul class="nav nav-tabs" role="tablist">
         <li class="active" role="presentation">
@@ -169,7 +165,6 @@ Tabs
         </div>
       </div>
     </div>
-```
 
 Copyright and license
 =====================
