@@ -12,6 +12,7 @@ following Twitter elements:
 How to manage accordions or tabs:
 
 * add new accordion/collapsable/tabs
+
   * click on the ``Create new accordion/collapsable/tabs button``
     and choose the accordion/collapsable/tabs length
   * select one or more paragraphs and click on
@@ -22,6 +23,7 @@ How to manage accordions or tabs:
   There are both buttons and contextual menus (right click),
   depending on the selected node one or more buttons could
   be disabled or not shown:
+
   * ``Remove entire accordion/collapsable/tab``
   * ``Remove accordion/collapsable/tab item``
   * ``Insert new accordion/collapsable/tab item up``
