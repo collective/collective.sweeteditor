@@ -365,6 +365,7 @@
                 tinymce.each(buttons, function (item) {
                     cm.setDisabled(item[0], !item[2](ed, n));
                 });
+                // TODO: remove "remove link" button for tab headers
             });
 
             ed.addCommand('mceTabs', function(length) {
