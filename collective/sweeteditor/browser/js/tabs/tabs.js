@@ -128,13 +128,15 @@
 
                 // Events
                 ed.onKeyDown.addToTop(function(ed, e) {
-                    var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys;
+                    var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found=false;
 
                     keyCode = e.keyCode;
                     tabsRootSelector = '.sweet-tabs';
                     moveKeys = [37, 38, 39, 40];
                     elem = ed.selection.getNode();
+                    selectedBlocks = ed.selection.getSelectedBlocks();
 
+                    // START: check this
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === 46) {
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
@@ -143,6 +145,7 @@
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
                     }
+                    // END: check this
 
                     // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
                     // work on older versions of TinyMCE)
@@ -164,6 +167,11 @@
                                 if (keyCode === 8 || keyCode === 46) {
                                     range = ed.selection.getRng();
                                     textContentLength = elem.textContent.length;
+                                    if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role') === 'tab') {
+                                        // See https://github.com/collective/collective.sweeteditor/issues/49
+                                        ed.dom.setHTML(elem, '&nbsp;');
+                                        return tinymce.dom.Event.cancel(e);
+                                    }
             
                                     if ((keyCode === 8 && range.startOffset === 0) ||
                                        (keyCode === 46 && range.startOffset === textContentLength)) {
@@ -182,12 +190,60 @@
                                                     return tinymce.dom.Event.cancel(e);
                                                 }
                                             }
+                                        } else {
+                                            // partial removal on node (for example you select
+                                            // the UPPERCASE text and press canc: vaLUe)
+                                            return;
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+
+                    if (keyCode === 8 || keyCode === 46) {
+                        if (selectedBlocks.length >= 1) {
+                            if (ed.dom.hasClass(elem, 'tab-content')) {
+                                tinymce.each(selectedBlocks, function (block) {
+                                    if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
+                                        ed.dom.setHTML(block, '&nbsp;');
+                                        found = true;
+                                    }
+                                });
+                            } else if (ed.dom.hasClass(elem, 'nav-tabs')) {
+                                tinymce.each(selectedBlocks, function (block) {
+                                    var firstChild = block.firstChild;
+                                    if (ed.dom.hasClass(block.parentNode, 'nav-tabs') && firstChild.nodeName === 'A') {
+                                        ed.dom.setHTML(firstChild, '&nbsp;');
+                                        found = true;
+                                    }
+                                });
+                            } else if (elem.nodeName === 'LI' && ed.dom.getAttrib(elem, 'role') === 'presentation' && ed.dom.hasClass(elem.parentNode, 'nav-tabs')) {
+                                // Do nothing, the editor is trying to delete things on the LI element
+                                found = true;
                             } else {
+                                // TODO: avoid clear elements with transelection.
+                                // If you select the paragraph before the tab and the first
+                                // header you'll get the header with empty text and the paragraph
+                                // untouched. Both or none.
+                                tinymce.each(selectedBlocks, function (block) {
+                                    var firstChild = block.firstChild;
+                                    if (ed.dom.getParent(block, '.sweet-tabs')) {
+                                        if (ed.dom.hasClass(block.parentNode, 'nav-tabs') && firstChild.nodeName === 'A') {
+                                            ed.dom.setHTML(firstChild, '&nbsp;');
+                                            found = true;
+                                        }
+                                        if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
+                                            ed.dom.setHTML(block, '&nbsp;');
+                                            found = true;
+                                        }
+                                    }
+                                });
+                            }
+                            if (found) {
                                 return tinymce.dom.Event.cancel(e);
                             }
+                            return;
                         }
                     }
                 });
