@@ -136,7 +136,7 @@
                     elem = ed.selection.getNode();
                     selectedBlocks = ed.selection.getSelectedBlocks();
 
-                    // START: check this
+                    // TODO START check this
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === 46) {
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
@@ -145,7 +145,7 @@
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
                     }
-                    // END: check this
+                    // END check this
 
                     // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
                     // work on older versions of TinyMCE)
