@@ -226,6 +226,45 @@
                                 // If you select the paragraph before the tab and the first
                                 // header you'll get the header with empty text and the paragraph
                                 // untouched. Both or none.
+                                var updatedStart, updatedEnd, start, end, rng, newRng, indexStart, indexEnd;
+                                rng = ed.selection.getRng();
+                                start = rng.getStart();
+                                end = rng.getEnd();
+
+                                updatedStart = selectedBlocks[0];
+                                if (updatedStart.getParent('.sweet-tabs')) {
+                                    updatedStart = updatedStart.getParent('.sweet-tabs').nextSibling;
+                                }
+                                updatedEnd = selectedBlocks[selectedBlocks.length-1];
+                                if (updatedEnd.getParent('.sweet-tabs')) {
+                                    updatedEnd = updatedEnd.getParent('.sweet-tabs').previousSibling;
+                                }
+                                if (start !== updatedStart || end !== updatedEnd) {
+                                    newNrg = ed.dom.createRng();
+                                    newNrg.setStartBefore(updatedStart);
+                                    newNrg.setEndAfter(updatedEnd);
+                                    ed.selection.setRng(newRng);
+
+                                    indexStart = selectedBlocks.indexOf(updatedStart);
+                                    indexEnd = selectedBlocks.indexOf(updatedEnd);
+
+                                    tinymce.each(selectedBlocks, function (block) {
+                                        var blockIndex = selectedBlocks.indexOf(block);
+                                        var firstChild = block.firstChild;
+                                        if (blockIndex < indexStart || blockIndex > indexEnd) {
+                                            if (ed.dom.getParent(block, '.sweet-tabs')) {
+                                                if (ed.dom.hasClass(block.parentNode, 'nav-tabs') && firstChild.nodeName === 'A') {
+                                                    ed.dom.setHTML(firstChild, '&nbsp;');
+                                                }
+                                                if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
+                                                    ed.dom.setHTML(block, '&nbsp;');
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+
+/*
                                 tinymce.each(selectedBlocks, function (block) {
                                     var firstChild = block.firstChild;
                                     if (ed.dom.getParent(block, '.sweet-tabs')) {
@@ -239,6 +278,7 @@
                                         }
                                     }
                                 });
+*/
                             }
                             if (found) {
                                 return tinymce.dom.Event.cancel(e);
