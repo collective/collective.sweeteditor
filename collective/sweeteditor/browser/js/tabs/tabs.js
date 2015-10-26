@@ -244,9 +244,9 @@
                                     updatedEnd = parentEnd.previousSibling;
                                 }
                                 if (start !== updatedStart || end !== updatedEnd) {
-                                    newNrg = ed.dom.createRng();
-                                    newNrg.setStartAfter(updatedStart);
-                                    newNrg.setEndBefore(updatedEnd);
+                                    newRng = ed.dom.createRng();
+                                    newRng.setStartAfter(updatedStart);
+                                    newRng.setEndBefore(updatedEnd);
                                     ed.selection.setRng(newRng);
 
                                     indexStart = selectedBlocks.indexOf(updatedStart);
