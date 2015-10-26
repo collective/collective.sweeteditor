@@ -136,6 +136,10 @@
                     elem = ed.selection.getNode();
                     selectedBlocks = ed.selection.getSelectedBlocks();
 
+                    if (! e.shiftKey) {
+                        console.log('breakpoint');
+                    }
+
                     // TODO START check this
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === 46) {
                         // Prevent .sweet-tabs delete
@@ -178,7 +182,9 @@
                                         // it empty. This is bad since the 'a' node is required by
                                         // bootstrap, so we need a special rule here.
                                         // The exact opposite for keyCode === 46
-                                        if (textContentLength === 1) {
+                                        if (textContentLength === 1 || textContentLength === range.endOffset) {
+                                            // the textContentLength == range.endOffset condition is for cursor at the end
+                                            // of the header, shift+startline and canc
                                             if ((keyCode === 8 && range.startOffset === 1) || (keyCode === 46 && range.startOffset === 0)) {
                                                 if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role', undefined) === 'tab') {
                                                     elem.innerHTML = '&nbsp;';
