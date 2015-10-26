@@ -137,6 +137,7 @@
                     moveKeys = [37, 38, 39, 40];
                     elem = ed.selection.getNode();
                     selectedBlocks = ed.selection.getSelectedBlocks();
+                    range = ed.selection.getRng();
 
                     // TODO START check this
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === 46) {
@@ -167,7 +168,6 @@
                                 // Prevent undesired tabs markup removals
                                 // pressing back delete or canc
                                 if (keyCode === 8 || keyCode === 46) {
-                                    range = ed.selection.getRng();
                                     textContentLength = elem.textContent.length;
             
                                     if ((keyCode === 8 && range.startOffset === 0) ||
@@ -205,6 +205,7 @@
                             if (ed.dom.hasClass(elem, 'tab-content')) {
                                 tinymce.each(selectedBlocks, function (block) {
                                     if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
+                                        // TODO: check offset
                                         ed.dom.setHTML(block, '&nbsp;');
                                         found = true;
                                     }
@@ -231,6 +232,8 @@
 
                     if (! e.shiftKey) {
                         console.log('breakpoint');
+                        console.log(start);
+                        console.log(end);
                     }
 
 
@@ -246,8 +249,19 @@
                                 }
                                 if (start !== updatedStart || end !== updatedEnd) {
                                     newRng = ed.dom.createRng();
-                                    newRng.setStartAfter(updatedStart);
-                                    newRng.setEndBefore(updatedEnd);
+                                    newRng.setStart(updatedStart, 0);
+                                    newRng.setEnd(updatedEnd, 0);
+                                    if (start !== updatedStart) {
+                                        newRng.startOffset = 0;
+                                    } else {
+                                        newRng.startOffset = range.startOffset;
+                                    }
+                                    if (end !== updatedEnd) {
+                                        // TODO: proper way?
+                                        newRng.endOffset = updatedEnd.innerHTML.length;
+                                    } else {
+                                        newRng.endOffset = range.endOffset;
+                                    }
                                     ed.selection.setRng(newRng);
 
                                     indexStart = selectedBlocks.indexOf(updatedStart);
@@ -261,9 +275,11 @@
                                         if (blockIndex < indexStart || blockIndex > indexEnd) {
                                             if (ed.dom.getParent(block, '.sweet-tabs')) {
                                                 if (ed.dom.hasClass(block.parentNode, 'nav-tabs') && firstChild.nodeName === 'A') {
+                                                    // TODO: check offset
                                                     ed.dom.setHTML(firstChild, '&nbsp;');
                                                 }
                                                 if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
+                                                    // TODO: check offset
                                                     ed.dom.setHTML(block, '&nbsp;');
                                                 }
                                             }
