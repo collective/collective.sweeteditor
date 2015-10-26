@@ -227,10 +227,9 @@
                                 // If you select the paragraph before the tab and the first
                                 // header you'll get the header with empty text and the paragraph
                                 // untouched. Both or none.
-                                var updatedStart, updatedEnd, start, end, rng, newRng, indexStart, indexEnd;
-                                rng = ed.selection.getRng();
-                                start = rng.getStart();
-                                end = rng.getEnd();
+                                var updatedStart, updatedEnd, start, end, newRng, indexStart, indexEnd;
+                                start = ed.selection.getStart();
+                                end = ed.selection.getEnd();
 
                                 updatedStart = selectedBlocks[0];
                                 if (updatedStart.getParent('.sweet-tabs')) {
