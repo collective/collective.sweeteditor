@@ -136,10 +136,6 @@
                     elem = ed.selection.getNode();
                     selectedBlocks = ed.selection.getSelectedBlocks();
 
-                    if (! e.shiftKey) {
-                        console.log('breakpoint');
-                    }
-
                     // TODO START check this
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === 46) {
                         // Prevent .sweet-tabs delete
@@ -227,30 +223,40 @@
                                 // If you select the paragraph before the tab and the first
                                 // header you'll get the header with empty text and the paragraph
                                 // untouched. Both or none.
-                                var updatedStart, updatedEnd, start, end, newRng, indexStart, indexEnd;
+                                var updatedStart, updatedEnd, start, end, newRng, indexStart, indexEnd, parentStart, parentEnd;
                                 start = ed.selection.getStart();
                                 end = ed.selection.getEnd();
 
+
+                    if (! e.shiftKey) {
+                        console.log('breakpoint');
+                    }
+
+
                                 updatedStart = selectedBlocks[0];
-                                if (updatedStart.getParent('.sweet-tabs')) {
-                                    updatedStart = updatedStart.getParent('.sweet-tabs').nextSibling;
+                                parentStart = ed.dom.getParent(updatedStart, '.sweet-tabs');
+                                if (parentStart) {
+                                    updatedStart = parentStart.nextSibling;
                                 }
                                 updatedEnd = selectedBlocks[selectedBlocks.length-1];
-                                if (updatedEnd.getParent('.sweet-tabs')) {
-                                    updatedEnd = updatedEnd.getParent('.sweet-tabs').previousSibling;
+                                parentEnd = ed.dom.getParent(updatedEnd, '.sweet-tabs');
+                                if (parentEnd) {
+                                    updatedEnd = parentEnd.previousSibling;
                                 }
                                 if (start !== updatedStart || end !== updatedEnd) {
                                     newNrg = ed.dom.createRng();
-                                    newNrg.setStartBefore(updatedStart);
-                                    newNrg.setEndAfter(updatedEnd);
+                                    newNrg.setStartAfter(updatedStart);
+                                    newNrg.setEndBefore(updatedEnd);
                                     ed.selection.setRng(newRng);
 
                                     indexStart = selectedBlocks.indexOf(updatedStart);
                                     indexEnd = selectedBlocks.indexOf(updatedEnd);
 
                                     tinymce.each(selectedBlocks, function (block) {
-                                        var blockIndex = selectedBlocks.indexOf(block);
-                                        var firstChild = block.firstChild;
+                                        var blockIndex, firstChild;
+
+                                        blockIndex = selectedBlocks.indexOf(block);
+                                        firstChild = block.firstChild;
                                         if (blockIndex < indexStart || blockIndex > indexEnd) {
                                             if (ed.dom.getParent(block, '.sweet-tabs')) {
                                                 if (ed.dom.hasClass(block.parentNode, 'nav-tabs') && firstChild.nodeName === 'A') {
