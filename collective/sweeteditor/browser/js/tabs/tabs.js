@@ -183,7 +183,7 @@
                                         if (textContentLength === 1 || textContentLength === range.endOffset) {
                                             // the textContentLength == range.endOffset condition is for cursor at the end
                                             // of the header, shift+startline and canc
-                                            if ((keyCode === 8 && range.startOffset === 1) || (keyCode === 46 && range.startOffset === 0)) {
+                                            if ((keyCode === 8 && range.startOffset === 1) || (keyCode === 46 && range.startOffset === 0) || (keyCode === 46 && range.endOffset === textContentLenght)) {
                                                 if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role', undefined) === 'tab') {
                                                     elem.innerHTML = '&nbsp;';
                                                     return tinymce.dom.Event.cancel(e);
