@@ -271,21 +271,6 @@
                                     });
                                 }
 
-/*
-                                tinymce.each(selectedBlocks, function (block) {
-                                    var firstChild = block.firstChild;
-                                    if (ed.dom.getParent(block, '.sweet-tabs')) {
-                                        if (ed.dom.hasClass(block.parentNode, 'nav-tabs') && firstChild.nodeName === 'A') {
-                                            ed.dom.setHTML(firstChild, '&nbsp;');
-                                            found = true;
-                                        }
-                                        if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
-                                            ed.dom.setHTML(block, '&nbsp;');
-                                            found = true;
-                                        }
-                                    }
-                                });
-*/
                             }
                             if (found) {
                                 return tinymce.dom.Event.cancel(e);
