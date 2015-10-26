@@ -232,8 +232,6 @@
 
                     if (! e.shiftKey) {
                         console.log('breakpoint');
-                        console.log(start);
-                        console.log(end);
                     }
 
 
@@ -262,6 +260,32 @@
                                     } else {
                                         newRng.endOffset = range.endOffset;
                                     }
+console.log("Range.startContainer " + range.startContainer);
+console.log("Range.startOffset " + range.startOffset);
+console.log("Range.endContainer " + range.endContainer);
+console.log("Range.endOffset " + range.endOffset);
+console.log("newRng.startContainer " + newRng.startContainer);
+console.log("newRng.startOffset " + newRng.startOffset);
+console.log("newRng.endContainer " + newRng.endContainer);
+console.log("newRng.endOffset " + newRng.endOffset);
+
+/*
+Range.startContainer [object Text]
+tabs.js (riga 263)
+Range.startOffset 3
+tabs.js (riga 264)
+Range.endContainer [object Text]
+tabs.js (riga 265)
+Range.endOffset 2
+tabs.js (riga 266)
+newRng.startContainer [object HTMLParagraphElement]
+tabs.js (riga 267)
+newRng.startOffset 0
+tabs.js (riga 268)
+newRng.endContainer [object HTMLParagraphElement]
+tabs.js (riga 269)
+newRng.endOffset 0
+*/
                                     ed.selection.setRng(newRng);
 
                                     indexStart = selectedBlocks.indexOf(updatedStart);
