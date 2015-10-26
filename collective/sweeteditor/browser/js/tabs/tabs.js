@@ -167,11 +167,6 @@
                                 if (keyCode === 8 || keyCode === 46) {
                                     range = ed.selection.getRng();
                                     textContentLength = elem.textContent.length;
-                                    if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role') === 'tab') {
-                                        // See https://github.com/collective/collective.sweeteditor/issues/49
-                                        ed.dom.setHTML(elem, '&nbsp;');
-                                        return tinymce.dom.Event.cancel(e);
-                                    }
             
                                     if ((keyCode === 8 && range.startOffset === 0) ||
                                        (keyCode === 46 && range.startOffset === textContentLength)) {
