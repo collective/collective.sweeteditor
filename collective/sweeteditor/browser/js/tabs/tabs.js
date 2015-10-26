@@ -128,8 +128,10 @@
 
                 // Events
                 ed.onKeyDown.addToTop(function(ed, e) {
-                    var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found=false;
+                    var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found,
+                        updatedStart, updatedEnd, start, end, newRng, indexStart, indexEnd, parentStart, parentEnd;
 
+                    found = false;
                     keyCode = e.keyCode;
                     tabsRootSelector = '.sweet-tabs';
                     moveKeys = [37, 38, 39, 40];
@@ -223,7 +225,6 @@
                                 // If you select the paragraph before the tab and the first
                                 // header you'll get the header with empty text and the paragraph
                                 // untouched. Both or none.
-                                var updatedStart, updatedEnd, start, end, newRng, indexStart, indexEnd, parentStart, parentEnd;
                                 start = ed.selection.getStart();
                                 end = ed.selection.getEnd();
 
