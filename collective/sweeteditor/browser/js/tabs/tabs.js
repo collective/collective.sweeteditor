@@ -128,8 +128,7 @@
 
                 // Events
                 ed.onKeyDown.addToTop(function(ed, e) {
-                    var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found,
-                        updatedStart, updatedEnd, start, end, newRng, indexStart, indexEnd, parentStart, parentEnd;
+                    var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found, parent1, parent2;
 
                     found = false;
                     keyCode = e.keyCode;
@@ -138,6 +137,15 @@
                     elem = ed.selection.getNode();
                     selectedBlocks = ed.selection.getSelectedBlocks();
                     range = ed.selection.getRng();
+                                    if (! e.shiftKey) {
+console.log(elem);
+console.log(selectedBlocks);
+console.log(range.startContainer);
+console.log(range.startOffset);
+console.log(range.endContainer);
+console.log(range.endOffset);
+console.log('END');
+}
 
                     // TODO START check this
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === 46) {
@@ -226,89 +234,21 @@
                                 // If you select the paragraph before the tab and the first
                                 // header you'll get the header with empty text and the paragraph
                                 // untouched. Both or none.
-                                start = ed.selection.getStart();
-                                end = ed.selection.getEnd();
 
-
-                    if (! e.shiftKey) {
-                        console.log('breakpoint');
-                    }
-
-
-                                updatedStart = selectedBlocks[0];
-                                parentStart = ed.dom.getParent(updatedStart, '.sweet-tabs');
-                                if (parentStart) {
-                                    updatedStart = parentStart.nextSibling;
+                                if (! e.shiftKey) {
+                                    console.log('breakpoint');
                                 }
-                                updatedEnd = selectedBlocks[selectedBlocks.length-1];
-                                parentEnd = ed.dom.getParent(updatedEnd, '.sweet-tabs');
-                                if (parentEnd) {
-                                    updatedEnd = parentEnd.previousSibling;
-                                }
-                                if (start !== updatedStart || end !== updatedEnd) {
-                                    newRng = ed.dom.createRng();
-                                    newRng.setStart(updatedStart, 0);
-                                    newRng.setEnd(updatedEnd, 0);
-                                    if (start !== updatedStart) {
-                                        newRng.startOffset = 0;
-                                    } else {
-                                        newRng.startOffset = range.startOffset;
+                                parent1 = ed.dom.getParent(selectedBlocks[0], '.sweet-tabs');
+                                parent2 = ed.dom.getParent(selectedBlocks[selectedBlocks.length-1], '.sweet-tabs');
+                                if (parent1 && parent2 && parent1 === parent2) {
+                                    if (! e.shiftKey) {
+                                        console.log('breakpoint');
                                     }
-                                    if (end !== updatedEnd) {
-                                        // TODO: proper way?
-                                        newRng.endOffset = updatedEnd.innerHTML.length;
-                                    } else {
-                                        newRng.endOffset = range.endOffset;
-                                    }
-console.log("Range.startContainer " + range.startContainer);
-console.log("Range.startOffset " + range.startOffset);
-console.log("Range.endContainer " + range.endContainer);
-console.log("Range.endOffset " + range.endOffset);
-console.log("newRng.startContainer " + newRng.startContainer);
-console.log("newRng.startOffset " + newRng.startOffset);
-console.log("newRng.endContainer " + newRng.endContainer);
-console.log("newRng.endOffset " + newRng.endOffset);
-
-/*
-Range.startContainer [object Text]
-tabs.js (riga 263)
-Range.startOffset 3
-tabs.js (riga 264)
-Range.endContainer [object Text]
-tabs.js (riga 265)
-Range.endOffset 2
-tabs.js (riga 266)
-newRng.startContainer [object HTMLParagraphElement]
-tabs.js (riga 267)
-newRng.startOffset 0
-tabs.js (riga 268)
-newRng.endContainer [object HTMLParagraphElement]
-tabs.js (riga 269)
-newRng.endOffset 0
-*/
-                                    ed.selection.setRng(newRng);
-
-                                    indexStart = selectedBlocks.indexOf(updatedStart);
-                                    indexEnd = selectedBlocks.indexOf(updatedEnd);
-
-                                    tinymce.each(selectedBlocks, function (block) {
-                                        var blockIndex, firstChild;
-
-                                        blockIndex = selectedBlocks.indexOf(block);
-                                        firstChild = block.firstChild;
-                                        if (blockIndex < indexStart || blockIndex > indexEnd) {
-                                            if (ed.dom.getParent(block, '.sweet-tabs')) {
-                                                if (ed.dom.hasClass(block.parentNode, 'nav-tabs') && firstChild.nodeName === 'A') {
-                                                    // TODO: check offset
-                                                    ed.dom.setHTML(firstChild, '&nbsp;');
-                                                }
-                                                if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
-                                                    // TODO: check offset
-                                                    ed.dom.setHTML(block, '&nbsp;');
-                                                }
-                                            }
-                                        }
-                                    });
+                                    // TODO: remove event cancel and override tinymce's default policy
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (parent1 || parent2) {
+                                    // no trans selection
+                                    return tinymce.dom.Event.cancel(e);
                                 }
 
                             }
