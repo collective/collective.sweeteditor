@@ -54,6 +54,10 @@ This plugin offers the following protection against:
 * move the cursor before an accordion/collapsable or tabs element and delete things with ``<canc>``
 * move the cursor after an accordion/collapsable or tabs element and start to delete things with ``<back delete>``
 
+Known limitations:
+
+* select text outside and inside a tab/accordion manager and press delete key (prevent default). Probably next releases
+
 So you should consider ``collective.sweeteditor`` as a useful editor plugin
 if you want to manage accordions, collapsables or tabs inside a rich text
 editor but be prepared to play with HTML source code in case you broke something.
