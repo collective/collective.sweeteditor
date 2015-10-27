@@ -137,15 +137,16 @@
                     elem = ed.selection.getNode();
                     selectedBlocks = ed.selection.getSelectedBlocks();
                     range = ed.selection.getRng();
-                                    if (! e.shiftKey) {
-console.log(elem);
-console.log(selectedBlocks);
-console.log(range.startContainer);
-console.log(range.startOffset);
-console.log(range.endContainer);
-console.log(range.endOffset);
-console.log('END');
-}
+
+                    if (! e.shiftKey) {
+                        console.log(elem);
+                        console.log(selectedBlocks);
+                        console.log(range.startContainer);
+                        console.log(range.startOffset);
+                        console.log(range.endContainer);
+                        console.log(range.endOffset);
+                        console.log('END');
+                    }
 
                     // TODO START check this
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === 46) {
@@ -163,46 +164,55 @@ console.log('END');
                     if (ed.dom.getParent(elem, tabsRootSelector)) {
                         if (moveKeys.indexOf(keyCode) === -1) {
                             // Ignore movement keys (arrows)
-                            if (ed.dom.getParent(elem, '.nav-tabs li a') || ed.dom.getParent(elem, '.tab-pane')) {
-                                // Prevent element duplication due to "return" key or undesired
-                                // editing in not allowed areas (mceNonEditable does not work as
-                                // expected on this particular version).
-                                if (keyCode === 13) {
-                                    // we should prevent shift+enter if we are inside of .panel-heading
-                                    if (ed.dom.getParent(elem, '.nav-tabs')) {
-                                        return tinymce.dom.Event.cancel(e);
+                            // Prevent element duplication due to "return" key or undesired
+                            // editing in not allowed areas (mceNonEditable does not work as
+                            // expected on this particular version).
+                            if (keyCode === 13) {
+                                // we should prevent shift+enter if we are inside of .panel-heading
+                                if (ed.dom.getParent(elem, '.nav-tabs')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                }
+                            }
+                            // Prevent undesired tabs markup removals
+                            // pressing back delete or canc
+                            if (keyCode === 8 || keyCode === 46) {
+                                textContentLength = elem.textContent.length;
+
+                                if ((keyCode === 8 && range.startOffset === 0) ||
+                                   (keyCode === 46 && range.startOffset === textContentLength)) {
+                                    return tinymce.dom.Event.cancel(e);
+                                } else {
+                                    // special case for keyCode === 8 && range.startOffset === 1
+                                    // && header a element. If you remove the last character from
+                                    // an 'a' node, tinymce erase the entire node instead of leaving
+                                    // it empty. This is bad since the 'a' node is required by
+                                    // bootstrap, so we need a special rule here.
+                                    // The exact opposite for keyCode === 46
+                                    if (textContentLength === 1 || textContentLength === range.endOffset) {
+                                        // the textContentLength == range.endOffset condition is for cursor at the end
+                                        // of the header, shift+startline and canc
+                                        if ((keyCode === 8 && range.startOffset === 1) || (keyCode === 46 && range.startOffset === 0) || (keyCode === 46 && range.endOffset === textContentLenght)) {
+                                            if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role', undefined) === 'tab') {
+                                                elem.innerHTML = '&nbsp;';
+                                                return tinymce.dom.Event.cancel(e);
+                                            }
+                                        }
+                                    } else {
+                                        // partial removal on node (for example you select
+                                        // the UPPERCASE text and press canc: vaLUe)
+                                        return;
                                     }
                                 }
-                                // Prevent undesired tabs markup removals
-                                // pressing back delete or canc
-                                if (keyCode === 8 || keyCode === 46) {
-                                    textContentLength = elem.textContent.length;
-            
-                                    if ((keyCode === 8 && range.startOffset === 0) ||
-                                       (keyCode === 46 && range.startOffset === textContentLength)) {
-                                        return tinymce.dom.Event.cancel(e);
-                                    } else {
-                                        // special case for keyCode === 8 && range.startOffset === 1
-                                        // && header a element. If you remove the last character from
-                                        // an 'a' node, tinymce erase the entire node instead of leaving
-                                        // it empty. This is bad since the 'a' node is required by
-                                        // bootstrap, so we need a special rule here.
-                                        // The exact opposite for keyCode === 46
-                                        if (textContentLength === 1 || textContentLength === range.endOffset) {
-                                            // the textContentLength == range.endOffset condition is for cursor at the end
-                                            // of the header, shift+startline and canc
-                                            if ((keyCode === 8 && range.startOffset === 1) || (keyCode === 46 && range.startOffset === 0) || (keyCode === 46 && range.endOffset === textContentLenght)) {
-                                                if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role', undefined) === 'tab') {
-                                                    elem.innerHTML = '&nbsp;';
-                                                    return tinymce.dom.Event.cancel(e);
-                                                }
-                                            }
-                                        } else {
-                                            // partial removal on node (for example you select
-                                            // the UPPERCASE text and press canc: vaLUe)
-                                            return;
-                                        }
-                                    }
+                            } else {
+                                // all other keys
+                                if (elem.nodeName === 'LI' && ed.dom.getAttrib(elem, 'role') === 'presentation' && ed.dom.hasClass(elem.parentNode, 'nav-tabs')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (elem.nodeName === 'DIV' && ed.dom.hasClass(elem, 'sweet-tabs')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (elem.nodeName === 'UL' && ed.dom.hasClass(elem, 'nav-tabs')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (elem.nodeName === 'DIV' && ed.dom.hasClass(elem, 'tab-content')) {
+                                    return tinymce.dom.Event.cancel(e);
                                 }
                             }
                         }
