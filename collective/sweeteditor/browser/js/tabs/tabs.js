@@ -231,6 +231,9 @@
                                                 elem.innerHTML = '&nbsp;';
                                                 return tinymce.dom.Event.cancel(e);
                                             }
+                                            if (elem.nodeName === 'LI' && ed.dom.hasClass(elem.parentNode, 'nav-tabs')) {
+                                                return tinymce.dom.Event.cancel(e);
+                                            }
                                         }
                                     } else {
                                         // check if we are removing required bootstrap markup
