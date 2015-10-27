@@ -127,6 +127,25 @@
                 }
 
                 // Events
+                ed.onNodeChange.add(function(ed, cm, e) {
+                    // Prevent the p
+                    var pElem, parentNode, found;
+                    parentNode = e.parentNode;
+                    if (e.nodeName == 'BR' && ed.dom.hasClass(parentNode, 'tab-pane')) {
+                        tinymce.each(parentNode.childNodes, function (block) {
+                            if (block.nodeName === 'P') {
+                                found = true;
+                            }
+                        });
+                        if (! found) {
+                            pElem = ed.dom.create('p', {}, '&nbsp;');
+                            parentNode.appendChild(pElem);
+                            ed.dom.remove(e);
+                            ed.selection.select(pElem);
+                        }
+                    }
+                });
+
                 ed.onKeyDown.addToTop(function(ed, e) {
                     var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found, parent1, parent2;
 
