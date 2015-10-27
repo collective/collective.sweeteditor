@@ -139,11 +139,17 @@
                     range = ed.selection.getRng();
 
                     if (! e.shiftKey) {
+                        console.log('elem');
                         console.log(elem);
+                        console.log('selected blocks');
                         console.log(selectedBlocks);
+                        console.log('start container');
                         console.log(range.startContainer);
+                        console.log('start offset');
                         console.log(range.startOffset);
+                        console.log('end container');
                         console.log(range.endContainer);
+                        console.log('end offset');
                         console.log(range.endOffset);
                         console.log('END');
                     }
@@ -180,7 +186,10 @@
 
                                 if ((keyCode === 8 && range.startOffset === 0) ||
                                    (keyCode === 46 && range.startOffset === textContentLength)) {
-                                    return tinymce.dom.Event.cancel(e);
+                                    if (elem.parentNode.childNodes.length == 1) {
+                                        // backspace on "tab-pane p" with more than one child
+                                        return tinymce.dom.Event.cancel(e);
+                                    }
                                 } else {
                                     // special case for keyCode === 8 && range.startOffset === 1
                                     // && header a element. If you remove the last character from
@@ -198,8 +207,15 @@
                                             }
                                         }
                                     } else {
-                                        // partial removal on node (for example you select
-                                        // the UPPERCASE text and press canc: vaLUe)
+                                        // check if we are removing required bootstrap markup
+                                        tinymce.each(selectedBlocks, function (block) {
+                                            if (ed.dom.hasClass(block, 'tab-pane') || ed.dom.hasClass(block, 'sweet-tabs') || ed.dom.hasClass(block, 'nav-tabs') || ed.dom.hasClass(block, 'tab-content')) {
+                                                found = true;
+                                            }
+                                        });
+                                        if (found) {
+                                            return tinymce.dom.Event.cancel(e);
+                                        }
                                         return;
                                     }
                                 }
@@ -216,9 +232,7 @@
                                 }
                             }
                         }
-                    }
-
-                    if (keyCode === 8 || keyCode === 46) {
+                    } else if (keyCode === 8 || keyCode === 46) {
                         if (selectedBlocks.length >= 1) {
                             if (ed.dom.hasClass(elem, 'tab-content')) {
                                 tinymce.each(selectedBlocks, function (block) {
@@ -240,7 +254,7 @@
                                 // Do nothing, the editor is trying to delete things on the LI element
                                 found = true;
                             } else {
-                                // TODO: avoid clear elements with transelection.
+                                // Avoid clear elements with transelection.
                                 // If you select the paragraph before the tab and the first
                                 // header you'll get the header with empty text and the paragraph
                                 // untouched. Both or none.
@@ -253,6 +267,11 @@
                                 if (parent1 && parent2 && parent1 === parent2) {
                                     if (! e.shiftKey) {
                                         console.log('breakpoint');
+                                    }
+                                    if (selectedBlocks.length < 2) {
+                                        // TODO: check this
+                                        // shift+startline/endline + canc
+                                        return;
                                     }
                                     // TODO: remove event cancel and override tinymce's default policy
                                     return tinymce.dom.Event.cancel(e);
