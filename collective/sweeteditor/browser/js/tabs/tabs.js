@@ -205,9 +205,16 @@
 
                                 if ((keyCode === 8 && range.startOffset === 0) ||
                                    (keyCode === 46 && range.startOffset === textContentLength)) {
-                                    if (elem.parentNode.childNodes.length == 1) {
-                                        // backspace on "tab-pane p" with more than one child
+                                    if (ed.dom.getParent(elem, '.nav-tabs')) {
+                                        // prevent delete/backspace on headers a
                                         return tinymce.dom.Event.cancel(e);
+                                    } else if (ed.dom.hasClass(elem.parentNode, 'tab-pane')) {
+                                       // prevent deleve/backspace on last/first p child of tab-pane
+                                       if (keyCode === 8 && elem.parentNode.firstChild === elem) {
+                                            return tinymce.dom.Event.cancel(e);
+                                       } else if (keyCode === 46 && elem.parentNode.lastChild === elem) {
+                                            return tinymce.dom.Event.cancel(e);
+                                       }
                                     }
                                 } else {
                                     // special case for keyCode === 8 && range.startOffset === 1
