@@ -235,7 +235,7 @@
                                     } else {
                                         // check if we are removing required bootstrap markup
                                         tinymce.each(selectedBlocks, function (block) {
-                                            if (ed.dom.hasClass(block, 'tab-pane') || ed.dom.hasClass(block, 'sweet-tabs') || ed.dom.hasClass(block, 'nav-tabs') || ed.dom.hasClass(block, 'tab-content')) {
+                                            if (ed.dom.hasClass(block, 'tab-pane') || ed.dom.hasClass(block, 'sweet-tabs') || ed.dom.hasClass(block, 'nav-tabs') || ed.dom.hasClass(block, 'tab-content') || ed.dom.hasClass(block.parentNode, 'nav-tabs')) {
                                                 found = true;
                                             }
                                         });
