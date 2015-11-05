@@ -235,6 +235,9 @@
                                                 return tinymce.dom.Event.cancel(e);
                                             }
                                         }
+                                    } else if (selectedBlocks.length === 1) {
+                                        // we are deleting chars in the header
+                                        return;
                                     } else {
                                         // check if we are removing required bootstrap markup
                                         tinymce.each(selectedBlocks, function (block) {
