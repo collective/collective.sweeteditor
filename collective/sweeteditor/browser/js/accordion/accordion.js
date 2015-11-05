@@ -143,43 +143,163 @@
 
                 // Events
                 ed.onKeyDown.addToTop(function(ed, e) {
-                    // Safe editing mode
-                    var range, elem, accordionRootSelector, textContentLength, keyCode, moveKeys;
+                    var range, elem, accordionRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found, parent1, parent2;
 
+                    found = false;
                     keyCode = e.keyCode;
                     accordionRootSelector = '.panel-group';
                     moveKeys = [37, 38, 39, 40];
                     elem = ed.selection.getNode();
+                    selectedBlocks = ed.selection.getSelectedBlocks();
+                    range = ed.selection.getRng();
+
+                    if (! e.shiftKey) {
+                        console.log('elem');
+                        console.log(elem);
+                        console.log('selected blocks');
+                        console.log(selectedBlocks);
+                        console.log('start container');
+                        console.log(range.startContainer);
+                        console.log('start offset');
+                        console.log(range.startOffset);
+                        console.log('end container');
+                        console.log(range.endContainer);
+                        console.log('end offset');
+                        console.log(range.endOffset);
+                        console.log('END');
+                    }
+
+                    // TODO START check this
+                    if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'panel-group') && keyCode === 46) {
+                        // Prevent .sweet-tabs delete
+                        return tinymce.dom.Event.cancel(e);
+                    }
+                    if (ed.dom.hasClass(ed.dom.getPrev(elem, '*'), 'panel-group') && keyCode === 8) {
+                        // Prevent .sweet-tabs delete
+                        return tinymce.dom.Event.cancel(e);
+                    }
+                    // END check this
 
                     // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
                     // work on older versions of TinyMCE)
                     if (ed.dom.getParent(elem, accordionRootSelector)) {
                         if (moveKeys.indexOf(keyCode) === -1) {
                             // Ignore movement keys (arrows)
-                            if (ed.dom.getParent(elem, '.panel-heading a') || ed.dom.getParent(elem, '.panel-body')) {
-                                // Prevent element duplication due to "return" key or undesired
-                                // editing in not allowed areas (mceNonEditable does not work as
-                                // expected on this particular version).
-                                if (keyCode === 13) {
-                                    // we should prevent shift+enter if we are inside of .panel-heading
-                                    if (ed.dom.getParent(elem, '.panel-heading')) {
-                                        return tinymce.dom.Event.cancel(e);
-                                    }
+                            // Prevent element duplication due to "return" key or undesired
+                            // editing in not allowed areas (mceNonEditable does not work as
+                            // expected on this particular version).
+                            if (keyCode === 13) {
+                                // we should prevent shift+enter if we are inside of .panel-heading
+                                if (ed.dom.getParent(elem, '.panel-title')) {
+                                    return tinymce.dom.Event.cancel(e);
                                 }
-                                // Prevent undesired accordion markup removals
-                                // pressing back delete or canc
-                                if (keyCode === 8 || keyCode === 46) {
-                                    range = ed.selection.getRng();
-                                    textContentLength = elem.textContent.length;
+                            }
+                            // Prevent undesired tabs markup removals
+                            // pressing back delete or canc
+                            if (keyCode === 8 || keyCode === 46) {
+                                textContentLength = elem.textContent.length;
 
-                                    if ((keyCode === 8 && range.startOffset === 0) ||
-                                       (keyCode === 46 && range.startOffset === textContentLength)) {
+                                if ((keyCode === 8 && range.startOffset === 0) ||
+                                   (keyCode === 46 && range.startOffset === textContentLength)) {
+                                    if (ed.dom.getParent(elem, '.panel-title')) {
+                                        // prevent delete/backspace on headers a
                                         return tinymce.dom.Event.cancel(e);
+                                    } else if (ed.dom.hasClass(elem.parentNode, 'panel-body')) {
+                                       // prevent deleve/backspace on last/first p child of tab-pane
+                                       if (keyCode === 8 && elem.parentNode.firstChild === elem) {
+                                            return tinymce.dom.Event.cancel(e);
+                                       } else if (keyCode === 46 && elem.parentNode.lastChild === elem) {
+                                            return tinymce.dom.Event.cancel(e);
+                                       }
+                                    }
+                                } else {
+                                    // special case for keyCode === 8 && range.startOffset === 1
+                                    // && header a element. If you remove the last character from
+                                    // an 'a' node, tinymce erase the entire node instead of leaving
+                                    // it empty. This is bad since the 'a' node is required by
+                                    // bootstrap, so we need a special rule here.
+                                    // The exact opposite for keyCode === 46
+                                    if (selectedBlocks.length === 1) {
+                                        // we are deleting chars in the header
+                                        return;
+                                    } else {
+                                        // check if we are removing required bootstrap markup
+                                        tinymce.each(selectedBlocks, function (block) {
+                                            if (ed.dom.hasClass(block, 'panel-heading') || ed.dom.hasClass(block, 'panel-group') || ed.dom.hasClass(block, 'panel-body') || ed.dom.hasClass(block, 'panel') || ed.dom.hasClass(block, 'panel-collapse')) {
+                                                found = true;
+                                            }
+                                        });
+                                        if (found) {
+                                            return tinymce.dom.Event.cancel(e);
+                                        }
+                                        return;
                                     }
                                 }
                             } else {
+                                // all other keys
+                                if (ed.dom.hasClass(elem, 'panel-group')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (ed.dom.hasClass(elem, 'panel-heading')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (ed.dom.hasClass(elem, 'panel-body')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (ed.dom.hasClass(elem, 'panel-title')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (ed.dom.hasClass(elem, 'panel-collapse')) {
+                                    return tinymce.dom.Event.cancel(e);
+                                }
+                            }
+                        }
+                    } else if (keyCode === 8 || keyCode === 46) {
+                        if (selectedBlocks.length >= 1) {
+                            if (ed.dom.hasClass(elem, 'panel-collapse')) {
+                                tinymce.each(selectedBlocks, function (block) {
+                                    if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'panel-body')) {
+                                        // TODO: check offset
+                                        ed.dom.setHTML(block, '&nbsp;');
+                                        found = true;
+                                    }
+                                });
+                            } else if (ed.dom.hasClass(elem, 'panel-title')) {
+                                tinymce.each(selectedBlocks, function (block) {
+                                    var firstChild = block.firstChild;
+                                    if (ed.dom.hasClass(block.parentNode, 'panel-title') && firstChild.nodeName === 'A') {
+                                        ed.dom.setHTML(firstChild, '&nbsp;');
+                                        found = true;
+                                    }
+                                });
+                            } else {
+                                // Avoid clear elements with transelection.
+                                // If you select the paragraph before the tab and the first
+                                // header you'll get the header with empty text and the paragraph
+                                // untouched. Both or none.
+
+                                if (! e.shiftKey) {
+                                    console.log('breakpoint');
+                                }
+                                parent1 = ed.dom.getParent(selectedBlocks[0], '.panel-group');
+                                parent2 = ed.dom.getParent(selectedBlocks[selectedBlocks.length-1], '.panel-group');
+                                if (parent1 && parent2 && parent1 === parent2) {
+                                    if (! e.shiftKey) {
+                                        console.log('breakpoint');
+                                    }
+                                    if (selectedBlocks.length < 2) {
+                                        // TODO: check this
+                                        // shift+startline/endline + canc
+                                        return;
+                                    }
+                                    // TODO: remove event cancel and override tinymce's default policy
+                                    return tinymce.dom.Event.cancel(e);
+                                } else if (parent1 || parent2) {
+                                    // no trans selection
+                                    return tinymce.dom.Event.cancel(e);
+                                }
+
+                            }
+                            if (found) {
                                 return tinymce.dom.Event.cancel(e);
                             }
+                            return;
                         }
                     }
                 });
