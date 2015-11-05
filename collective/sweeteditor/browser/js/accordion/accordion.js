@@ -142,6 +142,25 @@
                 }
 
                 // Events
+                ed.onNodeChange.add(function(ed, cm, e) {
+                    // Prevent the p
+                    var pElem, parentNode, found;
+                    parentNode = e.parentNode;
+                    if (e.nodeName == 'BR' && ed.dom.hasClass(parentNode, 'panel-body')) {
+                        tinymce.each(parentNode.childNodes, function (block) {
+                            if (block.nodeName === 'P') {
+                                found = true;
+                            }
+                        });
+                        if (! found) {
+                            pElem = ed.dom.create('p', {}, '&nbsp;');
+                            parentNode.appendChild(pElem);
+                            ed.dom.remove(e);
+                            ed.selection.select(pElem);
+                        }
+                    }
+                });
+                
                 ed.onKeyDown.addToTop(function(ed, e) {
                     var range, elem, accordionRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found, parent1, parent2;
 
@@ -219,7 +238,17 @@
                                     // it empty. This is bad since the 'a' node is required by
                                     // bootstrap, so we need a special rule here.
                                     // The exact opposite for keyCode === 46
-                                    if (selectedBlocks.length === 1) {
+                                    if (textContentLength === 1 || textContentLength === range.endOffset) {
+				        // TODO: check this
+                                        // the textContentLength == range.endOffset condition is for cursor at the end
+                                        // of the header, shift+startline and canc
+                                        if ((keyCode === 8 && range.startOffset === 1) || (keyCode === 46 && range.startOffset === 0) || (keyCode === 46 && range.endOffset === textContentLenght)) {
+                                            if (elem.nodeName === 'A' && ed.dom.hasClass(elem.parentNode, 'panel-title')) {
+                                                elem.innerHTML = '&nbsp;';
+                                                return tinymce.dom.Event.cancel(e);
+                                            }
+                                        }
+                                    } else if (selectedBlocks.length === 1) {
                                         // we are deleting chars in the header
                                         return;
                                     } else {
