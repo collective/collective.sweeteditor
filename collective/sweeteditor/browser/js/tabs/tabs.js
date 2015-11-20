@@ -214,6 +214,10 @@
                                     if (ed.dom.getParent(elem, '.nav-tabs')) {
                                         // prevent delete/backspace on headers a
                                         return tinymce.dom.Event.cancel(e);
+                                    } else if (ed.dom.hasClass(elem, 'sweet-tabs')) {
+                                        // put the cursor at the end of the first body, select up to the
+                                        // start of the last header
+                                        return tinymce.dom.Event.cancel(e);
                                     } else if (ed.dom.hasClass(elem.parentNode, 'tab-pane')) {
                                        // prevent deleve/backspace on last/first p child of tab-pane
                                        if (keyCode === VK.BACKSPACE && elem.parentNode.firstChild === elem) {
