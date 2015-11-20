@@ -173,6 +173,9 @@
                     range = ed.selection.getRng();
 
                     if (! e.shiftKey) {
+                        console.log('--------------------------');
+                        console.log('keyCode');
+                        console.log(keyCode);
                         console.log('elem');
                         console.log(elem);
                         console.log('selected blocks');
