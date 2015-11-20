@@ -5,7 +5,9 @@
  */
 (function() {
     var defaultAccordionItem, emptyParagraph, accordionItemSource, accordionItemTemplate,
-        accordionSource, accordionTemplate, addAccordionCondition, accordionCondition, version;
+        accordionSource, accordionTemplate, addAccordionCondition, accordionCondition, version, VK;
+
+    VK = tinymce.VK;
 
     version = '0.1';
 
@@ -167,7 +169,10 @@
                     found = false;
                     keyCode = e.keyCode;
                     accordionRootSelector = '.panel-group';
-                    moveKeys = [37, 38, 39, 40];
+                    moveKeys = [37, // VK.LEFT
+                        VK.UP,
+                        39, // VK.RIGHT
+                        VK.DOWN];
                     elem = ed.selection.getNode();
                     selectedBlocks = ed.selection.getSelectedBlocks();
                     range = ed.selection.getRng();
@@ -192,11 +197,11 @@
                     }
 
                     // TODO START check this
-                    if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'panel-group') && keyCode === 46) {
+                    if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'panel-group') && keyCode === VK.DELETE) {
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
                     }
-                    if (ed.dom.hasClass(ed.dom.getPrev(elem, '*'), 'panel-group') && keyCode === 8) {
+                    if (ed.dom.hasClass(ed.dom.getPrev(elem, '*'), 'panel-group') && keyCode === VK.BACKSPACE) {
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
                     }
@@ -218,34 +223,34 @@
                             }
                             // Prevent undesired tabs markup removals
                             // pressing back delete or canc
-                            if (keyCode === 8 || keyCode === 46) {
+                            if (keyCode === VK.BACKSPACE || keyCode === VK.DELETE) {
                                 textContentLength = elem.textContent.length;
 
-                                if ((keyCode === 8 && range.startOffset === 0) ||
-                                   (keyCode === 46 && range.startOffset === textContentLength)) {
+                                if ((keyCode === VK.BACKSPACE && range.startOffset === 0) ||
+                                   (keyCode === VK.DELETE && range.startOffset === textContentLength)) {
                                     if (ed.dom.getParent(elem, '.panel-title')) {
                                         // prevent delete/backspace on headers a
                                         return tinymce.dom.Event.cancel(e);
                                     } else if (ed.dom.hasClass(elem.parentNode, 'panel-body')) {
                                        // prevent deleve/backspace on last/first p child of tab-pane
-                                       if (keyCode === 8 && elem.parentNode.firstChild === elem) {
+                                       if (keyCode === VK.BACKSPACE && elem.parentNode.firstChild === elem) {
                                             return tinymce.dom.Event.cancel(e);
-                                       } else if (keyCode === 46 && elem.parentNode.lastChild === elem) {
+                                       } else if (keyCode === VK.DELETE && elem.parentNode.lastChild === elem) {
                                             return tinymce.dom.Event.cancel(e);
                                        }
                                     }
                                 } else {
-                                    // special case for keyCode === 8 && range.startOffset === 1
+                                    // special case for keyCode === VK.BACKSPACE && range.startOffset === 1
                                     // && header a element. If you remove the last character from
                                     // an 'a' node, tinymce erase the entire node instead of leaving
                                     // it empty. This is bad since the 'a' node is required by
                                     // bootstrap, so we need a special rule here.
-                                    // The exact opposite for keyCode === 46
+                                    // The exact opposite for keyCode === VK.DELETE
                                     if (textContentLength === 1 || textContentLength === range.endOffset) {
 				        // TODO: check this
                                         // the textContentLength == range.endOffset condition is for cursor at the end
                                         // of the header, shift+startline and canc
-                                        if ((keyCode === 8 && range.startOffset === 1) || (keyCode === 46 && range.startOffset === 0) || (keyCode === 46 && range.endOffset === textContentLenght)) {
+                                        if ((keyCode === VK.BACKSPACE && range.startOffset === 1) || (keyCode === VK.DELETE && range.startOffset === 0) || (keyCode === VK.DELETE && range.endOffset === textContentLenght)) {
                                             if (elem.nodeName === 'A' && ed.dom.hasClass(elem.parentNode, 'panel-title')) {
                                                 elem.innerHTML = '&nbsp;';
                                                 return tinymce.dom.Event.cancel(e);
@@ -282,7 +287,7 @@
                                 }
                             }
                         }
-                    } else if (keyCode === 8 || keyCode === 46) {
+                    } else if (keyCode === VK.BACKSPACE || keyCode === VK.DELETE) {
                         if (selectedBlocks.length >= 1) {
                             if (ed.dom.hasClass(elem, 'panel-collapse')) {
                                 tinymce.each(selectedBlocks, function (block) {
