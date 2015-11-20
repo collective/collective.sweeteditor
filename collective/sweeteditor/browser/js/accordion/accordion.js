@@ -196,7 +196,6 @@
                         console.log('END');
                     }
 
-                    // TODO START check this
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'panel-group') && keyCode === VK.DELETE) {
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
@@ -205,7 +204,6 @@
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
                     }
-                    // END check this
 
                     // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
                     // work on older versions of TinyMCE)
