@@ -229,6 +229,11 @@
                                     if (ed.dom.getParent(elem, '.panel-title')) {
                                         // prevent delete/backspace on headers a
                                         return tinymce.dom.Event.cancel(e);
+                                    } else if (ed.dom.hasClass(elem.parentNode), 'panel-group') {
+                                        // prevent panel group delete
+                                        // Put a cursor at the end of the body, select up to the
+                                        // start of the header and press BACKSPACE
+                                        return tinymce.dom.Event.cancel(e);
                                     } else if (ed.dom.hasClass(elem.parentNode, 'panel-body')) {
                                        // prevent deleve/backspace on last/first p child of tab-pane
                                        if (keyCode === VK.BACKSPACE && elem.parentNode.firstChild === elem) {
