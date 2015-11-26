@@ -112,8 +112,7 @@
                             headerContainer = bodyContainer.parent.firstChild;
                             nodeIndex = bodyContainer.getAll('div').indexOf(node);
                             headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
-                            // bodyContainer.insert(headerNode, node);    ERROR
-                            node.append(headerNode);
+                            bodyContainer.insert(headerNode, node, 1);
                         }
                     }
 
