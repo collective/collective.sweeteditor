@@ -162,25 +162,6 @@
                     selectedBlocks = ed.selection.getSelectedBlocks();
                     range = ed.selection.getRng();
 
-                    if (! e.shiftKey) {
-                        console.log('--------------------------');
-                        console.log('keyCode');
-                        console.log(keyCode);
-                        console.log('elem');
-                        console.log(elem);
-                        console.log('selected blocks');
-                        console.log(selectedBlocks);
-                        console.log('start container');
-                        console.log(range.startContainer);
-                        console.log('start offset');
-                        console.log(range.startOffset);
-                        console.log('end container');
-                        console.log(range.endContainer);
-                        console.log('end offset');
-                        console.log(range.endOffset);
-                        console.log('END');
-                    }
-
                     if (ed.dom.hasClass(ed.dom.getNext(elem, '*'), 'sweet-tabs') && keyCode === VK.DELETE) {
                         // Prevent .sweet-tabs delete
                         return tinymce.dom.Event.cancel(e);
@@ -301,15 +282,9 @@
                                 // header you'll get the header with empty text and the paragraph
                                 // untouched. Both or none.
 
-                                if (! e.shiftKey) {
-                                    console.log('breakpoint');
-                                }
                                 parent1 = ed.dom.getParent(selectedBlocks[0], '.sweet-tabs');
                                 parent2 = ed.dom.getParent(selectedBlocks[selectedBlocks.length-1], '.sweet-tabs');
                                 if (parent1 && parent2 && parent1 === parent2) {
-                                    if (! e.shiftKey) {
-                                        console.log('breakpoint');
-                                    }
                                     if (selectedBlocks.length < 2) {
                                         // TODO: check this
                                         // shift+startline/endline + canc
