@@ -99,6 +99,27 @@
                 ]
             ];
 
+            // Pre init
+            ed.onPreInit.add(function () {
+                ed.parser.addNodeFilter('div', function (nodes) {
+                   var index = nodes.length, node, bodyContainer, headerContainer, nodeIndex;
+                    console.log('parser');
+
+                    while (index--) {
+                        node = nodes[index];
+                        if (node.attr('class').indexOf('tab-pane') !== -1) {
+                            bodyContainer = node.parent;
+                            headerContainer = bodyContainer.parent.firstChild;
+                            nodeIndex = bodyContainer.getAll('div').indexOf(node);
+                            headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
+                            // bodyContainer.insert(headerNode, node);    ERROR
+                            node.append(headerNode);
+                        }
+                    }
+
+                });
+            });
+
             // contextual controls
             ed.onInit.add(function() {
                 if (ed && ed.dom.loadCSS) {
