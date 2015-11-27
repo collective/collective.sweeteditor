@@ -6,11 +6,13 @@
 (function() {
     var defaultTabsItem, emptyParagraph, tabsItemHeaderSource, tabsItemBodySource,
         tabsItemHeaderTemplate, tabsItemBodyTemplate,
-        tabsSource, tabsTemplate, addTabsCondition, tabsCondition, version, VK;
+        tabsSource, tabsTemplate, addTabsCondition, tabsCondition, version, VK, tempHeaderClass;
 
     VK = tinymce.VK;
 
     version = '0.1dev';
+
+    tempHeaderClass = 'mceTabHeader';
 
     addTabsCondition = function (ed, element) {
         return ! (ed.dom.getParent(element, '.sweet-tabs') || ed.dom.getParent(element, '.panel-heading'));
@@ -125,10 +127,10 @@
                                             wrapperDiv = new tinymce.html.Node('div', 1);
                                             headerLiNodeClass = headerLiNode.attr('class') || '';
                                             if (headerLiNodeClass.indexOf('active') !== -1) {
-                                                wrapperDiv.attr('class', 'mceTabHeader active');
+                                                wrapperDiv.attr('class', tempHeaderClass + ' active');
                                             }
                                             else {
-                                                wrapperDiv.attr('class', 'mceTabHeader');
+                                                wrapperDiv.attr('class', tempHeaderClass);
                                             }
                                             wrapperDiv.append(headerNode);
                                             bodyContainer.insert(wrapperDiv, node, 1);
@@ -153,11 +155,10 @@
                                 }).indexOf(node);
                             headerLiNode = headerContainer.getAll('li')[nodeIndex];
                             markerNode = node.prev;
-                            if (markerNode && markerNode.attr('class').indexOf('mceTabHeader') !== -1) {
+                            if (markerNode && markerNode.attr('class').indexOf(tempHeaderClass) !== -1) {
                                 headerLiNode.append(markerNode.firstChild);
                                 markerNode.remove();
                             }
-                            // mceTabHeader will be removed in the onPostProcess handler
                         }
                     });
                 });
