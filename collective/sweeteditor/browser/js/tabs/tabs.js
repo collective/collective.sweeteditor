@@ -102,7 +102,7 @@
             // Pre init
             ed.onPreInit.add(function () {
                 ed.parser.addNodeFilter('div', function (nodes) {
-                   var index = nodes.length, node, bodyContainer, headerContainer, nodeIndex;
+                   var index = nodes.length, node, bodyContainer, headerContainer, nodeIndex, wrapperDiv;
                     console.log('parser');
 
                     while (index--) {
@@ -112,7 +112,11 @@
                             headerContainer = bodyContainer.parent.firstChild;
                             nodeIndex = bodyContainer.getAll('div').indexOf(node);
                             headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
-                            bodyContainer.insert(headerNode, node, 1);
+                            if (headerNode) {
+                                wrapperDiv = new tinymce.html.Node('div', 1).attr('class', 'mceTabHeader');
+                                wrapperDiv.append(headerNode);
+                                bodyContainer.insert(wrapperDiv, node, 1);
+                            }
                         }
                     }
 
