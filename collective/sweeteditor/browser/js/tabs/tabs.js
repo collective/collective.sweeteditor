@@ -10,7 +10,7 @@
 
     VK = tinymce.VK;
 
-    version = '0.1a121';
+    version = '0.1dev';
 
     addTabsCondition = function (ed, element) {
         return ! (ed.dom.getParent(element, '.sweet-tabs') || ed.dom.getParent(element, '.panel-heading'));
@@ -105,8 +105,8 @@
                     var index, node, bodyContainer, headerContainer, nodeIndex,
                         wrapperDiv, headerLiNode, headerLiNodeClass;
 
-                    index = nodes.length;     // TODO: remove me
-                    console.log('parser');
+                    index = nodes.length;
+                    console.log('parser');      // TODO: remove me
 
                     while (index--) {
                         node = nodes[index];
@@ -137,6 +137,14 @@
                         }
                     }
 
+                });
+                ed.serializer.addNodeFilter('div', function (nodes, name, args) {
+                    console.log('serializer');
+                    tinymce.each(nodes, function (node) {
+                        if (node.attr('class').indexOf('mceTabHeader') !== -1) {
+                            console.log('I AM HERE');
+                        }
+                    });
                 });
             });
 
