@@ -141,10 +141,19 @@
 
                 });
                 ed.serializer.addNodeFilter('div', function (nodes, name, args) {
-                    console.log('serializer');
+                    console.log('serializer');  // TODO: remove me
+
                     tinymce.each(nodes, function (node) {
+                        var bodyContainer, nodeIndex, headerContainer, headerLiNode;
                         if (node.attr('class').indexOf('mceTabHeader') !== -1) {
-                            console.log('I AM HERE');
+                            bodyContainer = node.parent;
+                            headerContainer = bodyContainer.parent.firstChild;
+                            nodeIndex = tinymce.grep(
+                                bodyContainer.getAll('div'),
+                                function (elem) {
+                                    return elem.attr('class').indexOf('mceTabHeader') !== -1;
+                                }).indexOf(node);
+                            headerLiNode = headerContainer.getAll('li')[nodeIndex];
                         }
                     });
                 });
