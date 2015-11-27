@@ -176,7 +176,7 @@
                         if (! ed.dom.getParent(element, '.panel-heading')) {
                             // Don't add the tabs contextmenu if we are
                             // inside an accordion/collapsable header
-                            if (ed.dom.getParent(element, '.nav-tabs')) {
+                            if (ed.dom.getParent(element, '.' + tempHeaderClass)) {
                                 menu.removeAll();
                             } else {
                                 menu.addSeparator();
@@ -246,7 +246,7 @@
                             // expected on this particular version).
                             if (keyCode === 13) {
                                 // we should prevent shift+enter if we are inside of .panel-heading
-                                if (ed.dom.getParent(elem, '.nav-tabs')) {
+                                if (ed.dom.getParent(elem, '.' + tempHeaderClass)) {
                                     return tinymce.dom.Event.cancel(e);
                                 }
                             }
@@ -257,7 +257,7 @@
 
                                 if ((keyCode === VK.BACKSPACE && range.startOffset === 0) ||
                                    (keyCode === VK.DELETE && range.startOffset === textContentLength)) {
-                                    if (ed.dom.getParent(elem, '.nav-tabs')) {
+                                    if (ed.dom.getParent(elem, '.' + tempHeaderClass)) {
                                         // prevent delete/backspace on headers a
                                         return tinymce.dom.Event.cancel(e);
                                     } else if (ed.dom.hasClass(elem, 'sweet-tabs')) {
@@ -287,7 +287,7 @@
                                                 elem.innerHTML = '&nbsp;';
                                                 return tinymce.dom.Event.cancel(e);
                                             }
-                                            if (elem.nodeName === 'LI' && ed.dom.hasClass(elem.parentNode, 'nav-tabs')) {
+                                            if (elem.nodeName === 'LI' && ed.dom.hasClass(elem.parentNode, tempHeaderClass)) {
                                                 return tinymce.dom.Event.cancel(e);
                                             }
                                         }
@@ -297,7 +297,7 @@
                                     } else {
                                         // check if we are removing required bootstrap markup
                                         tinymce.each(selectedBlocks, function (block) {
-                                            if (ed.dom.hasClass(block, 'tab-pane') || ed.dom.hasClass(block, 'sweet-tabs') || ed.dom.hasClass(block, 'nav-tabs') || ed.dom.hasClass(block, 'tab-content') || ed.dom.hasClass(block.parentNode, 'nav-tabs')) {
+                                            if (ed.dom.hasClass(block, 'tab-pane') || ed.dom.hasClass(block, 'sweet-tabs') || ed.dom.hasClass(block, tempHeaderClass) || ed.dom.hasClass(block, 'tab-content') || ed.dom.hasClass(block.parentNode, tempHeaderClass)) {
                                                 found = true;
                                             }
                                         });
@@ -309,11 +309,11 @@
                                 }
                             } else {
                                 // all other keys
-                                if (elem.nodeName === 'LI' && ed.dom.getAttrib(elem, 'role') === 'presentation' && ed.dom.hasClass(elem.parentNode, 'nav-tabs')) {
+                                if (elem.nodeName === 'LI' && ed.dom.getAttrib(elem, 'role') === 'presentation' && ed.dom.hasClass(elem.parentNode, tempHeaderClass)) {
                                     return tinymce.dom.Event.cancel(e);
                                 } else if (elem.nodeName === 'DIV' && ed.dom.hasClass(elem, 'sweet-tabs')) {
                                     return tinymce.dom.Event.cancel(e);
-                                } else if (elem.nodeName === 'UL' && ed.dom.hasClass(elem, 'nav-tabs')) {
+                                } else if (elem.nodeName === 'UL' && ed.dom.hasClass(elem, tempHeaderClass)) {
                                     return tinymce.dom.Event.cancel(e);
                                 } else if (elem.nodeName === 'DIV' && ed.dom.hasClass(elem, 'tab-content')) {
                                     return tinymce.dom.Event.cancel(e);
@@ -330,15 +330,15 @@
                                         found = true;
                                     }
                                 });
-                            } else if (ed.dom.hasClass(elem, 'nav-tabs')) {
+                            } else if (ed.dom.hasClass(elem, tempHeaderClass)) {
                                 tinymce.each(selectedBlocks, function (block) {
                                     var firstChild = block.firstChild;
-                                    if (ed.dom.hasClass(block.parentNode, 'nav-tabs') && firstChild.nodeName === 'A') {
+                                    if (ed.dom.hasClass(block.parentNode, tempHeaderClass) && firstChild.nodeName === 'A') {
                                         ed.dom.setHTML(firstChild, '&nbsp;');
                                         found = true;
                                     }
                                 });
-                            } else if (elem.nodeName === 'LI' && ed.dom.getAttrib(elem, 'role') === 'presentation' && ed.dom.hasClass(elem.parentNode, 'nav-tabs')) {
+                            } else if (elem.nodeName === 'LI' && ed.dom.getAttrib(elem, 'role') === 'presentation' && ed.dom.hasClass(elem.parentNode, tempHeaderClass)) {
                                 // Do nothing, the editor is trying to delete things on the LI element
                                 found = true;
                             } else {
@@ -387,8 +387,8 @@
                 var selected, toBeRemoved1, parent1, toBeRemoved2, parent2,
                     index, containerSelectors, next1, next2, tabsContainer, tabSelectors;
 
-                containerSelectors = '.nav-tabs,.tab-content';
-                tabSelectors = '.nav-tabs li,.tab-pane';
+                containerSelectors = '.' + tempHeaderClass + ',.tab-content';
+                tabSelectors = '.' + tempHeaderClass + ' li,.tab-pane';
 
                 selected = ed.selection.getNode();
                 toBeRemoved1 = ed.dom.getParent(selected, tabSelectors);
@@ -409,7 +409,7 @@
                             if (parent2) {
                                 index = ed.dom.nodeIndex(toBeRemoved1);
                                 toBeRemoved2 = parent2.childNodes[index];
-                                next2 = toBeRemoved2 ? ed.dom.getNext(toBeRemoved2, '.nav-tabs li,.tab-pane') : undefined;
+                                next2 = toBeRemoved2 ? ed.dom.getNext(toBeRemoved2, '.' + tempHeaderClass + ' li,.tab-pane') : undefined;
 
                                 if (toBeRemoved1 === parent1.firstChild && next1 && next2) {
                                     // we are removing the first child and there is a next elem
@@ -430,13 +430,13 @@
                 var selected, randomString1, context, htmlHeader, htmlBody,
                     parent1, parent2, tabsItem1, tabsItem2, index, el1, el2, swap, containerSelectors;
 
-                containerSelectors = '.nav-tabs,.tab-content';
+                containerSelectors = '.' + tempHeaderClass + ',.tab-content';
                 selected = ed.selection.getNode();
                 parent1 = ed.dom.getParent(selected, containerSelectors);
                 if (parent1) {
                     parent2 = ed.dom.getNext(parent1, containerSelectors) || ed.dom.getPrev(parent1, containerSelectors);
                     if (parent2) {
-                        if (! ed.dom.hasClass(parent1, 'nav-tabs')) {
+                        if (! ed.dom.hasClass(parent1, tempHeaderClass)) {
                             // parent1 -> header container
                             // parent2 -> body container
                             swap = parent2;
@@ -446,7 +446,7 @@
                             index = ed.dom.nodeIndex(tabsItem2);
                             tabsItem1 = parent1.childNodes[index];
                         } else {
-                            tabsItem1 = ed.dom.getParent(selected, '.nav-tabs li');
+                            tabsItem1 = ed.dom.getParent(selected, '.' + tempHeaderClass + ' li');
                             index = ed.dom.nodeIndex(tabsItem1);
                             tabsItem2 = parent2.childNodes[index];
                         }
