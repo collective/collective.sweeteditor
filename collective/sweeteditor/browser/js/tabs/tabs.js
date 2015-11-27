@@ -123,7 +123,7 @@
                                         headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
                                         if (headerNode) {
                                             wrapperDiv = new tinymce.html.Node('div', 1);
-                                            headerLiNodeClass = headerLiNode.attr('class');
+                                            headerLiNodeClass = headerLiNode.attr('class') || '';
                                             if (headerLiNodeClass.indexOf('active') !== -1) {
                                                 wrapperDiv.attr('class', 'mceTabHeader active');
                                             }
