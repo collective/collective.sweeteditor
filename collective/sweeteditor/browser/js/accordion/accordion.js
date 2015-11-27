@@ -12,7 +12,7 @@
     version = '0.1';
 
     addAccordionCondition = function (ed, element) {
-        return ! (ed.dom.getParent(element, '.panel-group') || ed.dom.getParent(element, '.nav-tabs'));
+        return ! (ed.dom.getParent(element, '.panel-group') || ed.dom.getParent(element, '.mceTabHeader'));
     };
     accordionCondition = function (ed, element) {
         return ed.dom.getParent(element, '.panel');
@@ -123,7 +123,7 @@
                 if (ed && ed.plugins.contextmenu) {
                     ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
                         var groupMenu;
-                        if (! ed.dom.getParent(element, '.nav-tabs')) {
+                        if (! ed.dom.getParent(element, '.mceTabHeader')) {
                             // Don't add the accordion/collapsable contextmenu if we are
                             // inside a tabs header
                             if (ed.dom.getParent(element, '.panel-heading')) {
