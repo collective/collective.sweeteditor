@@ -142,17 +142,21 @@
                 });
                 ed.serializer.addNodeFilter('div', function (nodes, name, args) {
                     tinymce.each(nodes, function (node) {
-                        var bodyContainer, nodeIndex, headerContainer, headerLiNode;
-                        if (node.attr('class').indexOf('mceTabHeader') !== -1) {
+                        var bodyContainer, nodeIndex, headerContainer, headerLiNode, headerNode, markerNode;
+                        if (node.attr('class').indexOf('tab-pane') !== -1) {
                             bodyContainer = node.parent;
                             headerContainer = bodyContainer.parent.firstChild;
                             nodeIndex = tinymce.grep(
                                 bodyContainer.getAll('div'),
                                 function (elem) {
-                                    return elem.attr('class').indexOf('mceTabHeader') !== -1;
+                                    return elem.attr('class').indexOf('tab-pane') !== -1;
                                 }).indexOf(node);
                             headerLiNode = headerContainer.getAll('li')[nodeIndex];
-                            headerLiNode.append(node.firstChild);
+                            markerNode = node.prev;
+                            if (markerNode && markerNode.attr('class').indexOf('mceTabHeader') !== -1) {
+                                headerLiNode.append(markerNode.firstChild);
+                                markerNode.remove();
+                            }
                             // mceTabHeader will be removed in the onPostProcess handler
                         }
                     });
@@ -189,14 +193,6 @@
                 }
 
                 // Events
-                ed.onPostProcess.add(function(ed, o) {
-                    tinymce.each(
-                        o.node.querySelectorAll('.mceTabHeader'),
-                        function (elem) {
-                            elem.remove();
-                        }
-                    );
-                });
                 ed.onNodeChange.add(function(ed, cm, e) {
                     // Prevent the p
                     var pElem, parentNode, found;
