@@ -102,20 +102,27 @@
             // Pre init
             ed.onPreInit.add(function () {
                 ed.parser.addNodeFilter('div', function (nodes) {
-                   var index = nodes.length, node, bodyContainer, headerContainer, nodeIndex, wrapperDiv;
+                   var index = nodes.length, node, bodyContainer, headerContainer, nodeIndex, wrapperDiv, headerLiNode;
                     console.log('parser');
 
                     while (index--) {
                         node = nodes[index];
                         if (node.attr('class').indexOf('tab-pane') !== -1) {
                             bodyContainer = node.parent;
-                            headerContainer = bodyContainer.parent.firstChild;
-                            nodeIndex = bodyContainer.getAll('div').indexOf(node);
-                            headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
-                            if (headerNode) {
-                                wrapperDiv = new tinymce.html.Node('div', 1).attr('class', 'mceTabHeader');
-                                wrapperDiv.append(headerNode);
-                                bodyContainer.insert(wrapperDiv, node, 1);
+                            if (bodyContainer.parent) {
+                                headerContainer = bodyContainer.parent.firstChild;
+                                if (headerContainer) {
+                                    nodeIndex = bodyContainer.getAll('div').indexOf(node);
+                                    headerLiNode = headerContainer.getAll('li')[nodeIndex];
+                                    if (headerLiNode) {
+                                        headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
+                                        if (headerNode) {
+                                            wrapperDiv = new tinymce.html.Node('div', 1).attr('class', 'mceTabHeader');
+                                            wrapperDiv.append(headerNode);
+                                            bodyContainer.insert(wrapperDiv, node, 1);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
