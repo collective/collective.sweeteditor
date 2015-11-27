@@ -102,20 +102,22 @@
             // Pre init
             ed.onPreInit.add(function () {
                 ed.parser.addNodeFilter('div', function (nodes) {
-                    var index, node, bodyContainer, headerContainer, nodeIndex,
-                        wrapperDiv, headerLiNode, headerLiNodeClass;
-
-                    index = nodes.length;
                     console.log('parser');      // TODO: remove me
 
-                    while (index--) {
-                        node = nodes[index];
+                    tinymce.each(nodes, function (node) {
+                        var bodyContainer, headerContainer, nodeIndex,
+                            wrapperDiv, headerLiNode, headerLiNodeClass;
+
                         if (node.attr('class').indexOf('tab-pane') !== -1) {
                             bodyContainer = node.parent;
                             if (bodyContainer.parent) {
                                 headerContainer = bodyContainer.parent.firstChild;
                                 if (headerContainer) {
-                                    nodeIndex = bodyContainer.getAll('div').indexOf(node);
+                                    nodeIndex = tinymce.grep(
+                                        bodyContainer.getAll('div'),
+                                        function (node) {
+                                            return node.attr('class').indexOf('tab-pane') !== -1;
+                                        }).indexOf(node);
                                     headerLiNode = headerContainer.getAll('li')[nodeIndex];
                                     if (headerLiNode) {
                                         headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
@@ -135,7 +137,7 @@
                                 }
                             }
                         }
-                    }
+                    });
 
                 });
                 ed.serializer.addNodeFilter('div', function (nodes, name, args) {
