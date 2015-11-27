@@ -10,7 +10,7 @@
 
     VK = tinymce.VK;
 
-    version = '0.1';
+    version = '0.1a121';
 
     addTabsCondition = function (ed, element) {
         return ! (ed.dom.getParent(element, '.sweet-tabs') || ed.dom.getParent(element, '.panel-heading'));
@@ -102,7 +102,10 @@
             // Pre init
             ed.onPreInit.add(function () {
                 ed.parser.addNodeFilter('div', function (nodes) {
-                   var index = nodes.length, node, bodyContainer, headerContainer, nodeIndex, wrapperDiv, headerLiNode;
+                    var index, node, bodyContainer, headerContainer, nodeIndex,
+                        wrapperDiv, headerLiNode, headerLiNodeClass;
+
+                    index = nodes.length;     // TODO: remove me
                     console.log('parser');
 
                     while (index--) {
@@ -117,7 +120,14 @@
                                     if (headerLiNode) {
                                         headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
                                         if (headerNode) {
-                                            wrapperDiv = new tinymce.html.Node('div', 1).attr('class', 'mceTabHeader');
+                                            wrapperDiv = new tinymce.html.Node('div', 1);
+                                            headerLiNodeClass = headerLiNode.attr('class');
+                                            if (headerLiNodeClass.indexOf('active') !== -1) {
+                                                wrapperDiv.attr('class', 'mceTabHeader active');
+                                            }
+                                            else {
+                                                wrapperDiv.attr('class', 'mceTabHeader');
+                                            }
                                             wrapperDiv.append(headerNode);
                                             bodyContainer.insert(wrapperDiv, node, 1);
                                         }

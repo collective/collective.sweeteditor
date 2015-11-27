@@ -11,33 +11,35 @@
 }
 
 .mceContentBody .sweet-tabs .nav-tabs {
-    display: inherit;
-    border-bottom: 1px dashed red !important;
+    display: none;
 }
 
-.mceContentBody .sweet-tabs .nav-tabs > li:first-child {
-    display: inherit;
+.mceContentBody .sweet-tabs .tab-content {
     border-top: 1px dashed red !important;
 }
 
-.mceContentBody .sweet-tabs .nav-tabs > li:not(:last-child),
-.mceContentBody .sweet-tabs .tab-pane:not(:last-child) {
-    display: inherit;
+.mceContentBody .sweet-tabs .mceTabHeader {
     border-bottom: 1px dashed red !important;
+    padding-left: 18px;
 }
 
-.mceContentBody .sweet-tabs .nav-tabs > li a:before {
+.mceContentBody .sweet-tabs .mceTabHeader > a:before {
     font-family: monospace;
     font-size: 16px;
     content: "▶ ";
     color: black;
 }
-
-.mceContentBody .sweet-tabs .nav-tabs > li.active a:before {
+ 
+.mceContentBody .sweet-tabs .mceTabHeader.active > a:before {
     font-family: monospace;
     font-size: 16px;
     content: "▼ " !important;
     color: black;
+}
+
+.mceContentBody .sweet-tabs .tab-pane:not(:last-child) {
+    display: inherit;
+    border-bottom: 1px dashed red !important;
 }
 
 .mceContentBody .sweet-tabs .nav-tabs > li a,
