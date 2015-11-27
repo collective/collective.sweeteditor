@@ -115,8 +115,8 @@
                                 if (headerContainer) {
                                     nodeIndex = tinymce.grep(
                                         bodyContainer.getAll('div'),
-                                        function (node) {
-                                            return node.attr('class').indexOf('tab-pane') !== -1;
+                                        function (elem) {
+                                            return elem.attr('class').indexOf('tab-pane') !== -1;
                                         }).indexOf(node);
                                     headerLiNode = headerContainer.getAll('li')[nodeIndex];
                                     if (headerLiNode) {
@@ -141,8 +141,6 @@
 
                 });
                 ed.serializer.addNodeFilter('div', function (nodes, name, args) {
-                    console.log('serializer');  // TODO: remove me
-
                     tinymce.each(nodes, function (node) {
                         var bodyContainer, nodeIndex, headerContainer, headerLiNode;
                         if (node.attr('class').indexOf('mceTabHeader') !== -1) {
@@ -154,6 +152,8 @@
                                     return elem.attr('class').indexOf('mceTabHeader') !== -1;
                                 }).indexOf(node);
                             headerLiNode = headerContainer.getAll('li')[nodeIndex];
+                            headerLiNode.append(node.firstChild);
+                            // mceTabHeader will be removed in the onPostProcess handler
                         }
                     });
                 });
@@ -189,6 +189,14 @@
                 }
 
                 // Events
+                ed.onPostProcess.add(function(ed, o) {
+                    tinymce.each(
+                        o.node.querySelectorAll('.mceTabHeader'),
+                        function (elem) {
+                            elem.remove();
+                        }
+                    );
+                });
                 ed.onNodeChange.add(function(ed, cm, e) {
                     // Prevent the p
                     var pElem, parentNode, found;
