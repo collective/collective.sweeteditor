@@ -25,7 +25,6 @@ setup(name='collective.sweeteditor',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
-          'collective.monkeypatcher',
       ],
       extras_require={
           'bootstrap': ['plone.app.jquery>=1.9.1'],

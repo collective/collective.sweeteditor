@@ -114,6 +114,11 @@
                 ]
             ];
 
+            // Pre init
+            ed.onPreInit.add(function () {
+                ed.schema.addValidElements('div[role|aria-multiselectable|aria-labelledby|aria-expanded|aria-controls]|a[role|aria-controls]|ul[role]|li[role]');
+            });
+
             // contextual controls
             ed.onInit.add(function() {
                 if (ed && ed.dom.loadCSS) {

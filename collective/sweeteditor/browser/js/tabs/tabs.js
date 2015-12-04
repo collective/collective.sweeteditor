@@ -103,6 +103,8 @@
 
             // Pre init
             ed.onPreInit.add(function () {
+                ed.schema.addValidElements('div[role|aria-multiselectable|aria-labelledby|aria-expanded|aria-controls]|a[role|aria-controls]|ul[role]|li[role]');
+
                 ed.parser.addNodeFilter('div', function (nodes) {
 
                     tinymce.each(nodes, function (node) {
