@@ -325,7 +325,6 @@
                             if (ed.dom.hasClass(elem, 'tab-content')) {
                                 tinymce.each(selectedBlocks, function (block) {
                                     if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
-                                        // TODO: check offset
                                         ed.dom.setHTML(block, '&nbsp;');
                                         found = true;
                                     }
@@ -351,11 +350,9 @@
                                 parent2 = ed.dom.getParent(selectedBlocks[selectedBlocks.length-1], '.sweet-tabs');
                                 if (parent1 && parent2 && parent1 === parent2) {
                                     if (selectedBlocks.length < 2) {
-                                        // TODO: check this
                                         // shift+startline/endline + canc
                                         return;
                                     }
-                                    // TODO: remove event cancel and override tinymce's default policy
                                     return tinymce.dom.Event.cancel(e);
                                 } else if (parent1 || parent2) {
                                     // no trans selection
