@@ -440,14 +440,15 @@
                     parent2 = ed.dom.getNext(parent1, containerSelectors) || ed.dom.getPrev(parent1, containerSelectors);
                     if (parent2) {
                         if (! ed.dom.hasClass(parent1, tempHeaderClass)) {
-                            // parent1 -> header container
-                            // parent2 -> body container
-                            swap = parent2;
-                            parent2 = parent1;
-                            parent1 = swap;
                             tabsItem2 = ed.dom.getParent(selected, '.tab-pane');
                             index = ed.dom.nodeIndex(tabsItem2);
-                            tabsItem1 = parent1.childNodes[index];
+                            realIndex = Math.floor(index/2);
+                            tabsItem1 = realHeaders.childNodes[realIndex];
+                            if (after) {
+                                realIndex++;
+                            } else {
+                                realIndex--;
+                            }
                         } else {
                             tabsItem1 = ed.dom.getParent(selected, '.' + tempHeaderClass);
                             index = ed.dom.nodeIndex(tabsItem1);
@@ -458,7 +459,6 @@
                                 realIndex++;
                             } else {
                                 tabsItem2 = realBodies.childNodes[index];
-                                realIndex--;
                             }
                         }
                         randomString1 = Math.floor(10000 * (Math.random() % 1)).toString();
@@ -474,8 +474,8 @@
                             ed.dom.insertAfter(el1, tabsItem1);
                             ed.dom.insertAfter(el2, tabsItem2);
                         } else {
-                            parent1.insertBefore(el1, tabsItem1);
-                            parent2.insertBefore(el2, tabsItem2);
+                            realHeaders.insertBefore(el1, tabsItem1);
+                            realBodies.insertBefore(el2, tabsItem2);
                         }
                         ed.dom.setOuterHTML(el1, htmlHeader);
                         ed.dom.setOuterHTML(el2, htmlBody);
@@ -488,7 +488,7 @@
                         if (after) {
                             ed.dom.insertAfter(wrapperDiv, tabsItem2);
                         } else {
-                            realBodies.insertBefore(wrapperDiv, tabsItem1.previousSibling);
+                            realBodies.insertBefore(wrapperDiv, tabsItem2.previousSibling);
                         }
 
                         if (!after && ed.dom.hasClass(tabsItem1, 'active')) {
@@ -497,8 +497,9 @@
                             // "active" class
                             ed.dom.removeClass(tabsItem1, 'active');
                             ed.dom.removeClass(tabsItem2, 'active');
-                            ed.dom.removeClass(tabsItem2.previousSibling, 'active');
+                            ed.dom.removeClass(tabsItem2.nextSibling, 'active');
                             ed.dom.addClass(realBodies.firstChild, 'active');
+                            ed.dom.addClass(realBodies.firstChild.nextSibling, 'active');
                             ed.dom.addClass(realHeaders.firstChild, 'active');
                             ed.dom.addClass(wrapperDiv, 'active');
                         }
