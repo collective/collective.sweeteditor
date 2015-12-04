@@ -28,8 +28,8 @@
     };
     emptyParagraph = '<p></p>';
     tabsItemHeaderSource = '<li role="presentation" class="{{#if @first}}active{{/if}}">' +
-        '  <a href="#{{random1}}{{#if @index}}{{@index}}{{/if}}" aria-controls="{{random1}}{{#if @index}}{{@index}}{{/if}}" role="tab" data-toggle="tab">{{header}}</a></li>';
-    tabsItemBodySource = '<div role="tabpanel" class="tab-pane {{#if @first}}active{{/if}}" id="{{random1}}{{#if @index}}{{@index}}{{/if}}">{{{body}}}</div>';
+        '  <a href="#sweet-{{random1}}{{@index}}" aria-controls="sweet-{{random1}}{{@index}}" role="tab" data-toggle="tab">{{header}}</a></li>';
+    tabsItemBodySource = '<div role="tabpanel" class="tab-pane {{#if @first}}active{{/if}}" id="sweet-{{random1}}{{@index}}">{{{body}}}</div>';
     tabsSource = emptyParagraph +
         '<div class="sweet-tabs">' +
         '  <ul class="nav nav-tabs" role="tablist">' +
