@@ -167,7 +167,8 @@
             ed.onInit.add(function() {
                 if (ed && ed.dom.loadCSS) {
                     // load plugin's css
-                    ed.dom.loadCSS(url + '/css/tabs.css?version=' + version);
+                    // TODO: remove date bogus parameter (useful during development)
+                    ed.dom.loadCSS(url + '/css/tabs.css?version=' + version + '&date=' + new Date().getTime());
                 }
                 if (ed && ed.plugins.contextmenu) {
                     ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
