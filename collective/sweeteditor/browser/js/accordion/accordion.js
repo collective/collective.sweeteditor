@@ -236,7 +236,7 @@
                                         // of the header, shift+startline and canc
                                         if ((keyCode === VK.BACKSPACE && range.startOffset === 1) || (keyCode === VK.DELETE && range.startOffset === 0) || (keyCode === VK.DELETE && range.endOffset === textContentLenght)) {
                                             if (elem.nodeName === 'A' && ed.dom.hasClass(elem.parentNode, 'panel-title')) {
-                                                elem.innerHTML = '&nbsp;';
+                                                ed.dom.setHTML(elem, '&nbsp;');
                                                 return tinymce.dom.Event.cancel(e);
                                             }
                                         }
