@@ -427,82 +427,74 @@
             ed.addCommand('mceTabsItemInsert', function(after) {
                 // insert another tabs, after or before the selected item
                 var selected, randomString1, context, htmlHeader, htmlBody,
-                    parent1, parent2, tabsItem1, tabsItem2, index, el1, el2, swap, containerSelectors,
+                    tabsItem1, tabsItem2, tempTab, newIndex, index, el1, el2, swap, containerSelectors,
                     sweetTabs, realHeaders, realBodies, realIndex, aLink, wrapperDiv, attrClass;
 
-                containerSelectors = '.' + tempHeaderClass + ',.tab-content';
+                containerSelectors = '.' + tempHeaderClass + ',.tab-pane';
                 selected = ed.selection.getNode();
-                parent1 = ed.dom.getParent(selected, containerSelectors);
                 sweetTabs = ed.dom.getParent(selected, '.sweet-tabs');
                 realHeaders = sweetTabs.firstChild;
                 realBodies = sweetTabs.lastChild;
-                if (parent1) {
-                    parent2 = ed.dom.getNext(parent1, containerSelectors) || ed.dom.getPrev(parent1, containerSelectors);
-                    if (parent2) {
-                        if (! ed.dom.hasClass(parent1, tempHeaderClass)) {
-                            tabsItem2 = ed.dom.getParent(selected, '.tab-pane');
-                            index = ed.dom.nodeIndex(tabsItem2);
-                            realIndex = Math.floor(index/2);
-                            tabsItem1 = realHeaders.childNodes[realIndex];
-                            if (after) {
-                                realIndex++;
-                            } else {
-                                realIndex--;
-                            }
-                        } else {
-                            tabsItem1 = ed.dom.getParent(selected, '.' + tempHeaderClass);
-                            index = ed.dom.nodeIndex(tabsItem1);
-                            realIndex = Math.floor(index/2);
-                            tabsItem1 = realHeaders.childNodes[realIndex];
-                            if (after) {
-                                tabsItem2 = realBodies.childNodes[index+1];
-                                realIndex++;
-                            } else {
-                                tabsItem2 = realBodies.childNodes[index];
-                            }
-                        }
-                        randomString1 = Math.floor(10000 * (Math.random() % 1)).toString();
-                        context = {};
-                        context.header = defaultTabsItem.header;
-                        context.body = defaultTabsItem.body;
-                        context.random1 = randomString1;
-                        htmlHeader = tabsItemHeaderTemplate(context);
-                        htmlBody = tabsItemBodyTemplate(context);
-                        el1 = ed.dom.create('div');
-                        el2 = ed.dom.create('div');
-                        if (after) {
-                            ed.dom.insertAfter(el1, tabsItem1);
-                            ed.dom.insertAfter(el2, tabsItem2);
-                        } else {
-                            realHeaders.insertBefore(el1, tabsItem1);
-                            realBodies.insertBefore(el2, tabsItem2);
-                        }
-                        ed.dom.setOuterHTML(el1, htmlHeader);
-                        ed.dom.setOuterHTML(el2, htmlBody);
-                        aLink = realHeaders.children[realIndex].children[0];
-                        wrapperDiv = document.createElement('div');
-                        attrClass = document.createAttribute("class");
-                        attrClass.value = tempHeaderClass; 
-                        wrapperDiv.setAttributeNode(attrClass);
-                        wrapperDiv.appendChild(aLink);
-                        if (after) {
-                            ed.dom.insertAfter(wrapperDiv, tabsItem2);
-                        } else {
-                            realBodies.insertBefore(wrapperDiv, tabsItem2.previousSibling);
-                        }
+                tempTab = ed.dom.getParent(selected, '.' + tempHeaderClass);
+                if (!tempTab) {
+                    tabsItem2 = ed.dom.getParent(selected, '.tab-pane');
+                    tempTab = tabsItem2.previousSibling;
+                } else {
+                    tabsItem2 = tempTab.nextSibling;
+                }
+                index = ed.dom.nodeIndex(tempTab);
+                realIndex = Math.floor(index/2);
+                tabsItem1 = realHeaders.childNodes[realIndex];
+                if (after) {
+                    newIndex = realIndex + 1;
+                } else {
+                    newIndex = realIndex;
+                }
 
-                        if (!after && ed.dom.hasClass(tabsItem1, 'active')) {
-                            // if the current tabs item is the first one and we are
-                            // prepending another tab item, we need to toggle the
-                            // "active" class
-                            ed.dom.removeClass(tabsItem1, 'active');
-                            ed.dom.removeClass(tabsItem2, 'active');
-                            ed.dom.removeClass(tabsItem2.nextSibling, 'active');
-                            ed.dom.addClass(realBodies.firstChild, 'active');
-                            ed.dom.addClass(realBodies.firstChild.nextSibling, 'active');
-                            ed.dom.addClass(realHeaders.firstChild, 'active');
-                            ed.dom.addClass(wrapperDiv, 'active');
-                        }
+                if (tabsItem1 && tabsItem2 && tempTab) {
+                    randomString1 = Math.floor(10000 * (Math.random() % 1)).toString();
+                    context = {};
+                    context.header = defaultTabsItem.header;
+                    context.body = defaultTabsItem.body;
+                    context.random1 = randomString1;
+                    htmlHeader = tabsItemHeaderTemplate(context);
+                    htmlBody = tabsItemBodyTemplate(context);
+
+                    el1 = ed.dom.create('div');
+                    el2 = ed.dom.create('div');
+                    if (after) {
+                        ed.dom.insertAfter(el1, tabsItem1);
+                    } else {
+                        realHeaders.insertBefore(el1, tabsItem1);
+                    }
+                    ed.dom.setOuterHTML(el1, htmlHeader);
+
+                    aLink = realHeaders.children[newIndex].children[0];
+                    wrapperDiv = document.createElement('div');
+                    attrClass = document.createAttribute("class");
+                    attrClass.value = tempHeaderClass;
+                    wrapperDiv.setAttributeNode(attrClass);
+                    wrapperDiv.appendChild(aLink);
+
+                    if (after) {
+                        ed.dom.insertAfter(el2, tabsItem2);
+                        ed.dom.insertAfter(wrapperDiv, tabsItem2);
+                    } else {
+                        realBodies.insertBefore(wrapperDiv, tempTab);
+                        realBodies.insertBefore(el2, tempTab);
+                    }
+                    ed.dom.setOuterHTML(el2, htmlBody);
+
+                    if (!after && ed.dom.hasClass(tabsItem1, 'active')) {
+                        // if the current tabs item is the first one and we are
+                        // prepending another tab item, we need to toggle the
+                        // "active" class
+                        ed.dom.removeClass(tabsItem1, 'active');
+                        ed.dom.removeClass(tabsItem2, 'active');
+                        ed.dom.removeClass(tempTab, 'active');
+                        ed.dom.addClass(realBodies.firstChild, 'active');
+                        ed.dom.addClass(realBodies.firstChild.nextSibling, 'active');
+                        ed.dom.addClass(realHeaders.firstChild, 'active');
                     }
                 }
             });
