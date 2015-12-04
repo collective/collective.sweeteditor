@@ -17,9 +17,15 @@
     content: "▼ " !important;
 }
 
+.mceContentBody .panel-heading {
+    border-top: 1px dashed red !important;
+}
+.mceContentBody .panel-heading:not(:last-child) {
+    border-bottom: 1px dashed red !important;
+}
+
 .mceContentBody .panel-title a {
     border-bottom: none !important;
-    cursor: default;
 }
 
 .mceContentBody .collapse {
@@ -34,6 +40,23 @@
 .mceContentBody .panel-heading {
     display: inherit;
     border: thin dashed red;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    color: #333;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 10px 15px;
+}
+
+.mceContentBody .panel-title {
+    color: inherit;
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.mceContentBody .panel-body {
+    padding: 15px;
 }
 
 .mce_accordion {
