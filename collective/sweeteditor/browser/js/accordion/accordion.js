@@ -232,7 +232,6 @@
                                     // bootstrap, so we need a special rule here.
                                     // The exact opposite for keyCode === VK.DELETE
                                     if (textContentLength === 1 || textContentLength === range.endOffset) {
-				        // TODO: check this
                                         // the textContentLength == range.endOffset condition is for cursor at the end
                                         // of the header, shift+startline and canc
                                         if ((keyCode === VK.BACKSPACE && range.startOffset === 1) || (keyCode === VK.DELETE && range.startOffset === 0) || (keyCode === VK.DELETE && range.endOffset === textContentLenght)) {
@@ -277,7 +276,6 @@
                             if (ed.dom.hasClass(elem, 'panel-collapse')) {
                                 tinymce.each(selectedBlocks, function (block) {
                                     if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'panel-body')) {
-                                        // TODO: check offset
                                         ed.dom.setHTML(block, '&nbsp;');
                                         found = true;
                                     }
@@ -300,11 +298,9 @@
                                 parent2 = ed.dom.getParent(selectedBlocks[selectedBlocks.length-1], '.panel-group');
                                 if (parent1 && parent2 && parent1 === parent2) {
                                     if (selectedBlocks.length < 2) {
-                                        // TODO: check this
                                         // shift+startline/endline + canc
                                         return;
                                     }
-                                    // TODO: remove event cancel and override tinymce's default policy
                                     return tinymce.dom.Event.cancel(e);
                                 } else if (parent1 || parent2) {
                                     // no trans selection
