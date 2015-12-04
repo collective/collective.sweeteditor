@@ -427,11 +427,15 @@
             ed.addCommand('mceTabsItemInsert', function(after) {
                 // insert another tabs, after or before the selected item
                 var selected, randomString1, context, htmlHeader, htmlBody,
-                    parent1, parent2, tabsItem1, tabsItem2, index, el1, el2, swap, containerSelectors;
+                    parent1, parent2, tabsItem1, tabsItem2, index, el1, el2, swap, containerSelectors,
+                    sweetTabs, realHeaders, realBodies, realIndex, aLink, wrapperDiv, attrClass;
 
                 containerSelectors = '.' + tempHeaderClass + ',.tab-content';
                 selected = ed.selection.getNode();
                 parent1 = ed.dom.getParent(selected, containerSelectors);
+                sweetTabs = ed.dom.getParent(selected, '.sweet-tabs');
+                realHeaders = sweetTabs.firstChild;
+                realBodies = sweetTabs.lastChild;
                 if (parent1) {
                     parent2 = ed.dom.getNext(parent1, containerSelectors) || ed.dom.getPrev(parent1, containerSelectors);
                     if (parent2) {
@@ -445,9 +449,17 @@
                             index = ed.dom.nodeIndex(tabsItem2);
                             tabsItem1 = parent1.childNodes[index];
                         } else {
-                            tabsItem1 = ed.dom.getParent(selected, '.' + tempHeaderClass + ' li');
+                            tabsItem1 = ed.dom.getParent(selected, '.' + tempHeaderClass);
                             index = ed.dom.nodeIndex(tabsItem1);
-                            tabsItem2 = parent2.childNodes[index];
+                            realIndex = Math.floor(index/2);
+                            tabsItem1 = realHeaders.childNodes[realIndex];
+                            if (after) {
+                                tabsItem2 = realBodies.childNodes[index+1];
+                                realIndex++;
+                            } else {
+                                tabsItem2 = realBodies.childNodes[index];
+                                realIndex--;
+                            }
                         }
                         randomString1 = Math.floor(10000 * (Math.random() % 1)).toString();
                         context = {};
@@ -467,6 +479,17 @@
                         }
                         ed.dom.setOuterHTML(el1, htmlHeader);
                         ed.dom.setOuterHTML(el2, htmlBody);
+                        aLink = realHeaders.children[realIndex].children[0];
+                        wrapperDiv = document.createElement('div');
+                        attrClass = document.createAttribute("class");
+                        attrClass.value = tempHeaderClass; 
+                        wrapperDiv.setAttributeNode(attrClass);
+                        wrapperDiv.appendChild(aLink);
+                        if (after) {
+                            ed.dom.insertAfter(wrapperDiv, tabsItem2);
+                        } else {
+                            realBodies.insertBefore(wrapperDiv, tabsItem1.previousSibling);
+                        }
 
                         if (!after && ed.dom.hasClass(tabsItem1, 'active')) {
                             // if the current tabs item is the first one and we are
@@ -474,8 +497,10 @@
                             // "active" class
                             ed.dom.removeClass(tabsItem1, 'active');
                             ed.dom.removeClass(tabsItem2, 'active');
-                            ed.dom.addClass(parent1.firstChild, 'active');
-                            ed.dom.addClass(parent2.firstChild, 'active');
+                            ed.dom.removeClass(tabsItem2.previousSibling, 'active');
+                            ed.dom.addClass(realBodies.firstChild, 'active');
+                            ed.dom.addClass(realHeaders.firstChild, 'active');
+                            ed.dom.addClass(wrapperDiv, 'active');
                         }
                     }
                 }
