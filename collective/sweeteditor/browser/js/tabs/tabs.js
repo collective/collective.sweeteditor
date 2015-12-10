@@ -325,7 +325,7 @@
                                     return tinymce.dom.Event.cancel(e);
                                 } else if (elem.nodeName === 'DIV' && ed.dom.hasClass(elem, 'sweet-tabs')) {
                                     return tinymce.dom.Event.cancel(e);
-                                } else if (elem.nodeName === 'UL' && ed.dom.hasClass(elem, tempHeaderClass)) {
+                                } else if (elem.nodeName === 'DIV' && ed.dom.hasClass(elem, tempHeaderClass)) {
                                     return tinymce.dom.Event.cancel(e);
                                 } else if (elem.nodeName === 'DIV' && ed.dom.hasClass(elem, 'tab-content')) {
                                     return tinymce.dom.Event.cancel(e);
