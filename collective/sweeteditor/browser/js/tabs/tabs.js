@@ -239,8 +239,10 @@
                     }
 
                     if (! e.shiftKey) {
+                        console.log('---------------------');
                         console.log(elem);
                         console.log(selectedBlocks);
+                        console.log(range);
                         console.log('breakpoint');
                     }
                     // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
@@ -289,8 +291,8 @@
                                     if (textContentLength === 1 || textContentLength === range.endOffset) {
                                         // the textContentLength == range.endOffset condition is for cursor at the end
                                         // of the header, shift+startline and canc
-                                        if ((keyCode === VK.BACKSPACE && range.startOffset === 1) || (keyCode === VK.DELETE && range.startOffset === 0) || (keyCode === VK.DELETE && range.endOffset === textContentLenght)) {
-                                            if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'role', undefined) === 'tab') {
+                                        if ((ed.dom.getParent(elem, '.' + tempHeaderClass) && textContentLength === 1) || (keyCode === VK.BACKSPACE && range.startOffset === 1) || (keyCode === VK.DELETE && range.startOffset === 0) || (keyCode === VK.DELETE && range.endOffset === textContentLenght)) {
+                                            if (elem.nodeName === 'A' && ed.dom.getAttrib(elem, 'data-toggle', undefined) === 'tab') {
                                                 ed.dom.setHTML(elem, '&nbsp;');
                                                 return tinymce.dom.Event.cancel(e);
                                             }
