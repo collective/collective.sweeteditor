@@ -238,13 +238,6 @@
                         return tinymce.dom.Event.cancel(e);
                     }
 
-                    if (! e.shiftKey) {
-                        console.log('---------------------');
-                        console.log(elem);
-                        console.log(selectedBlocks);
-                        console.log(range);
-                        console.log('breakpoint');
-                    }
                     // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
                     // work on older versions of TinyMCE)
                     if (ed.dom.getParent(elem, tabsRootSelector)) {
