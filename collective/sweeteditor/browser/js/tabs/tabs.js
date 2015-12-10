@@ -238,6 +238,11 @@
                         return tinymce.dom.Event.cancel(e);
                     }
 
+                    if (! e.shiftKey) {
+                        console.log(elem);
+                        console.log(selectedBlocks);
+                        console.log('breakpoint');
+                    }
                     // Prevent edit where it shouldn't be possible (mceNotEditable/mceEditable doesn't
                     // work on older versions of TinyMCE)
                     if (ed.dom.getParent(elem, tabsRootSelector)) {
@@ -257,7 +262,7 @@
                             if (keyCode === VK.BACKSPACE || keyCode === VK.DELETE) {
                                 textContentLength = elem.textContent.length;
 
-                                if ((keyCode === VK.BACKSPACE && range.startOffset === 0) ||
+                                if ((range.startOffset === 0 && range.endOffset === textContentLength && ed.dom.getParent(elem, '.' + tempHeaderClass)) || (keyCode === VK.BACKSPACE && range.startOffset === 0) ||
                                    (keyCode === VK.DELETE && range.startOffset === textContentLength)) {
                                     if (ed.dom.getParent(elem, '.' + tempHeaderClass)) {
                                         // prevent delete/backspace on headers a
@@ -289,7 +294,7 @@
                                                 ed.dom.setHTML(elem, '&nbsp;');
                                                 return tinymce.dom.Event.cancel(e);
                                             }
-                                            if (elem.nodeName === 'LI' && ed.dom.hasClass(elem.parentNode, tempHeaderClass)) {
+                                            if (elem.nodeName === 'DIV' && ed.dom.hasClass(elem, tempHeaderClass)) {
                                                 return tinymce.dom.Event.cancel(e);
                                             }
                                         }
