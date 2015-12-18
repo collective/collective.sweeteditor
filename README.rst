@@ -95,7 +95,7 @@ Accordion
     role="tablist">
       <div class="panel panel-default">
         <div class="panel-heading" id="8466-37230-heading" role="tab">
-          <h4 class="panel-title"><a aria-controls="8466-37230-body" data-parent=
+          <h4 class="panel-title"><a class="accordion-toggle" aria-controls="8466-37230-body" data-parent=
           "#8466-accordion" data-toggle="collapse" href="#8466-37230-body" role=
           "button">Header 1</a></h4>
         </div>
@@ -108,7 +108,7 @@ Accordion
       </div>
       <div class="panel panel-default">
         <div class="panel-heading" id="8466-37231-heading" role="tab">
-          <h4 class="panel-title"><a aria-controls="8466-37231-body" data-parent=
+          <h4 class="panel-title"><a class="accordion-toggle collapsed" aria-controls="8466-37231-body" data-parent=
           "#8466-accordion" data-toggle="collapse" href="#8466-37231-body" role=
           "button">Header 1</a></h4>
         </div>
@@ -129,7 +129,7 @@ Collapsable
     "5973-accordion" role="tablist">
       <div class="panel panel-default">
         <div class="panel-heading" id="5973-11350-heading" role="tab">
-          <h4 class="panel-title"><a aria-controls="5973-11350-body" data-toggle=
+          <h4 class="panel-title"><a class="accordion-toggle" aria-controls="5973-11350-body" data-toggle=
           "collapse" href="#5973-11350-body" role="button">Header 1</a></h4>
         </div>
         <div aria-labelledby="5973-11350-heading" class=
@@ -141,7 +141,7 @@ Collapsable
       </div>
       <div class="panel panel-default">
         <div class="panel-heading" id="5973-11351-heading" role="tab">
-          <h4 class="panel-title"><a aria-controls="5973-11351-body" data-toggle=
+          <h4 class="panel-title"><a class="accordion-toggle collapsed" aria-controls="5973-11351-body" data-toggle=
           "collapse" href="#5973-11351-body" role="button">Header 1</a></h4>
         </div>
         <div aria-labelledby="5973-11351-heading" class="panel-collapse collapse"

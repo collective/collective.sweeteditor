@@ -30,6 +30,7 @@
         '       id="{{random1}}-{{random2}}{{@index}}-heading">' +
         '    <h4 class="panel-title">' +
         '      <a role="button" ' +
+        '         class="accordion-toggle {{#unless @first}}collapsed{{/unless}}"' +
         '         data-toggle="collapse" ' +
         '         {{#unless collapsable}}data-parent="#{{random1}}-accordion"{{/unless}} ' +
         '         href="#{{random1}}-{{random2}}{{@index}}-body" ' +
