@@ -29,7 +29,7 @@
     content: "▶ ";
     color: black;
 }
- 
+
 .mceContentBody .sweet-tabs .mceTabHeader.active > a:before {
     font-family: monospace;
     font-size: 16px;
@@ -81,17 +81,17 @@
 }
 
 .mce_tabs-delete {
-    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs-delete.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/tabs/img/fa-eraser.png') !important;
 }
 
 .mce_tabs-item-delete {
-    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs-item-delete.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/tabs/img/remove_bar.png') !important;
 }
 
 .mce_tabs-item-insert-after {
-    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs-item-insert-after.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/tabs/img/fa-insert-right.png') !important;
 }
 
 .mce_tabs-item-insert-before {
-    background: url('++resource++collective.sweeteditor.js/tabs/img/tabs-item-insert-before.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/tabs/img/fa-insert-left.png') !important;
 }

@@ -68,7 +68,7 @@
                 ['tabsDelete',
                  {title: 'tabs.deletedesc',
                   cmd: 'mceTabsDelete',
-                  image: url + '/img/tabs-delete.gif',
+                  image: url + '/img/fa-eraser.png',
                   icon: 'tabs-delete'
                   },
                   tabsCondition
@@ -76,7 +76,7 @@
                 ['tabsItemDelete', {
                   title: 'tabs.itemdeletedesc',
                   cmd: 'mceTabsItemDelete',
-                  image: url + '/img/tabs-item-delete.gif',
+                  image: url + '/img/remove_bar.png',
                   icon: 'tabs-item-delete'
                   },
                   tabsCondition
@@ -85,7 +85,7 @@
                   title: 'tabs.iteminsertafterdesc',
                   cmd: 'mceTabsItemInsert',
                   ui: true,
-                  image: url + '/img/tabs-item-insert-after.gif',
+                  image: url + '/img/fa-insert-right.png',
                   icon: 'tabs-item-insert-after'
                   },
                   tabsCondition
@@ -94,7 +94,7 @@
                   title: 'tabs.iteminsertbeforedesc',
                   cmd: 'mceTabsItemInsert',
                   ui: false,
-                  image: url + '/img/tabs-item-insert-before.gif',
+                  image: url + '/img/fa-insert-left.png',
                   icon: 'tabs-item-insert-before'
                   },
                   tabsCondition
