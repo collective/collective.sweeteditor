@@ -60,7 +60,7 @@
                 ['tabs',
                  {title: 'tabs.desc',
                   cmd: 'mceTabs',
-                  image: url + '/img/tabs.gif',
+                  image: url + '/img/lsf-tabs.png',
                   icon: 'tabs'
                  },
                  addTabsCondition

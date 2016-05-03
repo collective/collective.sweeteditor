@@ -72,7 +72,7 @@
                   cmd: 'mceAccordion',
                   ui: false,
                   value: {},
-                  image: url + '/img/accordion.gif',
+                  image: url + '/img/fa-accordion.png',
                   icon: 'accordion'
                  },
                  addAccordionCondition
@@ -80,7 +80,7 @@
                 ['accordionDelete',
                  {title: 'accordion.deletedesc',
                   cmd: 'mceAccordionDelete',
-                  image: url + '/img/accordion-delete.gif',
+                  image: url + '/img/fa-eraser.png',
                   icon: 'accordion-delete'
                   },
                   accordionCondition
@@ -88,7 +88,7 @@
                 ['accordionItemDelete', {
                   title: 'accordion.itemdeletedesc',
                   cmd: 'mceAccordionItemDelete',
-                  image: url + '/img/accordion-item-delete.gif',
+                  image: url + '/img/fa-acc-remove.png',
                   icon: 'accordion-item-delete'
                   },
                   accordionCondition
@@ -98,7 +98,7 @@
                   cmd: 'mceAccordionItemInsert',
                   ui: false,
                   value: {after: true},
-                  image: url + '/img/accordion-item-insert-after.gif',
+                  image: url + '/img/fa-toggle-after.png',
                   icon: 'accordion-item-insert-after'
                   },
                   accordionCondition
@@ -108,7 +108,7 @@
                   cmd: 'mceAccordionItemInsert',
                   ui: false,
                   value: {after: false},
-                  image: url + '/img/accordion-item-insert-before.gif',
+                  image: url + '/img/fa-toggle-before.png',
                   icon: 'accordion-item-insert-before'
                   },
                   accordionCondition
@@ -169,7 +169,7 @@
                         }
                     }
                 });
-                
+
                 ed.onKeyDown.addToTop(function(ed, e) {
                     var range, elem, accordionRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found, parent1, parent2;
 

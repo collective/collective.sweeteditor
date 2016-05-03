@@ -60,23 +60,23 @@
 }
 
 .mce_accordion {
-    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-accordion.png') !important;
 }
 
 .mce_accordion-delete {
-    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion-delete.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-eraser.png') !important;
 }
 
 .mce_accordion-item-delete {
-    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion-item-delete.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-acc-remove.png') !important;
 }
 
 .mce_accordion-item-insert-after {
-    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion-item-insert-after.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-toggle-after.png') !important;
 }
 
 .mce_accordion-item-insert-before {
-    background: url('++resource++collective.sweeteditor.js/accordion/img/accordion-item-insert-before.gif') !important;
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-toggle-before.png') !important;
 }
 
 /* collapsable */
