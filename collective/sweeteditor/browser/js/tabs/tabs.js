@@ -110,31 +110,32 @@
                     tinymce.each(nodes, function (node) {
                         var bodyContainer, headerContainer, nodeIndex,
                             wrapperDiv, headerLiNode, headerLiNodeClass;
-
-                        if (node.attr('class').indexOf('tab-pane') !== -1) {
-                            bodyContainer = node.parent;
-                            if (bodyContainer.parent) {
-                                headerContainer = bodyContainer.parent.firstChild;
-                                if (headerContainer) {
-                                    nodeIndex = tinymce.grep(
-                                        bodyContainer.getAll('div'),
-                                        function (elem) {
-                                            return elem.attr('class').indexOf('tab-pane') !== -1;
-                                        }).indexOf(node);
-                                    headerLiNode = headerContainer.getAll('li')[nodeIndex];
-                                    if (headerLiNode) {
-                                        headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
-                                        if (headerNode) {
-                                            wrapperDiv = new tinymce.html.Node('div', 1);
-                                            headerLiNodeClass = headerLiNode.attr('class') || '';
-                                            if (headerLiNodeClass.indexOf('active') !== -1) {
-                                                wrapperDiv.attr('class', tempHeaderClass + ' active');
+                        if (node.attr('class') != undefined) {
+                            if (node.attr('class').indexOf('tab-pane') !== -1) {
+                                bodyContainer = node.parent;
+                                if (bodyContainer.parent) {
+                                    headerContainer = bodyContainer.parent.firstChild;
+                                    if (headerContainer) {
+                                        nodeIndex = tinymce.grep(
+                                            bodyContainer.getAll('div'),
+                                            function (elem) {
+                                                return elem.attr('class').indexOf('tab-pane') !== -1;
+                                            }).indexOf(node);
+                                        headerLiNode = headerContainer.getAll('li')[nodeIndex];
+                                        if (headerLiNode) {
+                                            headerNode = headerContainer.getAll('li')[nodeIndex].firstChild;
+                                            if (headerNode) {
+                                                wrapperDiv = new tinymce.html.Node('div', 1);
+                                                headerLiNodeClass = headerLiNode.attr('class') || '';
+                                                if (headerLiNodeClass.indexOf('active') !== -1) {
+                                                    wrapperDiv.attr('class', tempHeaderClass + ' active');
+                                                }
+                                                else {
+                                                    wrapperDiv.attr('class', tempHeaderClass);
+                                                }
+                                                wrapperDiv.append(headerNode);
+                                                bodyContainer.insert(wrapperDiv, node, 1);
                                             }
-                                            else {
-                                                wrapperDiv.attr('class', tempHeaderClass);
-                                            }
-                                            wrapperDiv.append(headerNode);
-                                            bodyContainer.insert(wrapperDiv, node, 1);
                                         }
                                     }
                                 }
@@ -146,19 +147,21 @@
                 ed.serializer.addNodeFilter('div', function (nodes, name, args) {
                     tinymce.each(nodes, function (node) {
                         var bodyContainer, nodeIndex, headerContainer, headerLiNode, headerNode, markerNode;
-                        if (node.attr('class').indexOf('tab-pane') !== -1) {
-                            bodyContainer = node.parent;
-                            headerContainer = bodyContainer.parent.firstChild;
-                            nodeIndex = tinymce.grep(
-                                bodyContainer.getAll('div'),
-                                function (elem) {
-                                    return elem.attr('class').indexOf('tab-pane') !== -1;
-                                }).indexOf(node);
-                            headerLiNode = headerContainer.getAll('li')[nodeIndex];
-                            markerNode = node.prev;
-                            if (markerNode && markerNode.attr('class').indexOf(tempHeaderClass) !== -1) {
-                                headerLiNode.append(markerNode.firstChild);
-                                markerNode.remove();
+                        if (node.attr('class') !== undefined) {
+                            if (node.attr('class').indexOf('tab-pane') !== -1) {
+                                bodyContainer = node.parent;
+                                headerContainer = bodyContainer.parent.firstChild;
+                                nodeIndex = tinymce.grep(
+                                    bodyContainer.getAll('div'),
+                                    function (elem) {
+                                        return elem.attr('class').indexOf('tab-pane') !== -1;
+                                    }).indexOf(node);
+                                headerLiNode = headerContainer.getAll('li')[nodeIndex];
+                                markerNode = node.prev;
+                                if (markerNode && markerNode.attr('class').indexOf(tempHeaderClass) !== -1) {
+                                    headerLiNode.append(markerNode.firstChild);
+                                    markerNode.remove();
+                                }
                             }
                         }
                     });
