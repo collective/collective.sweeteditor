@@ -8,14 +8,14 @@
     <script type="text/javascript" src="js/tabs.js?v={tinymce_version}"></script>
   </head>
   <body role="application" aria-labelledby="app_title">
-    <span style="display:none;" id="app_title">{#tabs_dlg.title}</span>
+    <span style="display:none;" id="app_title">Create new tabs</span>
     <div class="dialog-wrapper" id="content">
       <form onsubmit="TabsDialog.insert();return false;" action="#">
         <fieldset>
-          <legend>{#tabs_dlg.legend}</legend>
+          <legend>Create new tabs</legend>
           <div class="field">
-            <label for="mceTabsLength">{#tabs_dlg.length_label}</label>
-              <div class="formHelp"> {#tabs_dlg.length_help}</div>
+            <label for="mceTabsLength">Number of tabs</label>
+              <div class="formHelp"> Enter the number of tabs:</div>
               <div class="widget">
                 <input id="mceTabsLength" name="tabsLength" class="mceFocus required int min1" size="3"
                        maxlength="3" aria-required="true" value="2" />
@@ -23,8 +23,8 @@
           </div>
         </fieldset>
         <div class="mceActionPanel">
-          <input type="submit" id="insert" name="insert" value="{#insert}" />
-          <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+          <input type="submit" id="insert" name="insert" value="Insert" />
+          <input type="button" id="cancel" name="cancel" value="Cancel" onclick="tinyMCEPopup.close();" />
         </div>
       </form>
     </div>

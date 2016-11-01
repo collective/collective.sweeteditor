@@ -591,11 +591,9 @@
             });
 
             // Handle node change updates
-            ed.on('NodeChange').on('add', function(ed, cm, n) {
-
-                //            ed.onNodeChange.add(function(ed, cm, n) {
+            ed.onNodeChange.add(function(ed, cm, n) {
                 // disable toolbar's buttons depending on the current selection
-                tinymce.each(buttons, function(item) {
+                tinymce.each(buttons, function (item) {
                     cm.setDisabled(item[0], !item[2](ed, n));
                 });
                 // TODO: remove "remove link" button for tab headers
@@ -661,7 +659,7 @@
                         }
                     } else {
                         ed.windowManager.open({
-                            file: url + '/tabs.html',
+                            file: url + '/tabs',
                             width: 430 + parseInt(ed.getLang('media.delta_width', 0)),
                             height: 500 + parseInt(ed.getLang('media.delta_height', 0)),
                             inline: 1
