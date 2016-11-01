@@ -11,7 +11,7 @@
   <include package="Products.CMFPlone" />
   <include package=".browser" />
 
-  <cmf:registerDirectory name="tabs" />
+  <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
 
   <genericsetup:registerProfile
       name="default"
