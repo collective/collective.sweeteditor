@@ -15,4 +15,11 @@
     expression=""
     enabled="1" />
 
+ <stylesheet title=""
+    id="++resource++plone.app.widgets-tinymce-content.css"
+    media="" rel="stylesheet" rendering="link"
+    cacheable="True" compression="safe" cookable="True"
+    expression=""
+    enabled="1" />
+
 </object>

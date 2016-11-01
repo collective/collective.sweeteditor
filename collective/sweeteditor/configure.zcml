@@ -1,13 +1,17 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.sweeteditor">
 
   <five:registerPackage package="." initialize=".initialize" />
 
+  <include package="Products.CMFPlone" />
   <include package=".browser" />
+
+  <cmf:registerDirectory name="tabs" />
 
   <genericsetup:registerProfile
       name="default"
@@ -24,5 +28,5 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   <!-- -*- extra stuff goes here -*- -->
-  
+
 </configure>

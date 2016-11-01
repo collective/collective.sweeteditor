@@ -1,0 +1,97 @@
+/* tabs */
+
+.mce-content-body .sweet-tabs:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "tabs";
+}
+.mce-content-body .sweet-tabs {
+    display: inherit;
+    border: 1px dashed red;
+}
+
+.mce-content-body .sweet-tabs .nav-tabs {
+    display: none;
+}
+
+.mce-content-body .sweet-tabs .tab-content {
+    border-top: 1px dashed red !important;
+}
+
+.mce-content-body .sweet-tabs .mceTabHeader {
+    border-bottom: 1px dashed red !important;
+    padding-left: 18px;
+}
+
+.mce-content-body .sweet-tabs .mceTabHeader > a:before {
+    font-family: monospace;
+    font-size: 16px;
+    content: "▶ ";
+    color: black;
+}
+
+.mce-content-body .sweet-tabs .mceTabHeader.active > a:before {
+    font-family: monospace;
+    font-size: 16px;
+    content: "▼ " !important;
+    color: black;
+}
+
+.mce-content-body .sweet-tabs .tab-pane:not(:last-child) {
+    display: inherit;
+    border-bottom: 1px dashed red !important;
+}
+
+.mce-content-body .sweet-tabs .nav-tabs > li a,
+.mce-content-body .sweet-tabs .nav-tabs > li a:hover,
+.mce-content-body .sweet-tabs .nav-tabs > li.active a,
+.mce-content-body .sweet-tabs .nav-tabs > li.active a:hover {
+    border: none;
+    background-color: inherit;
+}
+
+.mce-content-body .sweet-tabs .tab-content > .tab-pane {
+    display: block;
+    padding: 18px;
+}
+
+.mce-content-body .sweet-tabs ul.nav-tabs {
+    border-bottom: none;
+}
+
+.mce-content-body .mceTabHeader {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    color: #333;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 10px 15px;
+}
+.mce-content-body .mceTabHeader a {
+    font-family: monospace;
+    font-size: 16px;
+    border-bottom: medium none !important;
+    background-color: transparent;
+    color: #205c90 !important;
+    text-decoration: none !important;
+}
+
+.mce_tabs {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/add-tab.png') !important;
+}
+
+.mce_tabs-delete {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/fa-eraser.png') !important;
+}
+
+.mce_tabs-item-delete {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/del-tab.png') !important;
+}
+
+.mce_tabs-item-insert-after {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/fa-insert-right.png') !important;
+}
+
+.mce_tabs-item-insert-before {
+    background: url('++resource++collective.sweeteditor.js/tabs/img/fa-insert-left.png') !important;
+}
