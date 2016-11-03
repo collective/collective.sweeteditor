@@ -6,8 +6,15 @@
     meta_type="Filesystem Directory View"
     directory="collective.sweeteditor:skins/tabs"/>
 
+ <object name="accordion"
+    meta_type="Filesystem Directory View"
+    directory="collective.sweeteditor:skins/accordion"/>
+
+
  <skin-path name="*">
   <layer name="tabs"
+     insert-after="custom"/>
+  <layer name="accordion"
      insert-after="custom"/>
  </skin-path>
 

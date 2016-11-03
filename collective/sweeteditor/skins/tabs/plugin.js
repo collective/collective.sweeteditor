@@ -277,29 +277,30 @@
                 // }
 
                 // Events
-                ed.on('NodeChange').on('add', function(ed, cm, e) {
+                ed.on('NodeChange', function(ed) {
                     // ed.onNodeChange.add(function(ed, cm, e) {
                     // Prevent the p
                     var pElem, parentNode, found;
-                    parentNode = e.parentNode;
-                    if (e.nodeName == 'BR' && ed.dom.hasClass(parentNode, 'tab-pane')) {
+                    parentNode = ed.element.parentNode;
+                    if (ed.element.nodeName == 'BR' && ed.target.dom.hasClass(parentNode, 'tab-pane')) {
                         tinymce.each(parentNode.childNodes, function(block) {
                             if (block.nodeName === 'P') {
                                 found = true;
                             }
                         });
                         if (!found) {
-                            pElem = ed.dom.create('p', {}, '&nbsp;');
+                            pElem = ed.target.dom.create('p', {}, '&nbsp;');
                             parentNode.appendChild(pElem);
-                            ed.dom.remove(e);
-                            ed.selection.select(pElem);
+                            ed.target.dom.remove(e);
+                            ed.target.selection.select(pElem);
                         }
                     }
                 });
 
-                // ed.on('KeyDown', function(ed) {
-                ed.onKeyDown.addToTop(function(ed, e) {
+                ed.on('KeyDown', function(e) {
+                // ed.onKeyDown.addToTop(function(ed, e) {
                     var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found, parent1, parent2;
+                    var ed = tinymce.activeEditor;
 
                     found = false;
                     keyCode = e.keyCode;
@@ -591,10 +592,10 @@
             });
 
             // Handle node change updates
-            ed.onNodeChange.add(function(ed, cm, n) {
+            ed.on('NodeChange', function(ed) {
                 // disable toolbar's buttons depending on the current selection
                 tinymce.each(buttons, function (item) {
-                    cm.setDisabled(item[0], !item[2](ed, n));
+                    ed.target.controlManager.setDisabled(item[0], !item[2](ed.target, ed.element));
                 });
                 // TODO: remove "remove link" button for tab headers
             });

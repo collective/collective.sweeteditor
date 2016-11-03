@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>{#accordion_dlg.title}</title>
+    <script type="text/javascript" src="../../tiny_mce_popup.js?v={tinymce_version}"></script>
+    <script type="text/javascript" src="../../utils/validate.js?v={tinymce_version}"></script>
+    <script type="text/javascript" src="js/accordion.js?v={tinymce_version}"></script>
+  </head>
+  <body role="application" aria-labelledby="app_title">
+    <span style="display:none;" id="app_title">{#accordion_dlg.title}</span>
+    <div class="dialog-wrapper" id="content">
+      <form onsubmit="AccordionDialog.insert();return false;" action="#">
+        <fieldset>
+          <legend>{#accordion_dlg.legend}</legend>
+          <div class="field" id="mceAccordionLengthField">
+            <label for="mceAccordionLength">{#accordion_dlg.length_label}</label>
+              <div class="formHelp"> {#accordion_dlg.length_help}</div>
+              <div class="widget">
+                <input type="text" id="mceAccordionLength" name="accordionLength"
+                       class="mceFocus required int min1" size="3"
+                       maxlength="3" aria-required="true" value="2" />
+              </div>
+          </div>
+          <div class="field" id="mceAccordionCollapsableField">
+            <label for="mceAccordionCollapsable">{#accordion_dlg.collapsable_label}</label>
+              <div class="formHelp"> {#accordion_dlg.collapsable_help}</div>
+              <div class="widget">
+                <input type="checkbox" id="mceAccordionCollapsable" name="accordionCollapsable" aria-required="false" />
+              </div>
+          </div>
+        </fieldset>
+        <div class="mceActionPanel">
+          <input type="submit" id="insert" name="insert" value="Insert" />
+          <input type="button" id="cancel" name="cancel" value="Cancel" onclick="tinyMCEPopup.close();" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

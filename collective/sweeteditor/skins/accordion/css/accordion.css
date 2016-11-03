@@ -1,0 +1,87 @@
+/* accordion */
+.mce-content-body .panel-group:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "accordion";
+}
+
+.mce-content-body .panel .panel-title:before {
+    font-family: monospace;
+    font-size: 16px;
+    content: "▶ ";
+}
+
+.mce-content-body .panel:first-child .panel-title:before {
+    font-family: monospace;
+    font-size: 16px;
+    content: "▼ " !important;
+}
+
+.mce-content-body .panel-heading {
+    border-top: 1px dashed red !important;
+}
+.mce-content-body .panel-heading:not(:last-child) {
+    border-bottom: 1px dashed red !important;
+}
+
+.mce-content-body .panel-title a {
+    border-bottom: none !important;
+}
+
+.mce-content-body .collapse {
+    display: block;
+}
+
+.mce-content-body .panel-group {
+    display: inherit;
+    border: thin dashed red;
+}
+
+.mce-content-body .panel-heading {
+    display: inherit;
+    border: thin dashed red;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    color: #333;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 10px 15px;
+}
+
+.mce-content-body .panel-title {
+    color: inherit;
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.mce-content-body .panel-body {
+    padding: 15px;
+}
+
+.mce_accordion {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-accordion.png') !important;
+}
+
+.mce_accordion-delete {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-eraser.png') !important;
+}
+
+.mce_accordion-item-delete {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-acc-remove.png') !important;
+}
+
+.mce_accordion-item-insert-after {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-toggle-after.png') !important;
+}
+
+.mce_accordion-item-insert-before {
+    background: url('++resource++collective.sweeteditor.js/accordion/img/fa-toggle-before.png') !important;
+}
+
+/* collapsable */
+.mce-content-body .panel-group.sweet-collapsable:before {
+    font-family: monospace;
+    font-size: 8px;
+    content: "collapsable";
+}
