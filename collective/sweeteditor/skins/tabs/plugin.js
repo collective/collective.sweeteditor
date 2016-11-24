@@ -195,7 +195,9 @@
                                         nodeIndex = tinymce.grep(
                                             bodyContainer.getAll('div'),
                                             function(elem) {
-                                                return elem.attr('class').indexOf('tab-pane') !== -1;
+                                                if (elem.attr('class') != undefined) {
+                                                    return elem.attr('class').indexOf('tab-pane') !== -1;
+                                                }
                                             }).indexOf(node);
                                         headerLiNode = headerContainer.getAll('li')[nodeIndex];
                                         if (headerLiNode) {
