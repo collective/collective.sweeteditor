@@ -16,7 +16,7 @@
     }
 
 
-    version = '0.1dev';
+    version = '0.2dev';
 
     tempHeaderClass = 'mceTabHeader';
 
@@ -195,9 +195,8 @@
                                         nodeIndex = tinymce.grep(
                                             bodyContainer.getAll('div'),
                                             function(elem) {
-                                                if (elem.attr('class') != undefined) {
-                                                    return elem.attr('class').indexOf('tab-pane') !== -1;
-                                                }
+                    					    	var klass = elem.attr('class') || '';
+                    					        return klass.indexOf('tab-pane') !== -1;
                                             }).indexOf(node);
                                         headerLiNode = headerContainer.getAll('li')[nodeIndex];
                                         if (headerLiNode) {
@@ -230,9 +229,10 @@
                                 headerContainer = bodyContainer.parent.firstChild;
                                 nodeIndex = tinymce.grep(
                                     bodyContainer.getAll('div'),
-                                    function(elem) {
-                                        return elem.attr('class').indexOf('tab-pane') !== -1;
-                                    }).indexOf(node);
+                				    function(elem) {
+                    					var klass = elem.attr('class') || '';
+                    					return klass.indexOf('tab-pane') !== -1;
+                				    }).indexOf(node);
                                 headerLiNode = headerContainer.getAll('li')[nodeIndex];
                                 markerNode = node.prev;
                                 if (markerNode && markerNode.attr('class').indexOf(tempHeaderClass) !== -1) {
