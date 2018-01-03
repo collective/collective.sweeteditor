@@ -169,7 +169,7 @@
                         }
                     }
                 });
-                
+
                 ed.onKeyDown.addToTop(function(ed, e) {
                     var range, elem, accordionRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found, parent1, parent2;
 
@@ -217,7 +217,7 @@
                                     if (ed.dom.getParent(elem, '.panel-title')) {
                                         // prevent delete/backspace on headers a
                                         return tinymce.dom.Event.cancel(e);
-                                    } else if (ed.dom.hasClass(elem.parentNode), 'panel-group') {
+                                    } else if (ed.dom.hasClass(elem.parentNode, 'panel-group')) {
                                         // prevent panel group delete
                                         // Put a cursor at the end of the body, select up to the
                                         // start of the header and press BACKSPACE
