@@ -8,16 +8,22 @@
         tabsItemHeaderTemplate, tabsItemBodyTemplate,
         tabsSource, tabsTemplate, addTabsCondition, tabsCondition, version, VK, tempHeaderClass;
 
-    VK = tinymce.VK;
+    VK = tinymce.util.VK;
 
-    version = '0.1dev';
+
+    tinymce._addVer = function(url) {
+        return url;
+    }
+
+
+    version = '0.2dev';
 
     tempHeaderClass = 'mceTabHeader';
 
-    addTabsCondition = function (ed, element) {
-        return ! (ed.dom.getParent(element, '.sweet-tabs') || ed.dom.getParent(element, '.panel-heading'));
+    addTabsCondition = function(ed, element) {
+        return !(ed.dom.getParent(element, '.sweet-tabs') || ed.dom.getParent(element, '.panel-heading'));
     };
-    tabsCondition = function (ed, element) {
+    tabsCondition = function(ed, element) {
         return ed.dom.getParent(element, '.sweet-tabs');
     };
 
@@ -26,10 +32,14 @@
         header: 'Header',
         body: '<p>Body</p>'
     };
+
     emptyParagraph = '<p></p>';
+
     tabsItemHeaderSource = '<li role="presentation" class="{{#if @first}}active{{/if}}">' +
         '  <a href="#sweet-{{random1}}{{@index}}" aria-controls="sweet-{{random1}}{{@index}}" role="tab" data-toggle="tab">{{header}}</a></li>';
+
     tabsItemBodySource = '<div role="tabpanel" class="tab-pane {{#if @first}}active{{/if}}" id="sweet-{{random1}}{{@index}}">{{{body}}}</div>';
+
     tabsSource = emptyParagraph +
         '<div class="sweet-tabs">' +
         '  <ul class="nav nav-tabs" role="tablist">' +
@@ -44,70 +54,136 @@
         '  </div>' +
         '</div>' + emptyParagraph;
 
-    tabsItemHeaderTemplate = Handlebars.compile(tabsItemHeaderSource);
-    Handlebars.registerPartial('tabsItemHeader', tabsItemHeaderTemplate);
-    tabsItemBodyTemplate = Handlebars.compile(tabsItemBodySource);
-    Handlebars.registerPartial('tabsItemBody', tabsItemBodyTemplate);
-    tabsTemplate = Handlebars.compile(tabsSource);
+    function sourceHeader(data) {
+        var headerHtml;
 
-    tinymce.PluginManager.requireLangPack('tabs');
+        headerHtml = '<li role="presentation" class="">' +
+            '<a href="#sweet-' + data.random1 + '" aria-controls="sweet-' + data.random1 + '" role="tab" data-toggle="tab">' +
+            data.header +
+            '</a></li>';
+
+        return headerHtml;
+    }
+
+    function sourceBody(data) {
+        var bodyHtml;
+
+        bodyHtml = '<div role="tabpanel" class="tab-pane " id="sweet-' + data.random1 + '">' +
+            data.body +
+            '</div>';
+
+        return bodyHtml;
+    }
+
+    function source(data) {
+        var sourceContext_1 = '',
+            sourceContext_2 = '';
+        for (i = 0; i < data.items.length; i++) {
+            var active;
+            var random = data.random1 + i;
+            if (i === 0) {
+                active = "active";
+            } else {
+                active = "";
+            }
+            sourceContext_1 += '<li role="presentation" class=' + active + '>' +
+                '<a href="#sweet-' + random + '" aria-controls="sweet-' + random + '" role="tab" data-toggle="tab">' +
+                data.items[i].header +
+                '</a></li>'
+
+            sourceContext_2 += '<div role="tabpanel" class="tab-pane ' + active + '" id="sweet-' + random + '">' +
+                data.items[i].body +
+                '</div> '
+        }
+
+        sourceHtml = emptyParagraph +
+            '<div class="sweet-tabs">' +
+            '  <ul class="nav nav-tabs" role="tablist" style="list-style-type:none;">' +
+            sourceContext_1 +
+            '  </ul>' +
+            '  <div class="tab-content">' +
+            sourceContext_2 +
+            '  </div>' +
+            '</div>' + emptyParagraph;
+
+        return sourceHtml
+    }
+
+    // tabsItemHeaderTemplate = Handlebars.compile(tabsItemHeaderSource);
+    // Handlebars.registerPartial('tabsItemHeader', tabsItemHeaderTemplate);
+    // tabsItemBodyTemplate = Handlebars.compile(tabsItemBodySource);
+    // Handlebars.registerPartial('tabsItemBody', tabsItemBodyTemplate);
+    // tabsTemplate = Handlebars.compile(tabsSource);
+
     tinymce.create('tinymce.plugins.TabsPlugin', {
         init: function(ed, url) {
-            var buttons;
+            var c = this;
+            c.editor = ed;
 
+            var buttons;
             // buttons
             buttons = [
-                ['tabs',
-                 {title: 'tabs.desc',
-                  cmd: 'mceTabs',
-                  image: url + '/img/lsf-tabs.png',
-                  icon: 'tabs'
-                 },
-                 addTabsCondition
+                ['tabs', {
+                        title: 'tabs.desc',
+                        cmd: 'mceTabs',
+                        image: url + '/img/add-tab.png',
+                        icon: 'tabs'
+                    },
+                    addTabsCondition
                 ],
-                ['tabsDelete',
-                 {title: 'tabs.deletedesc',
-                  cmd: 'mceTabsDelete',
-                  image: url + '/img/fa-eraser.png',
-                  icon: 'tabs-delete'
-                  },
-                  tabsCondition
+                ['tabsDelete', {
+                        title: 'tabs.deletedesc',
+                        cmd: 'mceTabsDelete',
+                        image: url + '/img/fa-eraser.png',
+                        icon: 'tabs-delete'
+                    },
+                    tabsCondition
                 ],
                 ['tabsItemDelete', {
-                  title: 'tabs.itemdeletedesc',
-                  cmd: 'mceTabsItemDelete',
-                  image: url + '/img/remove_bar.png',
-                  icon: 'tabs-item-delete'
-                  },
-                  tabsCondition
+                        title: 'tabs.itemdeletedesc',
+                        cmd: 'mceTabsItemDelete',
+                        image: url + '/img/del-tab.png',
+                        icon: 'tabs-item-delete'
+                    },
+                    tabsCondition
                 ],
                 ['tabsItemInsertAfter', {
-                  title: 'tabs.iteminsertafterdesc',
-                  cmd: 'mceTabsItemInsert',
-                  ui: true,
-                  image: url + '/img/fa-insert-right.png',
-                  icon: 'tabs-item-insert-after'
-                  },
-                  tabsCondition
+                        title: 'tabs.iteminsertafterdesc',
+                        ui: true,
+                        image: url + '/img/fa-insert-right.png',
+                        icon: 'tabs-item-insert-after',
+                        onclick: function(e) {
+                            tinymce.activeEditor.AfterOrNot = true;
+                            tinymce.activeEditor.execCommand('mceTabsItemInsert');
+                        }
+                    },
+                    tabsCondition
                 ],
                 ['tabsItemInsertBefore', {
-                  title: 'tabs.iteminsertbeforedesc',
-                  cmd: 'mceTabsItemInsert',
-                  ui: false,
-                  image: url + '/img/fa-insert-left.png',
-                  icon: 'tabs-item-insert-before'
-                  },
-                  tabsCondition
+                        title: 'tabs.iteminsertbeforedesc',
+                        ui: false,
+                        image: url + '/img/fa-insert-left.png',
+                        onclick: function(e) {
+                            tinymce.activeEditor.AfterOrNot = false;
+                            tinymce.activeEditor.execCommand('mceTabsItemInsert');
+                        }
+                    },
+                    tabsCondition
                 ]
             ];
 
+            // Register buttons
+            tinymce.each(buttons, function(item) {
+                ed.addButton(item[0], item[1]);
+            });
+
             // Pre init
-            ed.onPreInit.add(function () {
+            ed.on('PreInit', function(e) {
                 ed.schema.addValidElements('div[role|aria-multiselectable|aria-labelledby|aria-expanded|aria-controls]|a[role|aria-controls]|ul[role]|li[role]');
 
-                ed.parser.addNodeFilter('div', function (nodes) {
+                ed.parser.addNodeFilter('div', function(nodes) {
 
-                    tinymce.each(nodes, function (node) {
+                    tinymce.each(nodes, function(node) {
                         var bodyContainer, headerContainer, nodeIndex,
                             wrapperDiv, headerLiNode, headerLiNodeClass;
                         if (node.attr('class') != undefined) {
@@ -118,8 +194,9 @@
                                     if (headerContainer) {
                                         nodeIndex = tinymce.grep(
                                             bodyContainer.getAll('div'),
-                                            function (elem) {
-                                                return elem.attr('class').indexOf('tab-pane') !== -1;
+                                            function(elem) {
+                    					    	var klass = elem.attr('class') || '';
+                    					        return klass.indexOf('tab-pane') !== -1;
                                             }).indexOf(node);
                                         headerLiNode = headerContainer.getAll('li')[nodeIndex];
                                         if (headerLiNode) {
@@ -129,8 +206,7 @@
                                                 headerLiNodeClass = headerLiNode.attr('class') || '';
                                                 if (headerLiNodeClass.indexOf('active') !== -1) {
                                                     wrapperDiv.attr('class', tempHeaderClass + ' active');
-                                                }
-                                                else {
+                                                } else {
                                                     wrapperDiv.attr('class', tempHeaderClass);
                                                 }
                                                 wrapperDiv.append(headerNode);
@@ -144,8 +220,8 @@
                     });
 
                 });
-                ed.serializer.addNodeFilter('div', function (nodes, name, args) {
-                    tinymce.each(nodes, function (node) {
+                ed.serializer.addNodeFilter('div', function(nodes, name, args) {
+                    tinymce.each(nodes, function(node) {
                         var bodyContainer, nodeIndex, headerContainer, headerLiNode, headerNode, markerNode;
                         if (node.attr('class') !== undefined) {
                             if (node.attr('class').indexOf('tab-pane') !== -1) {
@@ -153,9 +229,10 @@
                                 headerContainer = bodyContainer.parent.firstChild;
                                 nodeIndex = tinymce.grep(
                                     bodyContainer.getAll('div'),
-                                    function (elem) {
-                                        return elem.attr('class').indexOf('tab-pane') !== -1;
-                                    }).indexOf(node);
+                				    function(elem) {
+                    					var klass = elem.attr('class') || '';
+                    					return klass.indexOf('tab-pane') !== -1;
+                				    }).indexOf(node);
                                 headerLiNode = headerContainer.getAll('li')[nodeIndex];
                                 markerNode = node.prev;
                                 if (markerNode && markerNode.attr('class').indexOf(tempHeaderClass) !== -1) {
@@ -169,57 +246,63 @@
             });
 
             // contextual controls
-            ed.onInit.add(function() {
+            ed.on('Init', function() {
+                //            ed.onInit.add(function() {
                 if (ed && ed.dom.loadCSS) {
                     // load plugin's css
                     // TODO: remove date bogus parameter (useful during development)
                     ed.dom.loadCSS(url + '/css/tabs.css?version=' + version + '&date=' + new Date().getTime());
                 }
-                if (ed && ed.plugins.contextmenu) {
-                    ed.plugins.contextmenu.onContextMenu.add(function(plugin, menu, element) {
-                        var groupMenu;
-                        if (! ed.dom.getParent(element, '.panel-heading')) {
-                            // Don't add the tabs contextmenu if we are
-                            // inside an accordion/collapsable header
-                            if (ed.dom.getParent(element, '.' + tempHeaderClass)) {
-                                menu.removeAll();
-                            } else {
-                                menu.addSeparator();
-                            }
-                            groupMenu = menu.addMenu({title : 'tabs.group'});
-                            tinymce.each(buttons, function (item){
-                                var condition;
-                                condition = item[2];
-                                if (! condition || condition(ed, element)) {
-                                    groupMenu.add(item[1]);
-                                }
-                            });
-                        }
-                    });
-                }
+                // if (ed && ed.plugins.contextmenu) {
+                //     ed.onContextMenu.add(function(plugin, menu, element) {
+                //         var groupMenu;
+                //         if (!ed.dom.getParent(element, '.panel-heading')) {
+                //             // Don't add the tabs contextmenu if we are
+                //             // inside an accordion/collapsable header
+                //             if (ed.dom.getParent(element, '.' + tempHeaderClass)) {
+                //                 menu.removeAll();
+                //             } else {
+                //                 menu.addSeparator();
+                //             }
+                //             groupMenu = menu.addMenu({
+                //                 title: 'tabs.group'
+                //             });
+                //             tinymce.each(buttons, function(item) {
+                //                 var condition;
+                //                 condition = item[2];
+                //                 if (!condition || condition(ed, element)) {
+                //                     groupMenu.add(item[1]);
+                //                 }
+                //             });
+                //         }
+                //     });
+                // }
 
                 // Events
-                ed.onNodeChange.add(function(ed, cm, e) {
+                ed.on('NodeChange', function(ed) {
+                    // ed.onNodeChange.add(function(ed, cm, e) {
                     // Prevent the p
                     var pElem, parentNode, found;
-                    parentNode = e.parentNode;
-                    if (e.nodeName == 'BR' && ed.dom.hasClass(parentNode, 'tab-pane')) {
-                        tinymce.each(parentNode.childNodes, function (block) {
+                    parentNode = ed.element.parentNode;
+                    if (ed.element.nodeName == 'BR' && ed.target.dom.hasClass(parentNode, 'tab-pane')) {
+                        tinymce.each(parentNode.childNodes, function(block) {
                             if (block.nodeName === 'P') {
                                 found = true;
                             }
                         });
-                        if (! found) {
-                            pElem = ed.dom.create('p', {}, '&nbsp;');
+                        if (!found) {
+                            pElem = ed.target.dom.create('p', {}, '&nbsp;');
                             parentNode.appendChild(pElem);
-                            ed.dom.remove(e);
-                            ed.selection.select(pElem);
+                            ed.target.dom.remove(e);
+                            ed.target.selection.select(pElem);
                         }
                     }
                 });
 
-                ed.onKeyDown.addToTop(function(ed, e) {
+                ed.on('KeyDown', function(e) {
+                // ed.onKeyDown.addToTop(function(ed, e) {
                     var range, elem, tabsRootSelector, textContentLength, keyCode, moveKeys, selectedBlocks, found, parent1, parent2;
+                    var ed = tinymce.activeEditor;
 
                     found = false;
                     keyCode = e.keyCode;
@@ -227,7 +310,8 @@
                     moveKeys = [37, // VK.LEFT
                         VK.UP,
                         39, // VK.RIGHT
-                        VK.DOWN];
+                        VK.DOWN
+                    ];
                     elem = ed.selection.getNode();
                     selectedBlocks = ed.selection.getSelectedBlocks();
                     range = ed.selection.getRng();
@@ -261,7 +345,7 @@
                                 textContentLength = elem.textContent.length;
 
                                 if ((range.startOffset === 0 && range.endOffset === textContentLength && ed.dom.getParent(elem, '.' + tempHeaderClass)) || (keyCode === VK.BACKSPACE && range.startOffset === 0) ||
-                                   (keyCode === VK.DELETE && range.startOffset === textContentLength)) {
+                                    (keyCode === VK.DELETE && range.startOffset === textContentLength)) {
                                     if (ed.dom.getParent(elem, '.' + tempHeaderClass)) {
                                         // prevent delete/backspace on headers a
                                         return tinymce.dom.Event.cancel(e);
@@ -273,12 +357,12 @@
                                         // trans selection
                                         return tinymce.dom.Event.cancel(e);
                                     } else if (ed.dom.hasClass(elem.parentNode, 'tab-pane')) {
-                                       // prevent deleve/backspace on last/first p child of tab-pane
-                                       if (keyCode === VK.BACKSPACE && elem.parentNode.firstChild === elem) {
+                                        // prevent deleve/backspace on last/first p child of tab-pane
+                                        if (keyCode === VK.BACKSPACE && elem.parentNode.firstChild === elem) {
                                             return tinymce.dom.Event.cancel(e);
-                                       } else if (keyCode === VK.DELETE && elem.parentNode.lastChild === elem) {
+                                        } else if (keyCode === VK.DELETE && elem.parentNode.lastChild === elem) {
                                             return tinymce.dom.Event.cancel(e);
-                                       }
+                                        }
                                     }
                                 } else {
                                     // special case for keyCode === VK.BACKSPACE && range.startOffset === 1
@@ -304,7 +388,7 @@
                                         return;
                                     } else {
                                         // check if we are removing required bootstrap markup
-                                        tinymce.each(selectedBlocks, function (block) {
+                                        tinymce.each(selectedBlocks, function(block) {
                                             if (ed.dom.hasClass(block, 'tab-pane') || ed.dom.hasClass(block, 'sweet-tabs') || ed.dom.hasClass(block, tempHeaderClass) || ed.dom.hasClass(block, 'tab-content') || ed.dom.hasClass(block.parentNode, tempHeaderClass)) {
                                                 found = true;
                                             }
@@ -331,14 +415,14 @@
                     } else if (keyCode === VK.BACKSPACE || keyCode === VK.DELETE) {
                         if (selectedBlocks.length >= 1) {
                             if (ed.dom.hasClass(elem, 'tab-content')) {
-                                tinymce.each(selectedBlocks, function (block) {
+                                tinymce.each(selectedBlocks, function(block) {
                                     if (block.nodeName === 'P' && ed.dom.hasClass(block.parentNode, 'tab-pane')) {
                                         ed.dom.setHTML(block, '&nbsp;');
                                         found = true;
                                     }
                                 });
                             } else if (ed.dom.hasClass(elem, tempHeaderClass)) {
-                                tinymce.each(selectedBlocks, function (block) {
+                                tinymce.each(selectedBlocks, function(block) {
                                     var firstChild = block.firstChild;
                                     if (ed.dom.hasClass(block.parentNode, tempHeaderClass) && firstChild.nodeName === 'A') {
                                         ed.dom.setHTML(firstChild, '&nbsp;');
@@ -355,7 +439,7 @@
                                 // untouched. Both or none.
 
                                 parent1 = ed.dom.getParent(selectedBlocks[0], '.sweet-tabs');
-                                parent2 = ed.dom.getParent(selectedBlocks[selectedBlocks.length-1], '.sweet-tabs');
+                                parent2 = ed.dom.getParent(selectedBlocks[selectedBlocks.length - 1], '.sweet-tabs');
                                 if (parent1 && parent2 && parent1 === parent2) {
                                     if (selectedBlocks.length < 2) {
                                         // shift+startline/endline + canc
@@ -407,7 +491,7 @@
                     }
                     if (toBeRemoved2) {
                         next1 = ed.dom.getNext(toBeRemoved1, '.' + tempHeaderClass);
-                        if (!next1 && ! ed.dom.getPrev(toBeRemoved1, '.tab-pane')) {
+                        if (!next1 && !ed.dom.getPrev(toBeRemoved1, '.tab-pane')) {
                             // we are deleting the last elem, there is no prev and no next tab item
                             // so let's remote the whole tabs container
                             tabsContainer = ed.dom.getParent(toBeRemoved1, '.sweet-tabs');
@@ -429,7 +513,7 @@
                     }
                 }
             });
-            ed.addCommand('mceTabsItemInsert', function(after) {
+            ed.addCommand('mceTabsItemInsert', function() {
                 // insert another tabs, after or before the selected item
                 var selected, randomString1, context, htmlHeader, htmlBody,
                     tabsItem1, tabsItem2, tempTab, newIndex, index, el1, el2, swap, containerSelectors,
@@ -448,9 +532,9 @@
                     tabsItem2 = tempTab.nextSibling;
                 }
                 index = ed.dom.nodeIndex(tempTab);
-                realIndex = Math.floor(index/2);
+                realIndex = Math.floor(index / 2);
                 tabsItem1 = realHeaders.childNodes[realIndex];
-                if (after) {
+                if (tinymce.activeEditor.AfterOrNot) {
                     newIndex = realIndex + 1;
                 } else {
                     newIndex = realIndex;
@@ -462,12 +546,17 @@
                     context.header = defaultTabsItem.header;
                     context.body = defaultTabsItem.body;
                     context.random1 = randomString1;
-                    htmlHeader = tabsItemHeaderTemplate(context);
-                    htmlBody = tabsItemBodyTemplate(context);
+                    // htmlHeader = tabsItemHeaderTemplate(context);
+                    // console.log(htmlHeader);
+                    htmlHeader = sourceHeader(context);
+
+                    // htmlBody = tabsItemBodyTemplate(context);
+                    // console.log(htmlBody);
+                    htmlBody = sourceBody(context);
 
                     el1 = ed.dom.create('div');
                     el2 = ed.dom.create('div');
-                    if (after) {
+                    if (tinymce.activeEditor.AfterOrNot) {
                         ed.dom.insertAfter(el1, tabsItem1);
                     } else {
                         realHeaders.insertBefore(el1, tabsItem1);
@@ -481,7 +570,7 @@
                     wrapperDiv.setAttributeNode(attrClass);
                     wrapperDiv.appendChild(aLink);
 
-                    if (after) {
+                    if (tinymce.activeEditor.AfterOrNot) {
                         ed.dom.insertAfter(el2, tabsItem2);
                         ed.dom.insertAfter(wrapperDiv, tabsItem2);
                     } else {
@@ -490,7 +579,7 @@
                     }
                     ed.dom.setOuterHTML(el2, htmlBody);
 
-                    if (!after && ed.dom.hasClass(tabsItem1, 'active')) {
+                    if (!tinymce.activeEditor.AfterOrNot && ed.dom.hasClass(tabsItem1, 'active')) {
                         // if the current tabs item is the first one and we are
                         // prepending another tab item, we need to toggle the
                         // "active" class
@@ -505,10 +594,10 @@
             });
 
             // Handle node change updates
-            ed.onNodeChange.add(function(ed, cm, n) {
+            ed.on('NodeChange', function(ed) {
                 // disable toolbar's buttons depending on the current selection
                 tinymce.each(buttons, function (item) {
-                    cm.setDisabled(item[0], !item[2](ed, n));
+                    ed.target.controlManager.setDisabled(item[0], !item[2](ed.target, ed.element));
                 });
                 // TODO: remove "remove link" button for tab headers
             });
@@ -545,7 +634,7 @@
                         */
                         return;
                     }
-                    tinymce.each(ed.selection.getSelectedBlocks(), function (child, index) {
+                    tinymce.each(ed.selection.getSelectedBlocks(), function(child, index) {
                         var text = child.textContent,
                             odd = index % 2 === 0,
                             itemsLength = context.items.length,
@@ -565,32 +654,31 @@
                 } else {
                     // no selection
                     if (arguments[1] !== undefined) {
-                        for (iter=1; iter<=arguments[1]; iter++) {
-                            context.items.push({header: 'Header ' + iter, body: '<p>Body ' + iter + '</p>'});
+                        for (iter = 1; iter <= arguments[1]; iter++) {
+                            context.items.push({
+                                header: 'Header ' + iter,
+                                body: '<p>Body ' + iter + '</p>'
+                            });
                         }
                     } else {
                         ed.windowManager.open({
-                            file : url + '/tabs.html',
-                            width : 430 + parseInt(ed.getLang('media.delta_width', 0)),
-                            height : 500 + parseInt(ed.getLang('media.delta_height', 0)),
-                            inline : 1
-                            }, {
-                            plugin_url : url
-                           });
+                            file: url + '/tabs',
+                            width: 430 + parseInt(ed.getLang('media.delta_width', 0)),
+                            height: 500 + parseInt(ed.getLang('media.delta_height', 0)),
+                            inline: 1
+                        }, {
+                            plugin_url: url
+                        });
+                        ed.windowManager.params = ed.windowManager.getParams()
+                        ed.windowManager.features = ed.windowManager.windows[0].features
                     }
-
                 }
                 if (context.items.length) {
-                    html = tabsTemplate(context);
+                    // html1 = tabsTemplate(context);
+                    html = source(context);
                     ed.execCommand('mceInsertContent', false, html);
                 }
             });
-
-            // Register buttons
-            tinymce.each(buttons, function (item){
-                ed.addButton(item[0], item[1]);
-            });
-
         },
 
         getInfo: function() {
@@ -606,4 +694,5 @@
 
     // Register plugin
     tinymce.PluginManager.add('tabs', tinymce.plugins.TabsPlugin);
+    tinymce.PluginManager.requireLangPack('tabs', 'en');
 })();

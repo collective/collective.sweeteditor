@@ -1,43 +1,43 @@
 /* accordion */
-.mceContentBody .panel-group:before {
+.mce-content-body .panel-group:before {
     font-family: monospace;
     font-size: 8px;
     content: "accordion";
 }
 
-.mceContentBody .panel .panel-title:before {
+.mce-content-body .panel .panel-title:before {
     font-family: monospace;
     font-size: 16px;
     content: "▶ ";
 }
 
-.mceContentBody .panel:first-child .panel-title:before {
+.mce-content-body .panel:first-child .panel-title:before {
     font-family: monospace;
     font-size: 16px;
     content: "▼ " !important;
 }
 
-.mceContentBody .panel-heading {
+.mce-content-body .panel-heading {
     border-top: 1px dashed red !important;
 }
-.mceContentBody .panel-heading:not(:last-child) {
+.mce-content-body .panel-heading:not(:last-child) {
     border-bottom: 1px dashed red !important;
 }
 
-.mceContentBody .panel-title a {
+.mce-content-body .panel-title a {
     border-bottom: none !important;
 }
 
-.mceContentBody .collapse {
+.mce-content-body .collapse {
     display: block;
 }
 
-.mceContentBody .panel-group {
+.mce-content-body .panel-group {
     display: inherit;
     border: thin dashed red;
 }
 
-.mceContentBody .panel-heading {
+.mce-content-body .panel-heading {
     display: inherit;
     border: thin dashed red;
     background-color: #f5f5f5;
@@ -48,14 +48,14 @@
     padding: 10px 15px;
 }
 
-.mceContentBody .panel-title {
+.mce-content-body .panel-title {
     color: inherit;
     font-size: 16px;
     margin-bottom: 0;
     margin-top: 0;
 }
 
-.mceContentBody .panel-body {
+.mce-content-body .panel-body {
     padding: 15px;
 }
 
@@ -80,7 +80,7 @@
 }
 
 /* collapsable */
-.mceContentBody .panel-group.sweet-collapsable:before {
+.mce-content-body .panel-group.sweet-collapsable:before {
     font-family: monospace;
     font-size: 8px;
     content: "collapsable";

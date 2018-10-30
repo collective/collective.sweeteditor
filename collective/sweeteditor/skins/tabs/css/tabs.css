@@ -1,65 +1,65 @@
 /* tabs */
 
-.mceContentBody .sweet-tabs:before {
+.mce-content-body .sweet-tabs:before {
     font-family: monospace;
     font-size: 8px;
     content: "tabs";
 }
-.mceContentBody .sweet-tabs {
+.mce-content-body .sweet-tabs {
     display: inherit;
     border: 1px dashed red;
 }
 
-.mceContentBody .sweet-tabs .nav-tabs {
+.mce-content-body .sweet-tabs .nav-tabs {
     display: none;
 }
 
-.mceContentBody .sweet-tabs .tab-content {
+.mce-content-body .sweet-tabs .tab-content {
     border-top: 1px dashed red !important;
 }
 
-.mceContentBody .sweet-tabs .mceTabHeader {
+.mce-content-body .sweet-tabs .mceTabHeader {
     border-bottom: 1px dashed red !important;
     padding-left: 18px;
 }
 
-.mceContentBody .sweet-tabs .mceTabHeader > a:before {
+.mce-content-body .sweet-tabs .mceTabHeader > a:before {
     font-family: monospace;
     font-size: 16px;
     content: "▶ ";
     color: black;
 }
 
-.mceContentBody .sweet-tabs .mceTabHeader.active > a:before {
+.mce-content-body .sweet-tabs .mceTabHeader.active > a:before {
     font-family: monospace;
     font-size: 16px;
     content: "▼ " !important;
     color: black;
 }
 
-.mceContentBody .sweet-tabs .tab-pane:not(:last-child) {
+.mce-content-body .sweet-tabs .tab-pane:not(:last-child) {
     display: inherit;
     border-bottom: 1px dashed red !important;
 }
 
-.mceContentBody .sweet-tabs .nav-tabs > li a,
-.mceContentBody .sweet-tabs .nav-tabs > li a:hover,
-.mceContentBody .sweet-tabs .nav-tabs > li.active a,
-.mceContentBody .sweet-tabs .nav-tabs > li.active a:hover {
+.mce-content-body .sweet-tabs .nav-tabs > li a,
+.mce-content-body .sweet-tabs .nav-tabs > li a:hover,
+.mce-content-body .sweet-tabs .nav-tabs > li.active a,
+.mce-content-body .sweet-tabs .nav-tabs > li.active a:hover {
     border: none;
     background-color: inherit;
 }
 
-.mceContentBody .sweet-tabs .tab-content > .tab-pane {
+.mce-content-body .sweet-tabs .tab-content > .tab-pane {
     display: block;
     padding: 18px;
 }
 
-.mceContentBody .sweet-tabs ul.nav-tabs {
+.mce-content-body .sweet-tabs ul.nav-tabs {
     border-bottom: none;
 }
 
-.mceContentBody .mceTabHeader {
+.mce-content-body .mceTabHeader {
     background-color: #f5f5f5;
     border-color: #ddd;
     color: #333;
@@ -67,7 +67,7 @@
     border-top-right-radius: 3px;
     padding: 10px 15px;
 }
-.mceContentBody .mceTabHeader a {
+.mce-content-body .mceTabHeader a {
     font-family: monospace;
     font-size: 16px;
     border-bottom: medium none !important;
@@ -77,7 +77,7 @@
 }
 
 .mce_tabs {
-    background: url('++resource++collective.sweeteditor.js/tabs/img/lsf-tabs.png') !important;
+    background: url('++resource++collective.sweeteditor.js/tabs/img/add-tab.png') !important;
 }
 
 .mce_tabs-delete {
@@ -85,7 +85,7 @@
 }
 
 .mce_tabs-item-delete {
-    background: url('++resource++collective.sweeteditor.js/tabs/img/remove_bar.png') !important;
+    background: url('++resource++collective.sweeteditor.js/tabs/img/del-tab.png') !important;
 }
 
 .mce_tabs-item-insert-after {
