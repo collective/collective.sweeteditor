@@ -1,8 +1,8 @@
-tinyMCE.addI18n('en.accordion', {
-    group : 'Accordion/Collapsable',
-    desc : 'Create new accordion/collapsable',
-    deletedesc : 'Remove entire accordion/collapsable',
-    itemdeletedesc : 'Remove accordion/collapsable item',
-    iteminsertafterdesc : 'Insert new accordion/collapsable item after',
-    iteminsertbeforedesc : 'Insert new accordion/collapsable item before'
+tinyMCE.addI18n('en', {
+    'en.accordion.group' : 'Accordion/Collapsable',
+    'en.accordion.desc' : 'Create new accordion/collapsable',
+    'en.accordion.deletedesc' : 'Remove entire accordion/collapsable',
+    'en.accordion.itemdeletedesc' : 'Remove accordion/collapsable item',
+    'en.accordion.iteminsertafterdesc' : 'Insert new accordion/collapsable item after',
+    'en.accordion.iteminsertbeforedesc' : 'Insert new accordion/collapsable item before'
 });

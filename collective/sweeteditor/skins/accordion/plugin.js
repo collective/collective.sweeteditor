@@ -767,5 +767,5 @@
 
     // Register plugin
     tinymce.PluginManager.add('accordion', tinymce.plugins.AccordionPlugin);
-    // tinymce.PluginManager.requireLangPack('accordion');
+    tinymce.PluginManager.requireLangPack('accordion', 'en');
 })();

@@ -1,8 +1,8 @@
-tinyMCE.addI18n('en.tabs', {
-    group : 'Tabs',
-    desc : 'Create new tabs',
-    deletedesc : 'Remove entire tabs',
-    itemdeletedesc : 'Remove tabs item',
-    iteminsertafterdesc : 'Insert new tabs item after',
-    iteminsertbeforedesc : 'Insert new tabs item before'
+tinyMCE.addI18n('en', {
+    'en.tabs.group' : 'Tabs',
+    'en.tabs.desc' : 'Create new tabs',
+    'en.tabs.deletedesc' : 'Remove entire tabs',
+    'en.tabs.itemdeletedesc' : 'Remove tabs item',
+    'en.tabs.iteminsertafterdesc' : 'Insert new tabs item after',
+    'en.tabs.iteminsertbeforedesc' : 'Insert new tabs item before'
 });

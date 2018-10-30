@@ -692,9 +692,7 @@
         }
     });
 
-    // tinymce.PluginManager.requireLangPack('tabs', 'en');
-
     // Register plugin
     tinymce.PluginManager.add('tabs', tinymce.plugins.TabsPlugin);
-
+    tinymce.PluginManager.requireLangPack('tabs', 'en');
 })();
